@@ -1,0 +1,56 @@
+/* Tombol kategori default (belum dihover) */
+.kategori-button {
+    color: black !important;           /* Warna teks tombol menjadi hitam */
+    border: none !important;           /* Menghilangkan border tombol */
+    background-color: transparent !important;  /* Menetapkan latar belakang tombol menjadi transparan */
+  }
+  
+  /* Tombol kategori saat dihover */
+  .kategori-button:hover {
+    background-color: #FFCF00 !important;  /* Warna latar belakang saat hover */
+    color: black !important;          /* Warna teks tetap hitam saat hover */
+    border: none !important;          /* Menghilangkan border saat dihover */
+  }
+  
+  /* Jika Anda ingin menambahkan efek transisi pada tombol */
+  .kategori-button {
+    transition: all 0.3s ease;   /* Menambahkan transisi halus saat hover */
+    border-radius: 20px;          /* Membuat sudut tombol sedikit bulat */
+    padding: 10px 20px;           /* Padding tombol */
+  }
+
+  .kategori-container {
+    padding: 20px;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -10px; /* Menghilangkan margin antara kolom */
+  }
+  
+  .col-12 {
+    padding: 10px; /* Jarak antar gambar */
+    flex: 0 0 25%; /* 4 gambar per baris (25% dari lebar) */
+    max-width: 25%; /* 4 gambar per baris (25% dari lebar) */
+  }
+  
+  .img-fluid {
+    width: 100%; /* Lebar gambar 100% dari kolom */
+    height: auto; /* Tinggi otomatis */
+    border-radius: 8px; /* Sudut gambar membulat */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Bayangan gambar */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasi saat hover */
+  }
+  
+  .img-fluid:hover {
+    transform: scale(1.05); /* Memperbesar gambar saat hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Bayangan lebih besar saat hover */
+  }
+  

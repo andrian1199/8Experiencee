@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+/* Global Styles */
+body {
+    font-family: "Roboto", sans-serif;
+    line-height: 1.6;
+}
+
+/* Header */
+header .container {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Blog Detail Section */
+.blog-detail {
+    max-width: 800px;
+    margin: auto;
+}
+
+
+/* CSS khusus untuk membuat badge berbentuk oval */
+.blog-detail .badge {
+    font-size: 0.9rem;
+    padding: 0.4em 0.8em; /* Menambah lebar padding untuk efek oval */
+    border: 0;
+    border-radius: 50px; /* Menggunakan nilai lebih kecil untuk melihat apakah oval diterapkan */
+    display: inline-block;
+}
+
+
+
+.blog-detail h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Menambah kelas khusus untuk gambar utama */
+.blog-detail .content img {
+    width: 800px;
+    height: 400px;
+    max-width: 100%; /* Untuk membuat gambar responsif di layar yang lebih kecil */
+    object-fit: cover; /* Menjaga rasio aspek dan mengisi area 800x400 */
+    border-radius: 10px;
+}
+
+
+.blog-detail img {
+    width: 100%; /* Gambar akan menyesuaikan dengan lebar kontainer */
+    max-width: 800px; /* Sesuaikan dengan lebar maksimal yang sama dengan teks */
+    height: auto; /* Menjaga rasio aspek gambar */
+    border-radius: 10px;
+}
+
+.blog-detail .content p {
+    max-width: 800px; /* Sesuaikan dengan lebar gambar */
+    margin: 0 auto; /* Agar teks berada di tengah */
+    padding: 0 15px; /* Memberikan ruang di sisi kiri dan kanan */
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Responsivitas untuk judul dan gambar */
+@media (max-width: 768px) {
+    .blog-detail h1 {
+        font-size: 1.75rem;
+    }
+
+    .blog-detail .content img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+
+/* Footer */
+footer {
+    margin-top: 4rem;
+    width: 100%; /* Pastikan footer mengambil lebar penuh halaman */
+    padding: 20px 0; /* Tambahkan padding jika diperlukan */
+    
+}
+
+footer .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+footer a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+footer p {
+    font-size: 0.85rem;
+}
