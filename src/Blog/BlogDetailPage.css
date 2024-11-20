@@ -1,0 +1,13 @@
+/* BlogDetailPage.css */
+.blog-detail {
+    max-width: 900px; /* Atur lebar maksimum konten */
+    margin: 0 auto;   /* Margin otomatis agar konten berada di tengah */
+  }
+  
+  .content {
+    text-align: left; /* Memastikan konten tidak rata tengah */
+    margin-top: 20px; /* Agar ada sedikit jarak dari gambar */
+    width: 800px;
+    height: 400px;
+  }
+  

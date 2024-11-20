@@ -1,0 +1,56 @@
+
+.kategori-button {
+    color: black !important;          
+    border: none !important;         
+    background-color: transparent !important; 
+  }
+  
+
+  .kategori-button:hover {
+    background-color: #FFCF00 !important;  
+    color: black !important;         
+    border: none !important;         
+  }
+  
+
+  .kategori-button {
+    transition: all 0.3s ease;   
+    border-radius: 20px;          
+    padding: 10px 20px;           
+  }
+
+  .kategori-container {
+    padding: 20px;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -10px; 
+  }
+  
+  .col-12 {
+    padding: 10px; 
+    flex: 0 0 25%;
+    max-width: 25%; 
+  }
+  
+  .img-fluid {
+    width: 100%; 
+    height: auto;
+    border-radius: 8px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .img-fluid:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); 
+  }
+  

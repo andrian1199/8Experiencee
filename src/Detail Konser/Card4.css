@@ -1,0 +1,57 @@
+/* Card4.css */
+
+.container {
+    margin-top: 50px;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .textfes {
+    margin-top: 20px;
+  }
+  
+  .Btnfes {
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .Btnfes:hover {
+    background-color: #0056b3;
+  }
+  
+  .share {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .textshare {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .social-icons {
+    display: flex; /* Mengatur ikon agar berjajar secara horizontal */
+    gap: 10px;     /* Jarak antar ikon */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .ig, .fb, .share {
+    width: 30px;
+    cursor: pointer;
+  }
+  
+  .ig:hover, .fb:hover, .share:hover {
+    opacity: 0.7;
+  }
+  
