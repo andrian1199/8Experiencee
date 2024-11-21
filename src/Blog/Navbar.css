@@ -1,89 +1,98 @@
 /* Navbar Styles */
+/* Navbar Styles */
 .navbar {
-    width: 20%;
-    margin: 0;
-    padding: 0;
-    background-color: #343a40; /* Warna background navbar */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Bayangan untuk navbar */
-  }
-  
-  .navbar-nav {
-    margin-left: auto; /* Menyelaraskan item navbar ke kanan */
-  }
-  
-  .navbar .navbar-brand img {
-    max-width: 100px; /* Atur maksimal lebar gambar logo */
-    height: auto; /* Menjaga proporsi gambar */
-  }
-  
-  .nav-link {
-    color: white;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-  }
-  
-  .nav-link:hover {
-    opacity: 1;
-  }
-  
-  .navbar-toggler {
-    border: none;
-  }
-  
-  .btn-light2 {
-    background-color: #f8f9fa; /* Warna latar belakang tombol "Masuk" */
-    color: #343a40;
-  }
-  
-  
-  
-  /* Ikon Ticket */
-  .navbar .btn.light {
-    background-color: #ffcf00;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 12px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-  }
-  
-  .navbar .btn.light img {
-    width: 24px;
-    height: 24px;
-  }
-  
-  /* Responsif */
-  @media (max-width: 768px) {
-    .navbar .navbar-brand img {
-      max-width: 120px; /* Sesuaikan ukuran logo di tampilan mobile */
-    }
-  
-    .nav-link {
-      font-size: 14px; /* Menyesuaikan ukuran font pada tampilan mobile */
-    }
-  
-    .navbar-toggler {
-      background-color: #343a40; /* Toggler background */
-    }
+  display: flex; /* Gunakan flexbox */
+  justify-content: space-between; /* Jarak antara logo dan tombol */
+  align-items: center; /* Selaraskan elemen secara vertikal ke tengah */
+  width: 100%; /* Lebar penuh */
+  padding: 0 100px; /* Menambahkan padding kiri dan kanan */
+  background-color: #343a40; /* Warna background */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Bayangan untuk navbar */
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center; /* Selaraskan logo secara vertikal */
+}
+
+.navbar-brand img {
+  max-width: 100px; /* Atur maksimal lebar gambar logo */
+  height: auto; /* Menjaga proporsi gambar */
+}
+
+.navbar-nav {
+  display: flex; /* Flexbox untuk tombol */
+  gap: 20px; /* Jarak antar tombol */
+  align-items: center; /* Selaraskan secara vertikal */
+  margin-left: auto; /* Geser tombol ke kanan */
+}
+
+.nav-link {
+  color: white;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  opacity: 1; /* Opacity penuh untuk hover dan active */
+}
+
+/* Toggler untuk mobile */
+.navbar-toggler {
+  border: none;
+  margin-left: auto; /* Geser ke kanan saat di tampilan kecil */
+}
+
+/* Tombol Masuk */
+.navbar .btn-light2 {
+  background-color: #FFCF00; /* Warna latar belakang kuning */
+  color: #343a40; /* Warna teks */
+  padding: 10px 20px; /* Menambahkan padding untuk membuat tombol lebih besar */
+  border-radius: 40px; /* Membuat border radius 40px */
+  text-align: center; /* Menjaga teks tetap terpusat */
+  font-weight: bold; /* Menambahkan ketebalan font */
+  text-decoration: none; /* Menghilangkan garis bawah jika ada */
+  transition: background-color 0.3s ease; /* Efek transisi untuk warna latar belakang */
+}
+
+.navbar .btn-light2:hover {
+  background-color: #f8b400; /* Warna latar belakang saat hover */
+  color: white; /* Mengubah warna teks menjadi putih saat hover */
+}
+
+/* Ikon Ticket */
+.navbar .btn.light {
+  background-color: #ffcf00;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.navbar .btn.light img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+  .navbar {
+      padding: 0 20px; /* Sesuaikan padding di tampilan mobile */
   }
 
-  /* Tombol Masuk */
-.navbar .btn-light2 {
-    background-color: #FFCF00; /* Warna latar belakang kuning */
-    color: #343a40; /* Warna teks */
-    padding: 10px 20px; /* Menambahkan padding untuk membuat tombol lebih besar */
-    border-radius: 40px; /* Membuat border radius 40px */
-    text-align: center; /* Menjaga teks tetap terpusat */
-    font-weight: bold; /* Menambahkan ketebalan font */
-    text-decoration: none; /* Menghilangkan garis bawah jika ada */
-    transition: background-color 0.3s ease; /* Efek transisi untuk warna latar belakang */
+  .navbar-brand img {
+      max-width: 80px; /* Sesuaikan ukuran logo di tampilan mobile */
   }
-  
-  .navbar .btn-light2:hover {
-    background-color: #f8b400; /* Warna latar belakang saat hover */
-    color: white; /* Mengubah warna teks menjadi putih saat hover */
+
+  .nav-link {
+      font-size: 14px; /* Menyesuaikan ukuran font pada tampilan mobile */
   }
-  
-  
+
+  .navbar-toggler {
+      background-color: #343a40; /* Toggler background */
+  }
+}
