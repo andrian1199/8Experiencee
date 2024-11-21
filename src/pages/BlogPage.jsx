@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../blog components/Navbar';
-import Filter from '../blog components/Filter';
+import Navbar from '../komponen blog/Navbar';
+import Filter from '../komponen blog/Filter';
 import blogData from '../data/BlogData';
 import '../Blog/Blog.css'
-import Card from '../blog components/Card'; // Impor Card
+import Card from '../komponen blog/Card'; // Impor Card
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const BlogPage = () => {

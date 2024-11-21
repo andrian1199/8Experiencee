@@ -9,6 +9,7 @@ import Festival from '../komponen Home/Festival'
 import Komunitas from '../komponen Home/Komunitas'
 import Faq from '../komponen Home/FAQ'
 import Low from '../komponen Home/Low'
+import Navigasi from '../komponen Home/Navbar';
 
 
 function Home() {
