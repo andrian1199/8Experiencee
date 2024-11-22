@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Navbar, Nav, Button, Container } from 'react-bootstrap';
 import logo from '../assets/FesTix 1.svg';
 import ticket from '../assets/ticket2.svg';
-import '../Blog/Navbar.css'; // Mengimpor file CSS Navbar
+import '../styles/Navbar.css'; // Mengimpor file CSS Navbar
 
 function Navigasi() {
   const location = useLocation();
@@ -13,7 +13,7 @@ function Navigasi() {
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg" fixed="top" className="shadow-sm w-100">
-      <Container fluid>
+      <Container fluid style={{ paddingLeft: '50px', paddingRight: '50px' }}>
         {/* Logo */}
         <Link to="/" className="navbar-brand">
           <img src={logo} alt="Logo" className="logo" />
@@ -25,7 +25,6 @@ function Navigasi() {
         {/* Navbar Links */}
         <Navbar.Collapse id="navbar-nav">
           <Nav className="ml-auto">
-            {/* Home */}
             <Nav.Link
               as={Link}
               to="/Home"
@@ -34,7 +33,6 @@ function Navigasi() {
               Home
             </Nav.Link>
 
-            {/* Blog */}
             <Nav.Link
               as={Link}
               to="/blog"
@@ -43,23 +41,17 @@ function Navigasi() {
               Blog
             </Nav.Link>
 
-            {/* Komunitas */}
             <Nav.Link
-              href="#"
-              className="btn text-white opacity-50 hover:opacity-100"
+              as={Link}
+              to="/komunitas"
+              className={`btn text-white opacity-${isActive('/komunitas') ? '100' : '50'}`}
             >
               Komunitas
             </Nav.Link>
 
-            {/* Tentang */}
-            <Nav.Link
-              href="#"
-              className="btn text-white opacity-50 hover:opacity-100"
-            >
+            <Nav.Link href="#" className="btn text-white opacity-50 hover:opacity-100">
               Tentang
             </Nav.Link>
-
-            {/* Ikon Ticket */}
             <Nav.Item>
               <Button
                 variant="link"
@@ -78,8 +70,6 @@ function Navigasi() {
                 <img src={ticket} alt="Ticket" style={{ width: '24px', height: '24px' }} />
               </Button>
             </Nav.Item>
-
-            {/* Tombol Masuk */}
             <Nav.Item>
               <Link to="/login" className="btn btn-light2">
                 Masuk
@@ -89,6 +79,7 @@ function Navigasi() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+
   );
 }
 

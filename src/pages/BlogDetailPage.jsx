@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import blogData from '../data/BlogData'; // Import data blog
-import '../Blog/BlogDetailPage.css';
+import '../styles/BlogDetailPage.css';
 
 const BlogDetailPage = () => {
   const { id } = useParams(); // Ambil id dari URL

@@ -1,11 +1,9 @@
-/* Navbar Styles */
-/* Navbar Styles */
 .navbar {
   display: flex; /* Gunakan flexbox */
   justify-content: space-between; /* Jarak antara logo dan tombol */
-  align-items: center; /* Selaraskan elemen secara vertikal ke tengah */
+  align-items: center; /* Selaraskan elemen secara vertikal */
   width: 100%; /* Lebar penuh */
-  padding: 0 100px; /* Menambahkan padding kiri dan kanan */
+  padding: 10px 100px; /* Mengatur padding kiri dan kanan */
   background-color: #343a40; /* Warna background */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Bayangan untuk navbar */
 }
@@ -13,6 +11,7 @@
 .navbar-brand {
   display: flex;
   align-items: center; /* Selaraskan logo secara vertikal */
+  margin-left: 20px; /* Tambahkan margin kiri agar logo tidak di ujung */
 }
 
 .navbar-brand img {
@@ -28,8 +27,10 @@
 }
 
 .nav-link {
+  font-family: "Roboto", sans-serif;
   color: white;
   opacity: 0.7;
+  font-weight: 400 !important; /* Tambahkan ini untuk mengatur font-weight */
   transition: opacity 0.3s ease;
 }
 
@@ -81,18 +82,22 @@
 /* Responsif */
 @media (max-width: 768px) {
   .navbar {
-      padding: 0 20px; /* Sesuaikan padding di tampilan mobile */
+    padding: 10px 20px; /* Sesuaikan padding di tampilan mobile */
+  }
+
+  .navbar-brand {
+    margin-left: 10px; /* Sesuaikan jarak pada tampilan mobile */
   }
 
   .navbar-brand img {
-      max-width: 80px; /* Sesuaikan ukuran logo di tampilan mobile */
+    max-width: 80px; /* Sesuaikan ukuran logo di tampilan mobile */
   }
 
   .nav-link {
-      font-size: 14px; /* Menyesuaikan ukuran font pada tampilan mobile */
+    font-size: 14px; /* Menyesuaikan ukuran font pada tampilan mobile */
   }
 
   .navbar-toggler {
-      background-color: #343a40; /* Toggler background */
+    background-color: #343a40; /* Toggler background */
   }
 }

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../komponen blog/Navbar';
 import Filter from '../komponen blog/Filter';
 import blogData from '../data/BlogData';
-import '../Blog/Blog.css'
+import '../styles/Blog.css'
 import Card from '../komponen blog/Card'; // Impor Card
 import 'bootstrap/dist/css/bootstrap.min.css';
 
