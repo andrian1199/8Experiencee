@@ -234,20 +234,25 @@ Efek shadow saat focus
 }
 
 /* Gaya untuk tombol "Ikut" */
+/* Gaya untuk tombol "Ikut" */
 .join-btn {
-    background-color: #FFCF00 !important; /* Memastikan warna latar belakang diterapkan */
-    border-color: #FFCF00 !important;
-    font-weight: bold;
+    background-color: #FFCF00 !important;
+    /*WarnakuninguntuktombolIkut*/border-color: #FFCF00 !important;
+    /*Borderdenganwarnayangsama*/font-weight: bold;
     padding: 10px 20px;
-    border-radius: 30px;
+    border-radius: 30px !important;
     transition: background-color 0.3s ease;
+    -webkit-border-radius: 30px !important;
+    -moz-border-radius: 30px !important;
+    -ms-border-radius: 30px !important;
+    -o-border-radius: 30px !important;
 }
   
-
-.join-btn:hover {
-    background-color: #e6b800; /* Efek hover sedikit lebih gelap */
-    border-color: #e6b800; /* Efek hover border */
-}
+  .join-btn:hover {
+    background-color: #e6b800 !important; /* Efek hover sedikit lebih gelap */
+    border-color: #e6b800 !important; /* Efek hover border */
+  }
+  
 
 /* Menyelaraskan tinggi card secara dinamis */
 .card {

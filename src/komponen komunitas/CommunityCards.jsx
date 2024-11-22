@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import CommunityData from "../data/CommunityData";
 import '../styles/Komunitas.css';
 
 const CommunityCards = () => {
   const [activeCategory, setActiveCategory] = useState("Semua");  // Menyimpan kategori yang aktif
   const [searchQuery, setSearchQuery] = useState("");  // Menyimpan kata kunci pencarian
+  const navigate = useNavigate();  // Initialize useNavigate
 
   const categories = ["Semua", "Pop", "Rock", "Lainnya"];  // Daftar kategori komunitas
 
@@ -12,7 +14,6 @@ const CommunityCards = () => {
   const filteredCommunities = CommunityData.filter((community) => {
     const matchesCategory = activeCategory === "Semua" || community.category === activeCategory;
     
-    // Pastikan title dan description tidak undefined atau null sebelum memanggil toLowerCase
     const matchesSearch =
       (community.title && community.title.toLowerCase().includes(searchQuery.toLowerCase())) || 
       (community.description && community.description.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -23,6 +24,11 @@ const CommunityCards = () => {
   // Fungsi untuk menangani perubahan input pencarian
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value); // Update kata kunci pencarian
+  };
+
+  // Fungsi untuk mengarahkan pengguna ke halaman komunitas
+  const handleJoin = (communityId) => {
+    navigate(`/komunitas/${communityId}`);  // Navigasi ke halaman komunitas berdasarkan ID
   };
 
   return (
@@ -68,9 +74,12 @@ const CommunityCards = () => {
                 <p className="card-description">{community.description}</p>
               </div>
               <div className="card-footer bg-transparent border-0">
-                <a href={`/komunitas/${community.id}`} className="btn join-btn w-100">
+                <button
+                  className="btn join-btn w-100"
+                  onClick={() => handleJoin(community.id)}  // Mengarahkan ke halaman komunitas
+                >
                   Ikut
-                </a>
+                </button>
               </div>
             </div>
           </div>
