@@ -274,24 +274,28 @@ Efek shadow saat focus
 }
 
 /* Tombol Tampilkan Lebih */
-.btn-tampilkan-lebih {
-    background-color: #FFFFFF; /* Latar putih */
-    border: 2px solid #FFCF00; /* Warna border kuning */
-    color: #FFCF00; /* Warna teks kuning */
-    font-weight: bold;
+.load-more {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    border-radius: 40px;
+    color: var(--primary-color);
     padding: 10px 20px;
-    border-radius: 30px;
-    margin-top: 150px; /* Jarak antara card dan tombol */
-    display: block;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 50px;
     transition: background-color 0.3s ease, color 0.3s ease;
-    display: inline-block; /* Mengubah dari block ke inline-block */
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    -o-border-radius: 40px;
+    -webkit-transition: background-color 0.3s ease, color 0.3s ease;
+    -moz-transition: background-color 0.3s ease, color 0.3s ease;
+    -ms-transition: background-color 0.3s ease, color 0.3s ease;
+    -o-transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.btn-tampilkan-lebih:hover {
-    background-color: #FFCF00; /* Latar kuning saat di-hover */
-    color: #FFFFFF; /* Teks putih saat di-hover */
+.load-more:hover {
+    background-color: var(--primary-color); 
+    color: white; 
 }
