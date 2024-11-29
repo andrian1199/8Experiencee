@@ -1,0 +1,52 @@
+.komunitas-img {
+    width: 94%;
+    height: auto;
+    max-width: 800px;
+    display: block;
+    margin: 20px auto;
+}
+
+.komunitas-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.content-wrapper {
+    width: 94%;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.komunitas-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #212121;
+    margin-bottom: 25px;
+}
+
+.komunitas-description {
+    font-size: 1rem;
+    color: #212121;
+    margin-bottom: 20px;
+}
+
+.komunitas-whatsapp {
+    display: inline-block;
+    width: auto;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #ffc107;
+    border: none;
+    border-radius: 40px;
+    color: #212121;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 20px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    -o-border-radius: 40px;
+}

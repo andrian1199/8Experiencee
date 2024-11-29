@@ -1,0 +1,88 @@
+/* PilihanTiket.css */
+.navigasi {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Pastikan lebih tinggi dari elemen lain */
+    background-color: #fff; /* Pastikan ada background agar terlihat */
+  }
+  
+/* Styling untuk container utama */
+.container-tiket {
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Styling untuk setiap tiket */
+  .tiket-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #FFF3CD;
+  }
+  
+  /* Styling untuk judul tiket */
+  .tiket-card h3 {
+    margin: 0;
+    font-size: 1.5em;
+  }
+  
+  /* Styling untuk harga tiket */
+  .tiket-card .harga {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #333;
+  }
+  
+  /* Styling untuk daftar manfaat */
+  .tiket-card ul {
+    margin: 10px 0;
+    padding: 0;
+    list-style-type: none;
+    color: #333;
+  }
+  
+  /* Styling untuk tombol jumlah tiket */
+  .tiket-card .jumlah-btn {
+    background-color: #FFD700;
+    border: none;
+    border-radius: 5px;
+    color: #333;
+    font-size: 1em;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  /* Styling untuk total harga */
+  .total-harga {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  /* Styling untuk tombol Beli */
+  .tombol-beli {
+    background-color: #FFD700;
+    border: none;
+    border-radius: 5px;
+    color: #333;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Menambahkan padding agar tidak tumpang tindih dengan navigasi */
+  .container-tiket {
+    padding-top: 80px; /* Menambahkan jarak di atas agar tidak tertutup dengan navigasi */
+  }
+  

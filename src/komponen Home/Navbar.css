@@ -1,0 +1,152 @@
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Menyelaraskan semua elemen secara vertikal */
+  width: 100%;
+  padding: 0 40px; /* Menambahkan padding kiri dan kanan lebih banyak */
+  background-color: #343a40;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 80px; /* Menambahkan tinggi navbar lebih besar */
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center; /* Menyelaraskan logo secara vertikal */
+  margin-right: auto; /* Pastikan logo berada di sebelah kiri */
+}
+
+.navbar-brand img {
+  max-width: 120px; /* Memperbesar ukuran logo */
+  height: auto;
+  margin-top: -10px;
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 20px; /* Mengurangi jarak antar item di navbar */
+  align-items: center;
+  margin-left: auto; /* Geser tombol ke kanan */
+}
+
+.nav-link {
+  color: white;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  font-size: 18px; /* Memperbesar ukuran font link navbar */
+}
+
+.nav-link:hover,
+.nav-link.active {
+  opacity: 1;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+/* Button untuk Login */
+.navbar .btn-light2 {
+  background-color: #FFCF00;
+  color: #343a40;
+  padding: 12px 30px; /* Memperbesar tombol Masuk */
+  border-radius: 40px;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  font-size: 16px; /* Memperbesar ukuran font pada tombol Masuk */
+}
+
+.navbar .btn-light2:hover {
+  background-color: #f8b400;
+  color: white;
+}
+
+/* Ikon Ticket */
+.navbar .btn.light {
+  background-color: #ffcf00;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px; /* Menyesuaikan padding supaya bundarannya tidak terlalu besar */
+  width: 40px; /* Ukuran bundaran yang lebih kecil */
+  height: 40px; /* Ukuran bundaran yang lebih kecil */
+  border-radius: 50%;
+}
+
+.navbar .btn.light img {
+  width: 20px; /* Menyesuaikan ukuran ikon tiket */
+  height: 20px; /* Menyesuaikan ukuran ikon tiket */
+}
+
+/* Styling untuk logo */
+.logo {
+  width: 100px;
+}
+
+/* Styling untuk tombol tiket */
+.ticket-icon-container {
+  width: 40px; /* Ukuran bundaran lebih kecil */
+  height: 40px; /* Ukuran bundaran lebih kecil */
+  background-color: #FFCF00; /* Kuning */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black; /* Garis hitam */
+}
+
+.ticket-icon {
+  width: 20px; /* Ukuran ikon tiket lebih kecil */
+  height: 20px; /* Ukuran ikon tiket lebih kecil */
+}
+
+/* Styling untuk ikon profil */
+.profile-icon-container {
+  width: 40px; /* Ukuran bundaran lebih kecil */
+  height: 40px; /* Ukuran bundaran lebih kecil */
+  background-color: #FFCF00; /* Kuning */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black; /* Garis hitam */
+  margin-left: 10px; /* Menambahkan sedikit jarak antara tiket dan profil */
+}
+
+.profile-icon {
+  width: 20px; /* Ukuran ikon profil lebih kecil */
+  height: 20px; /* Ukuran ikon profil lebih kecil */
+}
+
+/* Styling untuk tombol masuk */
+.btn-light2 {
+  color: #fff;
+  background-color: #6c757d;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+.btn-light2:hover {
+  background-color: #5a6268;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 30px; /* Menambah padding pada perangkat kecil */
+  }
+
+  .navbar-brand img {
+    max-width: 100px; /* Ukuran logo lebih besar di perangkat kecil */
+  }
+
+  .nav-link {
+    font-size: 16px; /* Menambah ukuran font navbar di perangkat kecil */
+  }
+
+  .navbar-toggler {
+    background-color: #343a40;
+  }
+}

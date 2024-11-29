@@ -1,23 +1,23 @@
 import React from 'react';
 import bcaLogo from '../assets/Bca.png';
 import qrisLogo from '../assets/Qris.png';
-import Navigation from '../komponen Home/Navbar';
+import Navigasi from '../komponen Home/Navigasi';
 import Low from '../Detail Konser/Lower';
 
 function TicketSelection() {
   return (
     <>
-      <Navigation />
+      <Navigasi/>
       <div style={styles.container}>
         <div style={styles.ticketOptions}>
           <h2>Pilihan Tiket</h2>
           <button style={styles.paymentOption}>
             <span>QRIS</span>
-            <img src={bcaLogo} alt="BCA" style={styles.logo} />
+            <img src={qrisLogo} alt="QRIS" style={styles.logo} />
           </button>
           <button style={styles.paymentOption}>
             <span>BCA</span>
-            <img src={qrisLogo} alt="QRIS" style={styles.logo} />
+            <img src={bcaLogo} alt="BCA" style={styles.logo} />
           </button>
         </div>
 
@@ -32,7 +32,7 @@ function TicketSelection() {
           <button style={styles.checkoutButton}>Checkout</button>
         </div>
       </div>
-      <Low />
+      <Low/>
     </>
   );
 }

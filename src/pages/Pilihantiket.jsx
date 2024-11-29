@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import Navigation from '../komponen Home/Navbar';
-import Low from '../Detail Konser/Lower';
+import { useNavigate } from 'react-router-dom';
+import Navigation from '../komponen Home/Navigasi';
+import Low from '../Detail Konser/Lower';  // Pastikan pathnya benar
+import './PilihanTiket.css'; // Mengimpor file CSS
 
 function PilihanTiket() {
   const [tiket, setTiket] = useState([
@@ -10,7 +11,7 @@ function PilihanTiket() {
     { id: 3, judul: 'VIP Guest', harga: 259900, manfaat: ['Dapat merchandise topi, lanyard', 'Tempat duduk nyaman', 'Dapat konsumsi'], jumlah: 0 },
   ]);
   
-  const navigate = useNavigate(); // Inisialisasi navigate
+  const navigate = useNavigate(); // Inisialisasi navigate untuk pengaturan rute navigasi
   
   const handleJumlahPerubahan = (id, perubahan) => {
     setTiket(tiket.map(item => item.id === id ? { ...item, jumlah: Math.max(0, item.jumlah + perubahan) } : item));
@@ -21,59 +22,44 @@ function PilihanTiket() {
   return (
     <>
       <Navigation />
-      <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      
+      <div className="container-tiket">
         <h2>Pilihan Tiket</h2>
+        
+        {/* Looping untuk menampilkan daftar tiket */}
         {tiket.map(item => (
-          <div key={item.id} style={{ border: '1px solid #ddd', borderRadius: '5px', padding: '15px', marginBottom: '10px', backgroundColor: '#FFF3CD' }}>
+          <div key={item.id} className="tiket-card">
             <h3>{item.judul}</h3>
-            <p style={{ fontWeight: 'bold', fontSize: '1.5em', color: '#333' }}>Rp {item.harga.toLocaleString('id-ID')}</p>
-            <ul style={{ margin: '10px 0', padding: '0', listStyleType: 'none', color: '#333' }}>
+            <p className="harga">Rp {item.harga.toLocaleString('id-ID')}</p>
+            <ul>
               {item.manfaat.map((manfaat, index) => (
                 <li key={index}>{index + 1}. {manfaat}</li>
               ))}
             </ul>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <button onClick={() => handleJumlahPerubahan(item.id, -1)} style={gayaTombol}>-</button>
+              <button onClick={() => handleJumlahPerubahan(item.id, -1)} className="jumlah-btn">-</button>
               <span style={{ margin: '0 10px', fontSize: '1.2em' }}>{item.jumlah}</span>
-              <button onClick={() => handleJumlahPerubahan(item.id, 1)} style={gayaTombol}>+</button>
+              <button onClick={() => handleJumlahPerubahan(item.id, 1)} className="jumlah-btn">+</button>
             </div>
           </div>
         ))}
-        <div style={{ borderTop: '1px solid #ddd', paddingTop: '10px', marginTop: '10px', display: 'flex', justifyContent: 'space-between', fontSize: '1.5em', fontWeight: 'bold' }}>
+
+        {/* Menampilkan total harga */}
+        <div className="total-harga">
           <span>Total</span>
           <span>Rp {totalHarga.toLocaleString('id-ID')}</span>
         </div>
-        <button onClick={() => navigate('/Pembayaran')} style={gayaTombolBeli}>
+
+        {/* Tombol navigasi untuk menuju halaman Pembayaran */}
+        <button onClick={() => navigate('/Pembayaran')} className="tombol-beli">
           Beli
         </button>
       </div>
+
+      {/* Memanggil komponen Low (Lower) */}
       <Low />
     </>
   );
 }
-
-const gayaTombol = {
-  backgroundColor: '#FFD700',
-  border: 'none',
-  borderRadius: '5px',
-  color: '#333',
-  fontSize: '1em',
-  padding: '5px 10px',
-  cursor: 'pointer',
-};
-
-const gayaTombolBeli = {
-  backgroundColor: '#FFD700',
-  border: 'none',
-  borderRadius: '5px',
-  color: '#333',
-  fontSize: '1.2em',
-  fontWeight: 'bold',
-  padding: '10px 20px',
-  cursor: 'pointer',
-  marginTop: '10px',
-  width: '100%',
-  textAlign: 'center',
-};
 
 export default PilihanTiket;

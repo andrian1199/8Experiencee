@@ -1,0 +1,51 @@
+.ticket-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+  
+  .ticket-card.active {
+    border: 2px solid #ff9800;
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .ticket-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .ticket-price {
+    font-size: 1rem;
+    color: #ff9800;
+    font-weight: bold;
+  }
+  
+  .ticket-benefits {
+    padding-left: 1rem;
+    margin: 0;
+    list-style-type: disc;
+  }
+  
+  .quantity-control button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    border-radius: 50%;
+  }
+  
+  .quantity-control span {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .total-card {
+    border-radius: 8px;
+    font-size: 1.2rem;
+  }
+  

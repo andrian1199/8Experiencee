@@ -1,0 +1,109 @@
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+  background-color: #343a40;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+}
+
+.navbar-brand img {
+  max-width: 100px;
+  height: auto;
+  margin-top: -15px;
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.nav-link {
+  color: white;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  opacity: 1;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+/* Gaya untuk ikon tiket */
+.navbar .btn-ticket {
+  background-color: #FFCF00;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.navbar .btn-ticket:hover {
+  background-color: #f8b400;
+}
+
+.navbar .ticket-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Gaya untuk ikon profil dengan background kuning */
+.navbar .btn-profile-icon {
+  background-color: #FFCF00;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.navbar .btn-profile-icon:hover {
+  background-color: #f8b400;
+}
+
+.navbar .profile-icon {
+  width: 30px;
+  height: 30px;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .navbar-brand img {
+    max-width: 80px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+  }
+
+  .navbar-toggler {
+    background-color: #343a40;
+  }
+}

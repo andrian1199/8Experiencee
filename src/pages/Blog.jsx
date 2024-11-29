@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import '../Blog/blog.css';
-import Navigation from '../komponen Home/Navbar';
+import Navigation from '../komponen Home/Navigasi';
 import Low from '../Detail Konser/Lower';
 import { Link } from 'react-router-dom';
-import bernadyaImage from '../assets/bernadya 1.webp'
+import bernadyaImage from '../assets/Bernadya 1.webp'
+
 
 const Blog = () => {
     const [filter, setFilter] = useState('semua');

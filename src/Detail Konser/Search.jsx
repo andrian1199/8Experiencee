@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
-const SearchBar = () => {
+const Search = ({ onSearch }) => {
   const [query, setQuery] = useState('');
   const [btnHover, setBtnHover] = useState(false);
 
   const handleSearch = () => {
-    console.log('Pencarian untuk:', query);
+    // Kirimkan hasil pencarian ke komponen parent
+    onSearch(query);
   };
 
   return (
@@ -14,7 +15,7 @@ const SearchBar = () => {
         <input 
           type="text" 
           className="form-control"  
-          placeholder="Cari..." 
+          placeholder="Cari konser..." 
           value={query} 
           onChange={(e) => setQuery(e.target.value)} 
           style={{ borderRadius: '30px 30px', marginRight: '30px'}}  
@@ -38,4 +39,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default Search;

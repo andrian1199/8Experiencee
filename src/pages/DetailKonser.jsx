@@ -1,5 +1,5 @@
 import React from 'react';
-import Navigation from '../komponen Home/Navbar';
+import Navigation from '../komponen Home/Navigasi';
 import gambar1 from '../assets/detail.svg';
 import SearchBar from '../Detail Konser/Search';
 import Kategori from '../Detail Konser/Kategori';
@@ -39,7 +39,6 @@ const DetailKonser = () => {
       </div>
     </div>
     </div>
-      <SearchBar/>
       <Kategori/>
       <Lower/>
       

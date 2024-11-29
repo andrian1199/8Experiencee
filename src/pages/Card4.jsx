@@ -1,6 +1,6 @@
 import React from 'react';  
 import { Link } from 'react-router-dom';
-import Navigation from '../komponen Home/Navbar';  
+import Navigation from '../komponen Home/Navigasi';  
 import Cardfes from '../assets/Frametiket.svg';  
 import Cardfes2 from '../assets/Card Event Judul.svg';  
 import ig from '../assets/instagram.jpeg'
