@@ -21,7 +21,7 @@
     display: flex;
    
     color: white;
-    background-image: url('/assets/Bernadya 1.webp'); /* Ganti dengan path gambar Anda */
+    background-image: url('/assets/komunitas.jpg'); /* Ganti dengan path gambar Anda */
     background-size: cover;
     background-position: center;
 }
@@ -111,7 +111,7 @@
     margin-right: 50px; /* Jarak dengan tombol */
 }
 
-Efek shadow saat focus
+
 .search-input:focus {
     box-shadow:
         0px 121px 34px rgba(0, 0, 0, 0.05),
@@ -234,24 +234,26 @@ Efek shadow saat focus
 }
 
 /* Gaya untuk tombol "Ikut" */
-/* Gaya untuk tombol "Ikut" */
 .join-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #FFCF00 !important;
-    /*WarnakuninguntuktombolIkut*/border-color: #FFCF00 !important;
-    /*Borderdenganwarnayangsama*/font-weight: bold;
+    border: none;
     padding: 10px 20px;
     border-radius: 30px !important;
+    font-weight: bold;
+    text-align: center;
+    height: auto;
+    line-height: normal;
+    cursor: pointer;
     transition: background-color 0.3s ease;
-    -webkit-border-radius: 30px !important;
-    -moz-border-radius: 30px !important;
-    -ms-border-radius: 30px !important;
-    -o-border-radius: 30px !important;
 }
-  
-  .join-btn:hover {
-    background-color: #e6b800 !important; /* Efek hover sedikit lebih gelap */
-    border-color: #e6b800 !important; /* Efek hover border */
-  }
+
+.join-btn:hover {
+    background-color: #e6b800 !important;
+}
+
   
 
 /* Menyelaraskan tinggi card secara dinamis */

@@ -126,16 +126,16 @@ function Navigasi() {
 
                   {/* Logout Button */}
                   <Button
-  onClick={handleLogout}
-  variant="link"
-  className="btn text-black" // Ubah warna teks menjadi hitam
-  style={{
-    marginLeft: '10px',
-    textDecoration: 'none', // Hilangkan garis bawah
-  }}
->
-  Logout
-</Button>
+                  onClick={handleLogout}
+                  variant="link"
+                  className="btn text-black" // Ubah warna teks menjadi hitam
+                  style={{
+                    marginLeft: '10px',
+                    textDecoration: 'none', // Hilangkan garis bawah
+                  }}
+                >
+                  Logout
+                </Button>
 
                 </div>
               ) : (

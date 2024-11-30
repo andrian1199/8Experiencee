@@ -86,13 +86,14 @@ const CommunityCards = () => {
                 <p className="card-description">{community.description}</p>
               </div>
               <div className="card-footer bg-transparent border-0">
-                <button
-                  className="btn join-btn w-100"
-                  onClick={() => handleJoin(community.id)} // Mengarahkan ke halaman komunitas
-                >
-                  Ikut
-                </button>
+                  <button
+                      className="btn join-btn w-100"
+                      onClick={() => handleJoin(community.id)}
+                  >
+                      Ikut
+                  </button>
               </div>
+
             </div>
           </div>
         ))}
