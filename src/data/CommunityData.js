@@ -1,7 +1,7 @@
 const CommunityData = [
     {
       id: "reality-club-surabaya",
-      img: "/assets/rc.svg",
+      img: "/assets/rck.svg",
       title: "Komunitas Reality Club Surabaya Raya",
       description: "Ini adalah komunitas bagi para penggemar grup band Reality Club ya ges ya, ayo join kami buat update update terkini terkait band Reality Club guys.",
       category: "Rock",  // Menambahkan kategori

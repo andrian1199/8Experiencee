@@ -46,26 +46,34 @@ function Navigasi() {
             <Nav.Link
               as={Link}
               to="/"
-              className={`btn text-white opacity-${isActive('/') ? '100' : '50'}`}
+              className={`btn text-white ${isActive('/') ? 'opacity-100' : 'opacity-50'}`}
             >
               Home
             </Nav.Link>
             <Nav.Link
               as={Link}
               to="/blog"
-              className={`btn text-white opacity-${isActive('/blog') ? '100' : '50'}`}
+              className={`btn text-white ${isActive('/blog') ? 'opacity-100' : 'opacity-50'}`}
             >
               Blog
             </Nav.Link>
-            <Nav.Link href="/komunitas" className="btn text-white opacity-50">
+            <Nav.Link
+              as={Link}
+              to="/komunitas"
+              className={`btn text-white ${isActive('/komunitas') ? 'opacity-100' : 'opacity-50'}`}
+            >
               Komunitas
             </Nav.Link>
-            <Nav.Link href="/tentangkami" className="btn text-white opacity-50">
+            <Nav.Link
+              as={Link}
+              to="/tentangkami"
+              className={`btn text-white ${isActive('/tentangkami') ? 'opacity-100' : 'opacity-50'}`}
+            >
               Tentang
             </Nav.Link>
 
             {/* Tiket, Profil, dan Logout */}
-            <Nav.Item style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <Nav.Item style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Button
                 variant="link"
                 className="btn light rounded-circle"
@@ -74,23 +82,23 @@ function Navigasi() {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  padding: '12px',
-                  width: '50px',
-                  height: '50px',
+                  padding: '8px',
+                  width: '40px',
+                  height: '40px',
                   borderRadius: '50%',
                   border: '2px solid black',
                 }}
               >
-                <img src={ticket} alt="Ticket" style={{ width: '24px', height: '24px' }} />
+                <img src={ticket} alt="Ticket" style={{ width: '16px', height: '16px' }} />
               </Button>
 
               {isLoggedIn ? (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Link to="/profil">
                     <div
                       style={{
-                        width: '50px',
-                        height: '50px',
+                        width: '40px',
+                        height: '40px',
                         backgroundColor: '#FFCF00',
                         borderRadius: '50%',
                         display: 'flex',
@@ -99,7 +107,11 @@ function Navigasi() {
                         border: '2px solid black',
                       }}
                     >
-                      <img src={profileIcon} alt="Profile" style={{ width: '24px', height: '24px' }} />
+                      <img
+                        src={profileIcon}
+                        alt="Profile"
+                        style={{ width: '16px', height: '16px' }}
+                      />
                     </div>
                   </Link>
 
@@ -108,17 +120,16 @@ function Navigasi() {
                     variant="link"
                     className="btn text-black"
                     style={{
-                      textDecoration: 'none',
-                      padding: '10px 20px', // Tambahkan padding agar lebih besar
-                      backgroundColor: '#FFCF00', // Warna latar belakang
-                      borderRadius: '20px', // Membuat tombol terlihat lebih bulat
-                      border: '2px solid black', // Tambahkan garis tepi
-                      fontWeight: 'bold', // Mempertegas teks
+                      padding: '8px 16px',
+                      backgroundColor: '#FFCF00',
+                      borderRadius: '15px',
+                      border: '2px solid black',
+                      fontWeight: 'bold',
+                      fontSize: '12px',
                     }}
                   >
                     Logout
-                </Button>
-
+                  </Button>
                 </div>
               ) : (
                 <Link to="/login" className="btn btn-light2">

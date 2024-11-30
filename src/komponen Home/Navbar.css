@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 10px 50px;
+  padding: 20px 50px;
   background-color: #343a40;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -23,7 +23,7 @@
 
 .navbar-nav {
   display: flex;
-  gap: 10px; /* Kurangi jarak antar-elemen */
+  gap: 15px; /* Kurangi jarak antar-elemen */
   align-items: center;
   margin-left: auto;
 }
