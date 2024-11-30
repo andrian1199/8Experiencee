@@ -5,10 +5,9 @@ const HeroSection = () => {
   return (
     <section className="hero-section">
       <div className="hero-text">
-        <h1>Komunitas Reality Club Surabaya Raya</h1>
+        <h1>Ayo Gabung Komunitas Sefrekuensimu!</h1>
         <h6>
-          Concert comes from Italian: concerto and Latin: concertare which means to strive, to compete with others. 
-          A concert is a live performance, usually of music, in front of an audience.
+        "Yuk, temukan komunitas seru yang cocok banget dengan selera musikmu! Dari Pop yang catchy, Rock yang bikin semangat, hingga artis favoritmu—semua ada di sini. Gabung sekarang, jadilah bagian dari vibe yang luar biasa!".
         </h6>
         <button className="cek-button">Cek Sekarang</button>
       </div>

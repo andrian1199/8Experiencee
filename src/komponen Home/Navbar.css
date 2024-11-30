@@ -20,12 +20,14 @@
   height: auto;
 }
 
+
 .navbar-nav {
   display: flex;
-  gap: 20px;
+  gap: 10px; /* Kurangi jarak antar-elemen */
   align-items: center;
   margin-left: auto;
 }
+
 
 .nav-link {
   font-family: "Roboto", sans-serif;

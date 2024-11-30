@@ -11,39 +11,32 @@ function Navigasi() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Mengatur status login ketika komponen dimuat
   useEffect(() => {
     const loggedInStatus = localStorage.getItem('isLoggedIn') === 'true';
     setIsLoggedIn(loggedInStatus);
 
-    // Memantau perubahan status login melalui localStorage
     const handleStorageChange = () => {
       const updatedStatus = localStorage.getItem('isLoggedIn') === 'true';
       setIsLoggedIn(updatedStatus);
     };
 
     window.addEventListener('storage', handleStorageChange);
-
-    // Cleanup event listener
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
 
-  // Fungsi untuk logout
   const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn'); // Hapus status login dari localStorage
-    setIsLoggedIn(false); // Update status login
-    navigate('/login'); // Arahkan ke halaman login
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
+    navigate('/login');
   };
 
-  // Fungsi untuk mengecek apakah link saat ini adalah halaman aktif
   const isActive = (path) => location.pathname === path;
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg" fixed="top" className="shadow-sm w-100">
       <Container fluid>
-        {/* Logo */}
         <Link to="/" className="navbar-brand">
           <img src={logo} alt="Logo" className="logo" />
         </Link>
@@ -64,20 +57,15 @@ function Navigasi() {
             >
               Blog
             </Nav.Link>
-            <Nav.Link
-              href="/komunitas"
-              className="btn text-white opacity-50 hover:opacity-100"
-            >
+            <Nav.Link href="/komunitas" className="btn text-white opacity-50">
               Komunitas
             </Nav.Link>
-            <Nav.Link
-              href="/tentangkami"
-              className="btn text-white opacity-50 hover:opacity-100"
-            >
+            <Nav.Link href="/tentangkami" className="btn text-white opacity-50">
               Tentang
             </Nav.Link>
-            <Nav.Item style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-              {/* Tiket */}
+
+            {/* Tiket, Profil, dan Logout */}
+            <Nav.Item style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <Button
                 variant="link"
                 className="btn light rounded-circle"
@@ -90,56 +78,49 @@ function Navigasi() {
                   width: '50px',
                   height: '50px',
                   borderRadius: '50%',
-                  border: '2px solid black', // Garis hitam
+                  border: '2px solid black',
                 }}
               >
                 <img src={ticket} alt="Ticket" style={{ width: '24px', height: '24px' }} />
               </Button>
 
-              {/* Profil atau Masuk */}
               {isLoggedIn ? (
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  {/* Profil Button */}
-                  <Link to="/profil" className="btn">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <Link to="/profil">
                     <div
                       style={{
                         width: '50px',
                         height: '50px',
-                        backgroundColor: '#FFCF00', // Warna kuning
+                        backgroundColor: '#FFCF00',
                         borderRadius: '50%',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        border: '2px solid black', // Garis hitam
+                        border: '2px solid black',
                       }}
                     >
-                      <img
-                        src={profileIcon}
-                        alt="Profile"
-                        style={{
-                          width: '24px',
-                          height: '24px',
-                        }}
-                      />
+                      <img src={profileIcon} alt="Profile" style={{ width: '24px', height: '24px' }} />
                     </div>
                   </Link>
 
-                  {/* Logout Button */}
                   <Button
-                  onClick={handleLogout}
-                  variant="link"
-                  className="btn text-black" // Ubah warna teks menjadi hitam
-                  style={{
-                    marginLeft: '10px',
-                    textDecoration: 'none', // Hilangkan garis bawah
-                  }}
-                >
-                  Logout
+                    onClick={handleLogout}
+                    variant="link"
+                    className="btn text-black"
+                    style={{
+                      textDecoration: 'none',
+                      padding: '10px 20px', // Tambahkan padding agar lebih besar
+                      backgroundColor: '#FFCF00', // Warna latar belakang
+                      borderRadius: '20px', // Membuat tombol terlihat lebih bulat
+                      border: '2px solid black', // Tambahkan garis tepi
+                      fontWeight: 'bold', // Mempertegas teks
+                    }}
+                  >
+                    Logout
                 </Button>
 
                 </div>
               ) : (
-                // Login Button
                 <Link to="/login" className="btn btn-light2">
                   Masuk
                 </Link>
