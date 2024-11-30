@@ -28,18 +28,22 @@ const Komunitas = () => {
       backgroundColor: "white",
       borderRadius: "12px",
       padding: "2rem",
+      boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
     },
     reverseSection: {
-      flexDirection: "row-reverse", // Membalik orientasi gambar dan teks
+      flexDirection: "row-reverse",
     },
     image: {
-      width: "495px", // Fixed width
-      height: "425px", // Fixed height
-      objectFit: "cover", // Menjaga proporsi gambar
+      width: "495px",
+      height: "425px",
+      objectFit: "cover",
       borderRadius: "12px",
     },
     textContainer: {
       flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      gap: "1rem",
     },
     title: {
       fontSize: "1.8rem",
@@ -54,6 +58,8 @@ const Komunitas = () => {
     buttonContainer: {
       display: "flex",
       gap: "1rem",
+      flexWrap: "wrap", // Responsif untuk tombol agar tidak tumpang tindih
+      justifyContent: "center", // Posisikan tombol di tengah pada layar kecil
     },
     button: {
       padding: "0.8rem 1.5rem",
@@ -66,33 +72,90 @@ const Komunitas = () => {
       color: "#000",
       transition: "background-color 0.3s ease",
     },
-    buttonHover: {
-      backgroundColor: "#fbc02d",
-    },
-    // Menambahkan margin untuk jarak antara tulisan, tombol, dan gambar
     spacing: {
-      marginRight: "3rem", // Menambahkan jarak lebih pada bagian kanan gambar
+      marginRight: "3rem",
+    },
+    // Media queries untuk responsivitas
+    "@media (max-width: 768px)": {
+      container: {
+        padding: "2rem", // Mengurangi padding pada layar kecil
+        gap: "1.5rem", // Mengurangi jarak antar elemen
+      },
+      header: {
+        fontSize: "1.8rem", // Menyesuaikan ukuran font header
+        marginBottom: "1rem",
+      },
+      section: {
+        flexDirection: "column", // Mengubah arah menjadi vertikal
+        padding: "1.5rem", // Padding lebih kecil
+        gap: "1.5rem", // Jarak antar elemen lebih kecil
+      },
+      image: {
+        width: "100%", // Membuat gambar responsive
+        height: "auto", // Menyesuaikan tinggi gambar
+      },
+      title: {
+        fontSize: "1.5rem", // Menyesuaikan ukuran font
+        textAlign: "center", // Membuat teks rata tengah
+      },
+      paragraph: {
+        fontSize: "1rem",
+        textAlign: "center", // Membuat teks rata tengah
+      },
+      buttonContainer: {
+        justifyContent: "center", // Memposisikan tombol di tengah
+      },
     },
   };
 
+  // Helper untuk menerapkan media query
+  const applyResponsiveStyle = (style) => {
+    if (window.innerWidth <= 768) {
+      const responsiveStyle = styles["@media (max-width: 768px)"];
+      return { ...style, ...responsiveStyle[Object.keys(style)[0]] };
+    }
+    return style;
+  };
+
   return (
-    <div style={styles.container}>
+    <div style={applyResponsiveStyle(styles.container)}>
       {/* Header */}
-      <h1 style={styles.header}>Cek Nih Yang Dibawah!</h1>
+      <h1 style={applyResponsiveStyle(styles.header)}>Cek Nih Yang Dibawah!</h1>
 
       {/* Bagian Komunitas */}
-      <div style={styles.section}>
-        <img src={rectangle7} alt="Komunitas" style={styles.image} />
-        <div style={{ ...styles.textContainer, ...styles.spacing }}>
-          <h1 style={styles.title}>
+      <div style={applyResponsiveStyle(styles.section)}>
+        <img src={rectangle7} alt="Komunitas" style={applyResponsiveStyle(styles.image)} />
+        <div style={{ ...applyResponsiveStyle(styles.textContainer), ...styles.spacing }}>
+          <h1 style={applyResponsiveStyle(styles.title)}>
             Ayo Ikut Komunitas <br /> Se-Frekuensi Sama Kamu!
           </h1>
-          <p style={styles.paragraph}>
+          <p style={applyResponsiveStyle(styles.paragraph)}>
             Kamu pengen ngumpul dan ngobrol tapi nggak punya teman yang
             sefrekuensi aliran musik? Tenang, kami ada halaman komunitas buat
             kamu nih.
           </p>
-          <div style={styles.buttonContainer}>
+          <div style={applyResponsiveStyle(styles.buttonContainer)}>
+            <button
+              style={styles.button}
+              onMouseEnter={() => setHover(true)}
+              onMouseLeave={() => setHover(false)}
+            >
+              Masuk Komunitas
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Bagian Info Terkini */}
+      <div style={{ ...applyResponsiveStyle(styles.section), ...styles.reverseSection }}>
+        <img src={unsplashImage} alt="Terkini Info" style={applyResponsiveStyle(styles.image)} />
+        <div style={{ ...applyResponsiveStyle(styles.textContainer), ...styles.spacing }}>
+          <h1 style={applyResponsiveStyle(styles.title)}>Cari-Cari Info Terkini Disini</h1>
+          <p style={applyResponsiveStyle(styles.paragraph)}>
+            Ayo cari info-info terkait musik, konser, dll. Di halaman blog kami,
+            tekan tombol di bawah ya!
+          </p>
+          <div style={applyResponsiveStyle(styles.buttonContainer)}>
             <button
               style={styles.button}
               onMouseEnter={() => setHover(true)}
@@ -101,25 +164,6 @@ const Komunitas = () => {
               Cek Selengkapnya
             </button>
           </div>
-        </div>
-      </div>
-
-      {/* Bagian Info Terkini */}
-      <div style={{ ...styles.section, ...styles.reverseSection }}>
-        <img src={unsplashImage} alt="Terkini Info" style={styles.image} />
-        <div style={{ ...styles.textContainer, ...styles.spacing }}>
-          <h1 style={styles.title}>Cari-Cari Info Terkini Disini</h1>
-          <p style={styles.paragraph}>
-            Ayo cari info-info terkait musik, konser, dll. Di halaman blog kami,
-            tekan tombol di bawah ya!
-          </p>
-          <button
-            style={styles.button}
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-          >
-            Cek Selengkapnya
-          </button>
         </div>
       </div>
     </div>
