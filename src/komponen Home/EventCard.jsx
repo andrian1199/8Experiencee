@@ -95,13 +95,14 @@ const styles = {
   },
   priceLabel: {
     fontSize: '14px',
-    color: '#666',
+    fontWeight:'Bold',
+    color: '#000',
     marginBottom: '5px',
   },
   priceValue: {
-    fontSize: '20px',
+    fontSize: '22px',
     fontWeight: 'bold',
-    color: '#FF9900',
+    color: '#FFCF00',
   },
 };
 

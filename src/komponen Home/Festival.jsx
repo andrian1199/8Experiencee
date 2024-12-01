@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import EventData from '../data/EventData'; // Pastikan path sesuai
 import EventCard from './EventCard'; // Pastikan path sesuai
 
 const Festival = () => {
+  const [isHovered, setIsHovered] = useState(false); // State untuk hover effect
+  
   // Filter hanya acara dengan type "festival"
   const festivalEvents = EventData.filter(event => event.type === 'festival');
 
   return (
     <div className="festival container py-5">
       <div className="festival-header mb-4">
-        <div className="text-festival d-flex justify-content-between align-items-center">
-          <h1>Festival</h1>
-          <Link to="/detail-festival" className="btn btn-primary">
+        <div className="text-festival d-flex justify-content-between align-items-center" style={{ width: '100%' }}>
+          <h1 style={{ marginBottom: 0 }}>Festival</h1> {/* Mengurangi margin h1 */}
+          <Link 
+            to="/detail-festival" 
+            style={{
+              ...styles.link, 
+              ...(isHovered ? styles.linkHover : {}) // Terapkan hover style jika tombol di-hover
+            }}
+            onMouseEnter={() => setIsHovered(true)}  // Mengubah state saat hover
+            onMouseLeave={() => setIsHovered(false)} // Mengembalikan state saat hover hilang
+          >
             Lihat Semua
           </Link>
         </div>
@@ -34,6 +44,23 @@ const Festival = () => {
       </div>
     </div>
   );
+};
+
+// Styling untuk link "Lihat Semua"
+const styles = {
+  link: {
+    textDecoration: 'underline',
+    fontStyle: 'italic',
+    color: '#212121', // Warna biru seperti link
+    cursor: 'pointer',
+    marginLeft: 'auto', // Membuat tombol pergi ke kanan
+    display: 'block', // Menghindari tombol terhimpit
+    transition: 'color 0.3s, transform 0.3s', // Menambahkan transisi halus untuk efek hover
+  },
+  linkHover: {
+    color: '#ffcf00', // Warna biru gelap saat hover
+    transform: 'scale(1.05)', // Memberikan efek sedikit membesar saat hover
+  },
 };
 
 export default Festival;
