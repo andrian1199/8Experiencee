@@ -43,6 +43,7 @@ const styles = {
     flexDirection: 'column',
     backgroundColor: '#fff',
   },
+  
   imageContainer: {
     height: '200px',
     backgroundColor: '#f4f4f4',

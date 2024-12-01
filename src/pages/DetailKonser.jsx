@@ -5,7 +5,6 @@ import SearchBar from '../Detail Konser/Search';
 import Kategori from '../Detail Konser/Kategori';
 import Lower from '../Detail Konser/Lower';
 
-
 const DetailKonser = () => {
   return (
     <>

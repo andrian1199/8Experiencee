@@ -16,7 +16,7 @@ const EventData = [
       location: "Jakarta",
       price: "Rp 450.000",
       image: "path_to_other_image",
-      genre: "Traditional", // Tambahkan genre
+      genre: "Rock", // Tambahkan genre
       type: "festival", // Tambahkan type
     },
     {
@@ -46,7 +46,7 @@ const EventData = [
         location: "Jakarta",
         price: "Rp 450.000",
         image: "path_to_other_image",
-        genre: "Traditional", // Tambahkan genre
+        genre: "Rock", // Tambahkan genre
         type: "konser", // Tambahkan type
       },
 
@@ -67,7 +67,7 @@ const EventData = [
         location: "Jakarta",
         price: "Rp 450.000",
         image: "path_to_other_image",
-        genre: "Traditional", // Tambahkan genre
+        genre: "Metal", // Tambahkan genre
         type: "konser", // Tambahkan type
       },
 
