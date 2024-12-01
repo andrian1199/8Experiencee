@@ -1,0 +1,108 @@
+import React from 'react';
+import { UilCalendarAlt, UilMapMarkerAlt } from '@iconscout/react-unicons';
+
+const EventCard = ({ title, date, location, price, image }) => {
+  return (
+    <div style={styles.card}>
+      <div style={styles.imageContainer}>
+        <img src={image} alt={title} style={styles.image} />
+      </div>
+      <div style={styles.content}>
+        <h3 style={styles.title}>{title}</h3>
+        <div style={styles.info}>
+          <div style={styles.infoItem}>
+            <UilCalendarAlt size="20" color="#666" />
+            <span style={styles.infoText}>{date}</span>
+          </div>
+          <div style={styles.infoItem}>
+            <UilMapMarkerAlt size="20" color="#666" />
+            <span style={styles.infoText}>{location}</span>
+          </div>
+        </div>
+        <div style={styles.footer}>
+          <div style={styles.price}>
+            <span style={styles.priceLabel}>Mulai Dari</span>
+            <strong style={styles.priceValue}>{price}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const styles = {
+  card: {
+    width: '310px',
+    height: '470px',
+    border: '1px solid #ddd',
+    borderRadius: '8px',
+    overflow: 'hidden',
+    fontFamily: 'Arial, sans-serif',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#fff',
+  },
+  imageContainer: {
+    height: '200px',
+    backgroundColor: '#f4f4f4',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+  },
+  content: {
+    padding: '15px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    flexGrow: 1,
+  },
+  title: {
+    fontSize: '24px', // Ukuran font diperbesar
+    fontWeight: 'bold',
+    color: '#000',
+    marginBottom: '15px',
+  },
+  info: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px', // Jarak antar baris tanggal dan lokasi
+    color: '#666',
+    marginTop: '20px', // Geser lebih mendekati "Mulai Dari"
+  },
+  infoItem: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px', // Jarak antara ikon dan teks
+  },
+  infoText: {
+    fontSize: '16px', // Ukuran font diperbesar
+    color: '#666',
+  },
+  footer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
+    marginTop: 'auto',
+  },
+  price: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    color: '#000',
+  },
+  priceLabel: {
+    fontSize: '14px',
+    color: '#666',
+    marginBottom: '5px',
+  },
+  priceValue: {
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: '#FF9900',
+  },
+};
+
+export default EventCard;

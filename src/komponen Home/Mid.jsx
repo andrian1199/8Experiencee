@@ -1,33 +1,25 @@
 import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import image1 from '../assets/Card 1.svg'; // Sebelum login semua pakai image1
-import card4 from '../assets/card 4.svg';
-import card5 from '../assets/card 5.svg';
-import card6 from '../assets/card 6.svg';
-import card7 from '../assets/card 7.svg';
-import card8 from '../assets/card 8.svg';
-import card9 from '../assets/card 9.svg';
-import card10 from '../assets/card 10.svg';
-import card11 from '../assets/card 11.svg';
+import EventCard from './EventCard'; // Import EventCard
+import eventData from '../data/EventData';  // Import eventData
 
 const Mid = () => {
-  const [popularImages, setPopularImages] = useState([image1, image1, image1, image1]);  // Semua gambar sebelum login
-  const [newImages, setNewImages] = useState([image1, image1, image1, image1]); // Semua gambar sebelum login
+  const [popularEvents, setPopularEvents] = useState([]); // Data populer
+  const [newEvents, setNewEvents] = useState([]); // Data baru
 
-  // Menggunakan useEffect untuk memeriksa status login
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
 
-    // Jika sudah login, ubah gambar di bagian "Yang Lagi Populer Nih!" dan "Acara Baru Nih!"
+    // Jika sudah login, tampilkan data event tertentu
     if (isLoggedIn === "true") {
-      setPopularImages([card4, card5, card6, card7]); // Gambar untuk "Yang Lagi Populer Nih!" setelah login
-      setNewImages([card8, card9, card10, card11]);   // Gambar untuk "Acara Baru Nih!" setelah login
+      setPopularEvents(eventData.slice(0, 4)); // Data pertama untuk "Yang Lagi Populer Nih!"
+      setNewEvents(eventData.slice(4, 8));     // Data berikutnya untuk "Acara Baru Nih!"
+    } else {
+      // Jika belum login, tampilkan placeholder kosong atau default
+      setPopularEvents([]);
+      setNewEvents([]);
     }
   }, []);
-
-  const handleClick = () => {
-    alert('Image clicked');
-  };
 
   return (
     <div className="Mid container my-5">
@@ -38,27 +30,21 @@ const Mid = () => {
         </div>
       </div>
       <div className="row gy-4 justify-content-center">
-        {popularImages.map((image, index) => (
-          <div key={index} className="col-6 col-md-4 col-lg-3">
-            <button
-              type="button"
-              className="btn p-0 border-0 w-100 shadow-none"
-              style={{
-                outline: "none",
-                boxShadow: "none",
-                backgroundColor: "transparent", // Pastikan tidak ada warna latar
-              }}
-              onClick={index === 0 ? () => (window.location.href = 'detail-konser.html') : handleClick}
-            >
-              <img
-                src={image}
-                alt={`Image ${index + 1}`}
-                className="img-fluid rounded shadow"
-                style={{ maxWidth: '100%', height: 'auto' }}
+        {popularEvents.length > 0 ? (
+          popularEvents.map((event) => (
+            <div key={event.id} className="col-6 col-md-4 col-lg-3">
+              <EventCard 
+                title={event.title}
+                date={event.date}
+                location={event.location}
+                price={event.price}
+                image={event.image}
               />
-            </button>
-          </div>
-        ))}
+            </div>
+          ))
+        ) : (
+          <p className="text-center">Silakan login untuk melihat acara populer.</p>
+        )}
       </div>
 
       {/* Bagian "Acara Baru Nih!" */}
@@ -68,27 +54,21 @@ const Mid = () => {
         </div>
       </div>
       <div className="row gy-4 justify-content-center">
-        {newImages.map((image, index) => (
-          <div key={index} className="col-6 col-md-4 col-lg-3">
-            <button
-              type="button"
-              className="btn p-0 border-0 w-100 shadow-none"
-              style={{
-                outline: "none",
-                boxShadow: "none",
-                backgroundColor: "transparent", // Pastikan tidak ada warna latar
-              }}
-              onClick={handleClick}
-            >
-              <img
-                src={image}
-                alt={`Card ${index + 8}`}
-                className="img-fluid rounded shadow"
-                style={{ maxWidth: '100%', height: 'auto' }}
+        {newEvents.length > 0 ? (
+          newEvents.map((event) => (
+            <div key={event.id} className="col-6 col-md-4 col-lg-3">
+              <EventCard 
+                title={event.title}
+                date={event.date}
+                location={event.location}
+                price={event.price}
+                image={event.image}
               />
-            </button>
-          </div>
-        ))}
+            </div>
+          ))
+        ) : (
+          <p className="text-center">Silakan login untuk melihat acara baru.</p>
+        )}
       </div>
     </div>
   );
