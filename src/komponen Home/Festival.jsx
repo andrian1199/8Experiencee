@@ -15,7 +15,7 @@ const Festival = () => {
         <div className="text-festival d-flex justify-content-between align-items-center" style={{ width: '100%' }}>
           <h1 style={{ marginBottom: 0 }}>Festival</h1> {/* Mengurangi margin h1 */}
           <Link 
-            to="/detail-festival" 
+            to="/event" 
             style={{
               ...styles.link, 
               ...(isHovered ? styles.linkHover : {}) // Terapkan hover style jika tombol di-hover

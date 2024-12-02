@@ -147,7 +147,7 @@
   
   .filter-item {
     padding: 10px 20px;
-    /*Menambahkanpaddinguntukukurantombolyanglebihbesar*/border: 0px solid #ccc;
+    border: 0px solid #ccc;
     border-radius: 40px;
     background-color: #ccc;
     cursor: pointer;

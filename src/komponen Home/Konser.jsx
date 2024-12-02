@@ -15,7 +15,7 @@ const Konser = () => {
         <div className="text-konser d-flex justify-content-between align-items-center" style={{ width: '100%' }}>
           <h1>Konser</h1>
           <Link 
-            to="/detail-konser" 
+            to="/event" 
             style={{
               ...styles.link, 
               ...(isHovered ? styles.linkHover : {}) // Terapkan hover style jika tombol di-hover
