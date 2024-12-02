@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import "typeface-inter";
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+// Import halaman
 import Home from './pages/Home';
 import DetailKonser from './pages/DetailKonser';
 import Card4 from './pages/Card4';
@@ -23,6 +25,7 @@ import ProfilePage from './pages/ProfilePage';
 import EditProfilePage from './pages/EditProfilePage'; 
 import ChangePassword from './pages/ChangePassword'; 
 import TentangKami from './pages/TentangKami';
+import Event from './pages/Event';  // Import halaman Event
 
 function App() {
   return (
@@ -62,6 +65,9 @@ function App() {
         <Route path="/profil" element={<ProfilePage />} />
         <Route path="/profil/edit" element={<EditProfilePage />} />
         <Route path="/ganti-kata-sandi" element={<ChangePassword />} />
+
+        {/* Event */}
+        <Route path="/event" element={<Event />} /> {/* New Event Page */}
       </Routes>
     </Router>
   );
