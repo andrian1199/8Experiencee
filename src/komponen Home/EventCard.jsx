@@ -1,6 +1,14 @@
 import React from 'react';
 import { UilCalendarAlt, UilMapMarkerAlt } from '@iconscout/react-unicons';
 
+const formatCurrency = (number) => {
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0,
+  }).format(number);
+};
+
 const EventCard = ({ title, date, location, price, image }) => {
   return (
     <div style={styles.card}>
@@ -22,14 +30,13 @@ const EventCard = ({ title, date, location, price, image }) => {
         <div style={styles.footer}>
           <div style={styles.price}>
             <span style={styles.priceLabel}>Mulai Dari</span>
-            <strong style={styles.priceValue}>{price}</strong>
+            <strong style={styles.priceValue}>{formatCurrency(price)}</strong>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
 const styles = {
   card: {
     width: '310px',

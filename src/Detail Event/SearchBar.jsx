@@ -71,7 +71,7 @@ const SearchBar = ({ onSearch }) => {
         <input
           type="text"
           className="search-input"
-          placeholder="Cari komunitas disini..."
+          placeholder="Cari event disini..."
           value={searchQuery}
           onChange={handleSearchChange}
         />

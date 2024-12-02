@@ -4,7 +4,7 @@ const EventData = [
       title: "Sound of Downtown Volume 6 Surabaya",
       date: "4 - 5 Agustus 2024",
       location: "Surabaya",
-      price: "Rp 325.000",
+      price: "125000",
       image: "path_to_your_image",
       genre: "Pop", // Tambahkan genre
       type: "konser", // Tambahkan type
@@ -73,6 +73,16 @@ const EventData = [
 
       {
         id: 8,
+        title: "Festival Musik Nusantara",
+        date: "12 - 13 September 2024",
+        location: "Jakarta",
+        price: "Rp 450.000",
+        image: "path_to_other_image",
+        genre: "Traditional", // Tambahkan genre
+        type: "festival", // Tambahkan type
+      },
+      {
+        id: 9,
         title: "Festival Musik Nusantara",
         date: "12 - 13 September 2024",
         location: "Jakarta",
