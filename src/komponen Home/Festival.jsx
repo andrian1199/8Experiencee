@@ -12,7 +12,10 @@ const Festival = () => {
   return (
     <div className="festival container py-5">
       <div className="festival-header mb-4">
-        <div className="text-festival d-flex justify-content-between align-items-center" style={{ width: '100%' }}>
+        <div 
+          className="text-festival d-flex justify-content-between align-items-center" 
+          style={{ width: '100%' }}
+        >
           <h1 style={{ marginBottom: 0 }}>Festival</h1> {/* Mengurangi margin h1 */}
           <Link 
             to="/event" 
@@ -28,11 +31,12 @@ const Festival = () => {
         </div>
       </div>
 
-      {/* Grid System */}
-      <div className="row g-4"> {/* g-4: Spasi antar elemen */}
+      {/* Flexbox untuk layout kartu */}
+      <div style={styles.cardContainer}>
         {festivalEvents.map(event => (
-          <div className="col-6 col-md-3" key={event.id}>
+          <div key={event.id} style={styles.card}>
             <EventCard
+              id={event.id}
               title={event.title}
               date={event.date}
               location={event.location}
@@ -46,20 +50,26 @@ const Festival = () => {
   );
 };
 
-// Styling untuk link "Lihat Semua"
+// Styling untuk link dan layout kartu
 const styles = {
   link: {
     textDecoration: 'underline',
     fontStyle: 'italic',
-    color: '#212121', // Warna biru seperti link
+    color: '#212121',
     cursor: 'pointer',
-    marginLeft: 'auto', // Membuat tombol pergi ke kanan
-    display: 'block', // Menghindari tombol terhimpit
-    transition: 'color 0.3s, transform 0.3s', // Menambahkan transisi halus untuk efek hover
+    marginLeft: 'auto',
+    display: 'block',
+    transition: 'color 0.3s, transform 0.3s',
   },
   linkHover: {
-    color: '#ffcf00', // Warna biru gelap saat hover
-    transform: 'scale(1.05)', // Memberikan efek sedikit membesar saat hover
+    color: '#ffcf00',
+    transform: 'scale(1.05)',
+  },
+  cardContainer: {
+    display: 'flex',
+    flexWrap: 'wrap', // Membuat elemen melipat jika lebar habis
+    gap: '20px', // Jarak antar elemen
+    justifyContent: 'flex-start', // Elemen dimulai dari kiri
   },
 };
 

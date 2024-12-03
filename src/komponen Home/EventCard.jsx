@@ -1,17 +1,24 @@
-import React from 'react';
-import { UilCalendarAlt, UilMapMarkerAlt } from '@iconscout/react-unicons';
+import React from "react";
+import { UilCalendarAlt, UilMapMarkerAlt } from "@iconscout/react-unicons";
+import { useNavigate } from "react-router-dom";
 
 const formatCurrency = (number) => {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
     minimumFractionDigits: 0,
   }).format(number);
 };
 
-const EventCard = ({ title, date, location, price, image }) => {
+const EventCard = ({ id, title, date, location, price, image }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/event/${id}`); // Navigasi ke detail acara berdasarkan id
+  };
+
   return (
-    <div style={styles.card}>
+    <div style={styles.card} onClick={handleCardClick}>
       <div style={styles.imageContainer}>
         <img src={image} alt={title} style={styles.image} />
       </div>
@@ -37,80 +44,85 @@ const EventCard = ({ title, date, location, price, image }) => {
     </div>
   );
 };
+
 const styles = {
   card: {
-    width: '310px',
-    height: '470px',
-    border: '1px solid #ddd',
-    borderRadius: '8px',
-    overflow: 'hidden',
-    fontFamily: 'Arial, sans-serif',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#fff',
+    width: "310px",
+    height: "470px",
+    border: "1px solid #ddd",
+    borderRadius: "8px",
+    overflow: "hidden",
+    fontFamily: "Arial, sans-serif",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: "#fff",
+    cursor: "pointer", // Menambahkan pointer untuk menunjukkan kartu dapat diklik
+    transition: "transform 0.2s", // Efek hover
   },
-  
+  cardHover: {
+    transform: "scale(1.03)", // Efek zoom saat hover
+  },
   imageContainer: {
-    height: '200px',
-    backgroundColor: '#f4f4f4',
+    height: "200px",
+    backgroundColor: "#f4f4f4",
   },
   image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
   },
   content: {
-    padding: '15px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    padding: "15px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
     flexGrow: 1,
   },
   title: {
-    fontSize: '24px', // Ukuran font diperbesar
-    fontWeight: 'bold',
-    color: '#000',
-    marginBottom: '15px',
+    fontSize: "24px",
+    fontWeight: "bold",
+    color: "#000",
+    marginBottom: "15px",
   },
   info: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px', // Jarak antar baris tanggal dan lokasi
-    color: '#666',
-    marginTop: '20px', // Geser lebih mendekati "Mulai Dari"
+    display: "flex",
+    flexDirection: "column",
+    gap: "10px",
+    color: "#666",
+    marginTop: "20px",
   },
   infoItem: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px', // Jarak antara ikon dan teks
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
   },
   infoText: {
-    fontSize: '16px', // Ukuran font diperbesar
-    color: '#666',
+    fontSize: "16px",
+    color: "#666",
   },
   footer: {
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-end',
-    marginTop: 'auto',
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "flex-end",
+    marginTop: "auto",
   },
   price: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    color: '#000',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    color: "#000",
   },
   priceLabel: {
-    fontSize: '14px',
-    fontWeight:'Bold',
-    color: '#000',
-    marginBottom: '5px',
+    fontSize: "14px",
+    fontWeight: "bold",
+    color: "#000",
+    marginBottom: "5px",
   },
   priceValue: {
-    fontSize: '22px',
-    fontWeight: 'bold',
-    color: '#FFCF00',
+    fontSize: "22px",
+    fontWeight: "bold",
+    color: "#FFCF00",
   },
 };
 

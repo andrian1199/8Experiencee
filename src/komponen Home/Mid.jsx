@@ -13,7 +13,7 @@ const Mid = () => {
     // Jika sudah login, tampilkan data event tertentu
     if (isLoggedIn === "true") {
       setPopularEvents(eventData.slice(0, 4)); // Data pertama untuk "Yang Lagi Populer Nih!"
-      setNewEvents(eventData.slice(4, 8));     // Data berikutnya untuk "Acara Baru Nih!"
+      setNewEvents(eventData.slice(4));        // Ambil sisa data untuk "Acara Baru Nih!"
     } else {
       // Jika belum login, tampilkan placeholder kosong atau default
       setPopularEvents([]);
@@ -29,11 +29,12 @@ const Mid = () => {
           <h1 className="fw-bold mb-0 ms-3">Yang Lagi Populer Nih!</h1>
         </div>
       </div>
-      <div className="row gy-4 justify-content-center">
+      <div className="row gx-2 gy-3" style={styles.cardContainer}> {/* Mengurangi gap dengan gx-2 dan gy-3 */}
         {popularEvents.length > 0 ? (
           popularEvents.map((event) => (
-            <div key={event.id} className="col-6 col-md-4 col-lg-3">
+            <div key={event.id} className="col-6 col-md-4 col-lg-3 p-0"> {/* Menggunakan p-0 untuk mengurangi padding kolom */}
               <EventCard 
+                id={event.id}
                 title={event.title}
                 date={event.date}
                 location={event.location}
@@ -53,11 +54,12 @@ const Mid = () => {
           <h1 className="fw-bold mb-0 ms-3">Acara Baru Nih!</h1>
         </div>
       </div>
-      <div className="row gy-4 justify-content-center">
+      <div className="row gx-2 gy-3" style={styles.cardContainer}> {/* Mengurangi gap dengan gx-2 dan gy-3 */}
         {newEvents.length > 0 ? (
           newEvents.map((event) => (
-            <div key={event.id} className="col-6 col-md-4 col-lg-3">
+            <div key={event.id} className="col-6 col-md-4 col-lg-3 p-0"> {/* Menggunakan p-0 untuk mengurangi padding kolom */}
               <EventCard 
+                id={event.id}
                 title={event.title}
                 date={event.date}
                 location={event.location}
@@ -72,6 +74,15 @@ const Mid = () => {
       </div>
     </div>
   );
+};
+
+// CSS styling yang diatur sesuai kebutuhan
+const styles = {
+  cardContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start', // Untuk menjaga agar kartu-kartu tetap teratur
+  },
 };
 
 export default Mid;

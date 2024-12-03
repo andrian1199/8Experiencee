@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Import halaman
 import Home from './pages/Home';
-import DetailKonser from './pages/DetailKonser';
 import Card4 from './pages/Card4';
 import Blog from './pages/BlogPage';
 import BlogDetail from './pages/Blogdetail'; 
@@ -25,7 +24,8 @@ import ProfilePage from './pages/ProfilePage';
 import EditProfilePage from './pages/EditProfilePage'; 
 import ChangePassword from './pages/ChangePassword'; 
 import TentangKami from './pages/TentangKami';
-import Event from './pages/Event';  // Import halaman Event
+import Event from './pages/Event'; // Import halaman Event
+import EventDetail from './komponen Home/EventDetail'; // Import halaman EventDetail
 
 function App() {
   return (
@@ -37,7 +37,7 @@ function App() {
         <Route path="/tentangkami" element={<TentangKami />} />
 
         {/* Detail Konser dan Tiket */}
-        <Route path="/detail-konser" element={<DetailKonser />} />
+      
         <Route path="/card4" element={<Card4 />} />
         <Route path="/kategori" element={<Kategori />} />
         <Route path="/pilihan-tiket" element={<PilihanTiket />} />
@@ -67,7 +67,8 @@ function App() {
         <Route path="/ganti-kata-sandi" element={<ChangePassword />} />
 
         {/* Event */}
-        <Route path="/event" element={<Event />} /> {/* New Event Page */}
+        <Route path="/event" element={<Event />} /> {/* Halaman Event */}
+        <Route path="/event/:id" element={<EventDetail />} /> {/* Detail Event */}
       </Routes>
     </Router>
   );
