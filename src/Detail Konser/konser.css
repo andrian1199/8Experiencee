@@ -1,0 +1,294 @@
+/* Tombol kategori */
+.kategori-button {
+  color: black !important; /* Warna teks tombol menjadi hitam */
+  border: none !important; /* Menghilangkan border tombol */
+  background-color: transparent !important; /* Menetapkan latar belakang tombol menjadi transparan */
+  padding: 10px 20px;
+  transition: all 0.3s ease; /* Transisi halus saat hover */
+  border-radius: 20px; /* Sudut tombol sedikit bulat */
+}
+
+.kategori-button:hover {
+  background-color: #FFCF00 !important; /* Warna latar belakang saat hover */
+  color: black !important; /* Warna teks tetap hitam saat hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow saat hover */
+}
+
+/* Input dan tombol search */
+.input-group {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow hitam lebih gelap */
+  border-radius: 30px; /* Sudut lebih bulat */
+  padding: 5px 10px;
+  transition: box-shadow 0.3s ease-in-out; /* Transisi untuk shadow saat hover/focus */
+}
+
+.input-group input:focus,
+.input-group button:hover {
+  outline: none; /* Menghilangkan outline default */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Shadow lebih besar saat fokus/hover */
+}
+
+.input-group input:focus {
+  border-color: #007bff; /* Mengubah warna border saat fokus */
+}
+
+.input-group button {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow pada tombol */
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.input-group button:hover {
+  background-color: #FFCF00;
+  color: black;
+}
+
+/* Menampilkan button kategori secara fleksibel */
+.button-group {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px; /* Menambahkan jarak bawah pada button group */
+}
+
+/* Gambar kategori */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -10px; /* Menghilangkan margin antara kolom */
+}
+
+.col-12 {
+  padding: 10px; /* Jarak antar gambar */
+  flex: 0 0 25%; /* 4 gambar per baris (25% dari lebar) */
+  max-width: 25%;
+}
+
+/* Gambar responsif dan efek saat hover */
+.img-fluid {
+  width: 100%; /* Lebar gambar 100% dari kolom */
+  height: auto; /* Tinggi otomatis */
+  border-radius: 8px; /* Sudut gambar membulat */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Bayangan gambar */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasi saat hover */
+}
+
+.img-fluid:hover {
+  transform: scale(1.05); /* Memperbesar gambar saat hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Bayangan lebih besar saat hover */
+}
+
+/* Menambahkan jarak antara kategori dan gambar */
+.kategori-container {
+  padding: 20px;
+  margin-top: 30px; /* Memberikan jarak dari bagian atas */
+}
+
+/* Menambahkan jarak bawah untuk card gambar */
+.row .col-12 {
+  margin-bottom: 30px; /* Memberikan jarak antara baris gambar */
+}
+
+/* Styling untuk detail event */
+.detail-container {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Tombol kembali ke kategori */
+.btn-outline-primary {
+  margin-top: 20px;
+}
+
+/* Menghilangkan outline pada tombol yang dipilih */
+button:focus {
+  outline: none;
+  box-shadow: 0 0 5px #007bff;
+}
+
+/* Pastikan container diatur dengan Flexbox */
+.detail-container {
+  display: flex;
+  justify-content: center; /* Menyusun elemen di tengah secara horizontal */
+  align-items: center; /* Menyusun elemen di tengah secara vertikal */
+  gap: 20px; /* Memberikan jarak antar gambar dan teks */
+  flex-wrap: wrap; /* Membuat elemen dapat mengalir jika layar lebih kecil */
+}
+
+/* Gambar */
+.detail-container .img-fluid {
+  width: 100%;
+  max-width: 400px; /* Menetapkan lebar maksimum gambar */
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px; /* Memberikan jarak bawah pada gambar */
+}
+
+/* Teks detail */
+.detail-container .info {
+  max-width: 500px; /* Menetapkan lebar maksimum untuk teks */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+/* Styling untuk header dan teks */
+.info h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.info p {
+  font-size: 18px;
+  color: #555;
+}
+
+/* Penyusunan gambar dan teks secara fleksibel */
+.detail-container {
+  display: flex;               /* Menyusun elemen secara horizontal */
+  justify-content: center;     /* Menjaga elemen berada di tengah */
+  align-items: center;         /* Menjaga elemen berada di tengah secara vertikal */
+  gap: 30px;                   /* Memberikan jarak antara gambar dan teks */
+  flex-wrap: wrap;             /* Menyusun elemen jika layar kecil */
+  text-align: center;          /* Menjaga teks tetap berada di tengah */
+}
+
+/* Menyesuaikan ukuran gambar */
+.image-container img {
+  max-width: 100%;             /* Menyesuaikan gambar dengan ukuran kontainer */
+  height: auto;                /* Menjaga aspek rasio gambar */
+  border-radius: 8px;          /* Membulatkan sudut gambar */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Menambahkan bayangan pada gambar */
+  transition: transform 0.3s ease; /* Menambahkan efek hover */
+}
+
+.image-container img:hover {
+  transform: scale(1.1);       /* Memperbesar gambar saat hover */
+}
+
+/* Teks informasi yang di samping gambar */
+.text-container {
+  max-width: 500px;            /* Membatasi lebar teks */
+  display: flex;
+  flex-direction: column;      /* Menyusun teks secara vertikal */
+  align-items: center;         /* Menjaga teks di tengah */
+  text-align: center;
+}
+
+/* Responsif - Menyusun gambar dan teks secara vertikal pada layar kecil */
+@media (max-width: 768px) {
+  .detail-container {
+    flex-direction: column;  /* Mengubah susunan menjadi vertikal */
+    align-items: center;     /* Menjaga gambar dan teks tetap di tengah */
+  }
+
+  .image-container img {
+    max-width: 80%;           /* Menyesuaikan lebar gambar pada layar kecil */
+  }
+
+  .text-container {
+    text-align: center;
+  }
+}
+
+/* Kotak teks informasi */
+.info-box {
+  background-color: #f9f9f9;  /* Latar belakang lebih cerah */
+  border-radius: 12px;         /* Membulatkan sudut */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+  padding: 20px;               /* Menambah jarak dalam kotak */
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.info-box:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar saat hover */
+  transform: translateY(-5px);  /* Efek elevasi saat hover */
+}
+
+/* Kotak tiket dengan tombol */
+.price-box {
+  background-color: #fff;      /* Latar belakang putih */
+  border-radius: 12px;         /* Membulatkan sudut */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+  padding: 20px;
+  margin-top: 20px;             /* Memberikan jarak dengan elemen lain */
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.price-box:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar saat hover */
+  transform: translateY(-5px);  /* Efek elevasi saat hover */
+}
+/* Penyusunan gambar dan teks secara fleksibel */
+.detail-container {
+  display: flex;               /* Menyusun elemen secara horizontal */
+  justify-content: center;     /* Menjaga elemen berada di tengah */
+  align-items: center;         /* Menjaga elemen berada di tengah secara vertikal */
+  gap: 30px;                   /* Memberikan jarak antara gambar dan teks */
+  flex-wrap: wrap;             /* Membuat elemen dapat mengalir jika layar lebih kecil */
+  text-align: center;          /* Menjaga teks tetap berada di tengah */
+}
+
+/* Gambar */
+.detail-container .img-fluid {
+  width: 100%;
+  max-width: 400px;             /* Menetapkan lebar maksimum gambar */
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;         /* Memberikan jarak bawah pada gambar */
+}
+
+/* Teks informasi yang di samping gambar */
+.text-container {
+  max-width: 500px;            /* Membatasi lebar teks */
+  display: flex;
+  flex-direction: column;      /* Menyusun teks secara vertikal */
+  align-items: flex-start;     /* Menyusun teks ke kiri */
+  text-align: left;            /* Teks rata kiri */
+}
+
+/* Kotak teks informasi */
+.info-box {
+  background-color: #f9f9f9;  /* Latar belakang lebih cerah */
+  border-radius: 12px;         /* Membulatkan sudut */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+  padding: 20px;               /* Menambah jarak dalam kotak */
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.info-box h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px; /* Memberikan jarak antara title dan isi */
+}
+
+.info-box p {
+  font-size: 18px;
+  color: #555;
+}
+
+.info-box strong {
+  color: #333; /* Warna yang lebih gelap untuk elemen strong (judul dalam paragraf) */
+}
+
+/* Responsif - Menyusun gambar dan teks secara vertikal pada layar kecil */
+@media (max-width: 768px) {
+  .detail-container {
+    flex-direction: column;  /* Mengubah susunan menjadi vertikal */
+    align-items: center;     /* Menjaga gambar dan teks tetap di tengah */
+  }
+
+  .image-container img {
+    max-width: 80%;           /* Menyesuaikan lebar gambar pada layar kecil */
+  }
+
+  .text-container {
+    text-align: center;
+  }
+}
+

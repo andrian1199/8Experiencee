@@ -12,7 +12,6 @@ import Komunitas from './pages/Komunitas';
 import CommunityDetail from './pages/CommunityDetail';
 import PilihanTiket from './pages/Pilihantiket';
 import Pembayaran from './pages/Pembayaran';
-import Kategori from './Detail Konser/Kategori'; 
 import Tiket from './pages/Tiket';
 import Confirm from './pages/Confirm';
 import Confirm2 from './pages/Confirm2';
@@ -39,7 +38,6 @@ function App() {
         {/* Detail Konser dan Tiket */}
       
         <Route path="/card4" element={<Card4 />} />
-        <Route path="/kategori" element={<Kategori />} />
         <Route path="/pilihan-tiket" element={<PilihanTiket />} />
         <Route path="/tiket/:price" element={<Tiket />} />
 
