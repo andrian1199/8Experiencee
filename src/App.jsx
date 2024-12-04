@@ -26,6 +26,7 @@ import ChangePassword from './pages/ChangePassword';
 import TentangKami from './pages/TentangKami';
 import Event from './pages/Event'; 
 import EventDetail from './komponen Home/EventDetail'; 
+import MetodePembayaran from './pages/MetodePembayaran'; // Import baru
 
 function App() {
   return (
@@ -38,11 +39,12 @@ function App() {
 
         {/* Detail Konser dan Tiket */}
         <Route path="/card4" element={<Card4 />} />
-        <Route path="/event/:id/tiket" element={<PilihanTiket />} /> {/* Tambahkan route ini */}
+        <Route path="/event/:id/tiket" element={<PilihanTiket />} />
         <Route path="/tiket/:price" element={<Tiket />} />
 
         {/* Pembayaran */}
         <Route path="/pembayaran" element={<Pembayaran />} />
+        <Route path="/metode-pembayaran" element={<MetodePembayaran />} /> {/* Rute baru */}
         <Route path="/confirm" element={<Confirm />} />
         <Route path="/confirm2" element={<Confirm2 />} />
 

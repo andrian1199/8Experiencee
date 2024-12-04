@@ -1,9 +1,10 @@
 import React, { useState } from "react"; 
 import EventData from "../data/EventData";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const PilihanTiket = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const event = EventData.find((event) => event.id === parseInt(id));
 
   const [selectedTickets, setSelectedTickets] = useState(
@@ -28,6 +29,22 @@ const PilihanTiket = () => {
 
   const handleClosePopup = () => {
     setShowPopup(false);
+  };
+
+  const handleConfirmPurchase = () => {
+    const totalPrice = selectedTickets.reduce((sum, ticket) => {
+      const ticketInfo = event.tickets.find((t) => t.type === ticket.type);
+      return sum + ticket.quantity * ticketInfo.price;
+    }, 0);
+    
+    // Navigasi ke MetodePembayaran
+    navigate(`/metode-pembayaran`, {
+      state: { 
+        eventDetail: event, 
+        selectedTickets, 
+        totalPrice 
+      }
+    });
   };
 
   const totalTickets = selectedTickets.reduce((sum, ticket) => sum + ticket.quantity, 0);
@@ -80,7 +97,6 @@ const PilihanTiket = () => {
             <h3>Konfirmasi</h3>
             <p>E-Tiket Anda akan dikirimkan ke:</p>
             <p>Email: <strong>kelompok8b@celerates.com</strong></p>
-            <p>WhatsApp: <strong>kelompok8b@celerates.com</strong></p>
             <p>List item yang dibeli:</p>
             {purchasedTickets.map((ticket) => (
               <div key={ticket.type}>
@@ -92,7 +108,7 @@ const PilihanTiket = () => {
             <p>Anda yakin ingin melanjutkan?</p>
             <div style={styles.popupActions}>
               <button style={styles.cancelButton} onClick={handleClosePopup}>Batalkan</button>
-              <button style={styles.confirmButton}>Lanjutkan</button>
+              <button style={styles.confirmButton} onClick={handleConfirmPurchase}>Lanjutkan</button>
             </div>
           </div>
         </div>
