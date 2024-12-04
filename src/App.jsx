@@ -12,6 +12,7 @@ import Komunitas from './pages/Komunitas';
 import CommunityDetail from './pages/CommunityDetail';
 import PilihanTiket from './pages/Pilihantiket';
 import Pembayaran from './pages/Pembayaran';
+import Kategori from './Detail Konser/Kategori'; 
 import Tiket from './pages/Tiket';
 import Confirm from './pages/Confirm';
 import Confirm2 from './pages/Confirm2';
@@ -23,8 +24,8 @@ import ProfilePage from './pages/ProfilePage';
 import EditProfilePage from './pages/EditProfilePage'; 
 import ChangePassword from './pages/ChangePassword'; 
 import TentangKami from './pages/TentangKami';
-import Event from './pages/Event'; // Import halaman Event
-import EventDetail from './komponen Home/EventDetail'; // Import halaman EventDetail
+import Event from './pages/Event'; 
+import EventDetail from './komponen Home/EventDetail'; 
 
 function App() {
   return (
@@ -36,9 +37,8 @@ function App() {
         <Route path="/tentangkami" element={<TentangKami />} />
 
         {/* Detail Konser dan Tiket */}
-      
         <Route path="/card4" element={<Card4 />} />
-        <Route path="/pilihan-tiket" element={<PilihanTiket />} />
+        <Route path="/event/:id/tiket" element={<PilihanTiket />} /> {/* Tambahkan route ini */}
         <Route path="/tiket/:price" element={<Tiket />} />
 
         {/* Pembayaran */}
@@ -65,8 +65,8 @@ function App() {
         <Route path="/ganti-kata-sandi" element={<ChangePassword />} />
 
         {/* Event */}
-        <Route path="/event" element={<Event />} /> {/* Halaman Event */}
-        <Route path="/event/:id" element={<EventDetail />} /> {/* Detail Event */}
+        <Route path="/event" element={<Event />} />
+        <Route path="/event/:id" element={<EventDetail />} />
       </Routes>
     </Router>
   );

@@ -1,45 +1,115 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import communityData from "../data/CommunityData";
-import "../styles/CommunityDetailPage.css"; // Pastikan CSS sudah diimpor
+import Navigasi from "../komponen Home/Navigasi"; // Import navigasi
 
 const CommunityDetail = () => {
-  // Mengambil parameter 'id' dari URL
   const { id } = useParams();
-
-  // Mencari data komunitas berdasarkan id
+  const navigate = useNavigate(); // Hook untuk navigasi
   const community = communityData.find((item) => item.id === id);
 
-  // Jika komunitas tidak ditemukan, tampilkan pesan
   if (!community) {
     return <div>Community not found.</div>;
   }
 
+  // Objek gaya inline
+  const styles = {
+    container: {
+      maxWidth: "800px",
+      margin: "20px auto",
+      padding: "0 20px",
+      marginTop: "150px", // Tambahkan margin agar tidak tertutup navbar
+      position: "relative", // Menambahkan position relative pada container
+    },
+    backButton: {
+      fontSize: "1rem",
+      fontStyle: "italic",
+      textDecoration: "underline",
+      color: "#212121",
+      cursor: "pointer",
+      marginTop: "20px",
+      marginBottom: "20px",
+      display: "inline-block",
+      position: "absolute", // Posisi absolute untuk menempatkan tombol di atas gambar
+      top: "-50px", // Posisikan tombol di atas
+      left: "45px", // Posisikan tombol di kiri
+    },
+    backButtonHover: {
+      color: "#ffc107", // Warna kuning saat hover
+    },
+    img: {
+      width: "94%",
+      height: "auto",
+      maxWidth: "800px",
+      display: "block",
+      margin: "20px auto",
+    },
+    contentWrapper: {
+      width: "94%",
+      maxWidth: "800px",
+      margin: "0 auto",
+      textAlign: "left",
+    },
+    title: {
+      fontSize: "2rem",
+      fontWeight: "bold",
+      color: "#212121",
+      marginBottom: "25px",
+    },
+    description: {
+      fontSize: "1rem",
+      color: "#212121",
+      marginBottom: "20px",
+    },
+    whatsappButton: {
+      display: "inline-block",
+      padding: "10px 20px",
+      fontSize: "1rem",
+      fontWeight: "bold",
+      backgroundColor: "#ffc107",
+      border: "none",
+      borderRadius: "40px",
+      color: "#212121",
+      textDecoration: "none",
+      marginTop: "20px",
+      textAlign: "center",
+    },
+  };
+
   return (
-    <div className="container mt-5 komunitas-content">
-      {/* Menampilkan gambar komunitas */}
-      <img
-        src={community.img}
-        alt={community.title}
-        className="img-fluid komunitas-img"
-      />
-      
-      <div className="content-wrapper">
-        {/* Judul komunitas */}
-        <h2 className="komunitas-title">{community.title}</h2>
+    <div>
+      {/* Tambahkan Navigasi di bagian atas */}
+      <Navigasi />
 
-        {/* Konten deskripsi komunitas */}
-        <p className="komunitas-description">{community.content}</p>
-
-        {/* Tombol untuk gabung WhatsApp */}
-        <a
-          href={community.whatsappLink}
-          className="btn btn-warning komunitas-whatsapp"
-          target="_blank"
-          rel="noopener noreferrer"
+      {/* Konten detail komunitas */}
+      <div style={styles.container}>
+        {/* Tombol Kembali */}
+        <span
+          style={styles.backButton}
+          onMouseEnter={(e) => (e.target.style.color = styles.backButtonHover.color)}
+          onMouseLeave={(e) => (e.target.style.color = styles.backButton.color)}
+          onClick={() => navigate(-1)} // Kembali ke halaman sebelumnya
         >
-          Gabung WhatsApp Group
-        </a>
+          Kembali
+        </span>
+
+        <img
+          src={community.img}
+          alt={community.title}
+          style={styles.img}
+        />
+        <div style={styles.contentWrapper}>
+          <h2 style={styles.title}>{community.title}</h2>
+          <p style={styles.description}>{community.content}</p>
+          <a
+            href={community.whatsappLink}
+            style={styles.whatsappButton}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Gabung WhatsApp Group
+          </a>
+        </div>
       </div>
     </div>
   );

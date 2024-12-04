@@ -68,7 +68,10 @@ const EventDetail = () => {
                 {new Intl.NumberFormat("id-ID").format(event.price)}
               </p>
             </div>
-            <button style={styles.button}>Beli Tiket</button>
+            <button style={styles.button} onClick={() => navigate(`/event/${event.id}/tiket`)}>
+              Beli Tiket
+            </button>
+
             <div style={styles.share}>
               <p>Bagikan Event:</p>
               <button style={styles.shareButton}>Facebook</button>

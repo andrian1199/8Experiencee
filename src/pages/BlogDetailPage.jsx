@@ -12,8 +12,27 @@ const BlogDetailPage = () => {
   }
 
   return (
-    <div className="container blog-detail">
-      <a href="/blog" className="btn btn-link text-dark mb-3">← Kembali</a>
+    <div className="container blog-detail" style={{ padding: '20px' }}>
+      {/* Tombol Kembali dengan gaya yang mirip detail komunitas */}
+      <a
+        href="/blog"
+        style={{
+          fontSize: '1rem',
+          fontStyle: 'italic',
+          textDecoration: 'underline',
+          color: '#212121',
+          cursor: 'pointer',
+          marginBottom: '20px',
+          display: 'inline-block',
+          padding: '10px 20px',
+          borderRadius: '4px',
+          marginLeft: '-10px', // Memindahkan tombol sedikit ke kiri
+        }}
+        onMouseEnter={(e) => (e.target.style.color = '#ffc107')} // Gaya hover
+        onMouseLeave={(e) => (e.target.style.color = '#212121')} // Kembali ke warna semula
+      >
+        ← Kembali
+      </a>
 
       <div className="d-flex align-items-center mb-3">
         <span className="badge bg-warning text-dark" style={{ borderRadius: '50px', padding: '0.4em 0.8em' }}>
