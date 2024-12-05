@@ -3,6 +3,11 @@ import "typeface-inter";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Import halaman
+import LoginAdmin from './Admin/LoginAdmin';
+import AdminProfile from './Admin/AdminProfile';
+import Dashboard from './Admin/Dashboard';
+import EventList from './Admin/EventList';
+import OrderPage from './Admin/OrderPage';
 import Home from './pages/Home';
 import Card4 from './pages/Card4';
 import Blog from './pages/BlogPage';
@@ -32,6 +37,17 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Halaman Admin */}
+        <Route path="/admin/login" element={<LoginAdmin />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/admin/event-list" element={<EventList />} />
+        {/* Route untuk OrderPage */}
+        <Route path="/admin/orders" element={<OrderPage />} />  {/* Menambahkan route untuk halaman pesanan */}
+        {/* Route untuk Event List */}
+        <Route path="/admin/profile" element={<AdminProfile />} />
+        
+
+
         {/* Halaman Utama */}
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />

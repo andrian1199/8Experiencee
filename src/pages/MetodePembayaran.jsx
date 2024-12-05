@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 const MetodePembayaran = () => {
   const { state } = useLocation();
-  const { eventDetail, selectedTickets, totalPrice } = state || {};
+  const { eventDetail = {}, selectedTickets = [], totalPrice = 0 } = state || {};
 
   const [selectedMethod, setSelectedMethod] = useState("");
 
@@ -16,47 +16,70 @@ const MetodePembayaran = () => {
   };
 
   return (
-    <div style={styles.container}>
-      {/* Kontainer Kiri */}
-      <div style={styles.leftContainer}>
-        <h3>Pilih Metode Pembayaran</h3>
-        <div style={styles.paymentOption}>
-          <input
-            type="radio"
-            id="qris"
-            name="payment"
-            value="QRIS"
-            onChange={(e) => setSelectedMethod(e.target.value)}
-          />
-          <label htmlFor="qris" style={styles.label}>
-            QRIS
-          </label>
-        </div>
-        <div style={styles.paymentOption}>
-          <input
-            type="radio"
-            id="bank"
-            name="payment"
-            value="Bank Transfer"
-            onChange={(e) => setSelectedMethod(e.target.value)}
-          />
-          <label htmlFor="bank" style={styles.label}>
-            Bank Transfer
-          </label>
-        </div>
+    <div style={styles.pageContainer}>
+      {/* Header */}
+      <div style={styles.header}>
+        <h2>Metode Pembayaran</h2>
       </div>
 
-      {/* Kontainer Kanan */}
-      <div style={styles.rightContainer}>
-        <h3>Detail Pesanan</h3>
-        <p><strong>Acara:</strong> {eventDetail.title}</p>
-        <p><strong>Tanggal:</strong> {eventDetail.date}</p>
-        <p><strong>Lokasi:</strong> {eventDetail.location}</p>
-        <p><strong>Jumlah Tiket:</strong> {selectedTickets.reduce((sum, ticket) => sum + ticket.quantity, 0)}</p>
-        <p><strong>Total Harga:</strong> {formatCurrency(totalPrice)}</p>
-      </div>
+      <div style={styles.container}>
+        {/* Kontainer Kiri */}
+        <div style={styles.leftContainer}>
+          <h3 style={styles.sectionTitle}>Metode Pembayaran</h3>
+          <div
+            style={{
+              ...styles.paymentOption,
+              ...(selectedMethod === "QRIS" ? styles.selectedOption : {}),
+            }}
+            onClick={() => setSelectedMethod("QRIS")}
+          >
+            <img
+              src="/assets/qris.png"
+              alt="QRIS"
+              style={styles.icon}
+            />
+            <span>QRIS</span>
+          </div>
+          <div
+            style={{
+              ...styles.paymentOption,
+              ...(selectedMethod === "BCA" ? styles.selectedOption : {}),
+            }}
+            onClick={() => setSelectedMethod("BCA")}
+          >
+            <img
+              src="/assets/bca.png"
+              alt="BCA"
+              style={styles.icon}
+            />
+            <span>BCA</span>
+          </div>
+        </div>
 
-      <button style={styles.button} onClick={handleCheckout}>Bayar</button>
+        {/* Kontainer Kanan */}
+        <div style={styles.rightContainer}>
+          <h3 style={styles.sectionTitle}>Detail Pesanan</h3>
+          <p>
+            <strong>Acara:</strong> {eventDetail.title || "Nama Acara"}
+          </p>
+          <p>
+            <strong>Tanggal:</strong> {eventDetail.date || "Tanggal Acara"}
+          </p>
+          <p>
+            <strong>Lokasi:</strong> {eventDetail.location || "Lokasi Acara"}
+          </p>
+          <p>
+            <strong>Jumlah Tiket:</strong>{" "}
+            {selectedTickets.reduce((sum, ticket) => sum + ticket.quantity, 0) || 1}
+          </p>
+          <p>
+            <strong>Total Harga:</strong> {formatCurrency(totalPrice)}
+          </p>
+          <button style={styles.button} onClick={handleCheckout}>
+            Checkout
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
@@ -70,36 +93,71 @@ const formatCurrency = (number) => {
 };
 
 const styles = {
+  pageContainer: {
+    padding: "70px",
+    fontFamily: "Arial, sans-serif",
+    backgroundColor: "#F9F9F9",
+    minHeight: "100vh",
+  },
+  header: {
+    marginBottom: "20px",
+    fontWeight: "700",
+  },
   container: {
     display: "flex",
     justifyContent: "space-between",
-    padding: "20px",
-    fontFamily: "Arial, sans-serif",
   },
   leftContainer: {
-    width: "45%",
+    width: "63%",
+    padding: "20px",
+    backgroundColor: "#FFF",
+    borderRadius: "10px",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
   },
   rightContainer: {
-    width: "45%",
-    border: "1px solid #ccc",
-    padding: "10px",
-    borderRadius: "5px",
+    width: "35%",
+    padding: "20px",
+    backgroundColor: "#FFF",
+    borderRadius: "10px",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+  },
+  sectionTitle: {
+    fontSize: "20px",
+    marginBottom: "20px",
+    fontWeight: "700",
   },
   paymentOption: {
     display: "flex",
     alignItems: "center",
+    justifyContent: "space-between",
+    padding: "15px",
+    border: "1px solid #DDD",
+    borderRadius: "10px",
     marginBottom: "10px",
+    cursor: "pointer",
+    backgroundColor: "#FFF",
+    transition: "all 0.3s",
   },
-  label: {
-    marginLeft: "10px",
+  selectedOption: {
+    backgroundColor: "#FFCF00",
+    color: "#000",
+    border: "1px solid #FFCF00",
+  },
+  icon: {
+    height: "30px",
+    marginRight: "10px",
   },
   button: {
+    width: "100%",
+    padding: "15px",
     backgroundColor: "#FFCF00",
     color: "#000",
     border: "none",
-    padding: "10px 20px",
-    cursor: "pointer",
+    borderRadius: "40px",
     fontWeight: "bold",
+    fontSize: "16px",
+    cursor: "pointer",
+    marginTop: "20px",
   },
 };
 

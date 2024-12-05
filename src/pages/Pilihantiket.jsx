@@ -1,4 +1,4 @@
-import React, { useState } from "react"; 
+import React, { useState } from "react";
 import EventData from "../data/EventData";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -36,8 +36,7 @@ const PilihanTiket = () => {
       const ticketInfo = event.tickets.find((t) => t.type === ticket.type);
       return sum + ticket.quantity * ticketInfo.price;
     }, 0);
-    
-    // Navigasi ke MetodePembayaran
+
     navigate(`/metode-pembayaran`, {
       state: { 
         eventDetail: event, 
@@ -61,7 +60,12 @@ const PilihanTiket = () => {
       <div style={styles.ticketList}>
         {event.tickets.map((ticket) => (
           <div key={ticket.type} style={styles.ticketItem}>
-            <span>{ticket.type} - {formatCurrency(ticket.price)}</span>
+            <div>
+              <span style={styles.ticketTitle}>
+                {ticket.type} - {formatCurrency(ticket.price)}
+              </span>
+              <p style={styles.benefits}>{ticket.benefits}</p>
+            </div>
             <div style={styles.quantityControls}>
               <button
                 style={styles.buttonControl}
@@ -138,9 +142,18 @@ const styles = {
     justifyContent: "space-between",
     marginBottom: "10px",
     alignItems: "center",
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#f5f5f5",
     padding: "10px",
     borderRadius: "8px",
+  },
+  ticketTitle: {
+    fontSize: "18px",
+    fontWeight: "bold",
+  },
+  benefits: {
+    fontSize: "14px",
+    color: "#555",
+    marginTop: "5px",
   },
   quantityControls: {
     display: "flex",

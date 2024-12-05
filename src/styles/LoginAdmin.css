@@ -1,0 +1,87 @@
+/* Container utama */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  /* Box login */
+  .login-box {
+    display: flex;
+    width: 70%;
+    max-width: 900px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  /* Bagian kiri - Form login */
+  .login-left {
+    flex: 1;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .logo {
+    width: 120px;
+    margin-bottom: 20px;
+  }
+  
+  .login-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .forgot-password {
+    color: #000;
+    font-size: 14px;
+    text-decoration: none;
+  }
+  
+  .forgot-password:hover {
+    text-decoration: underline;
+  }
+  
+  /* Bagian kanan - Ilustrasi */
+  .login-right {
+    flex: 1;
+    background-color: #fff3cd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 2px solid #ddd;
+  }
+  
+  .illustration {
+    width: 70%; 
+    max-width: 300px; 
+    height: auto; 
+  }
+  
+  
+  /* Tombol login */
+  .btn-warning {
+    background-color: #ffc107;
+    color: black;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    width: 100%;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+  
+  .btn-warning:hover {
+    background-color: #e0a800;
+    color: white;
+  }
+  

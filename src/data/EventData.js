@@ -11,12 +11,23 @@ const EventData = [
     description: "Nikmati malam penuh kebahagiaan dengan hits terbaik dari Bernadya di Surabaya. Jangan lewatkan momen spesial ini!",
     additionalImages: ["/assets/soddetail.png"],
     tickets: [
-      { type: "Regular", price: 109000 },
-      { type: "VIP", price: 300000 },
-      { type: "VVIP", price: 500000 },
+      { 
+        type: "Regular", 
+        price: 109000, 
+        benefits: "Tiket masuk saja." 
+      },
+      { 
+        type: "VIP", 
+        price: 300000, 
+        benefits: "Tiket masuk dan akses VIP lounge." 
+      },
+      { 
+        type: "VVIP", 
+        price: 500000, 
+        benefits: "Tiket masuk, akses VIP lounge, dan merchandise eksklusif." 
+      },
     ],
   },
-  // Tambahkan event lainnya...
 ];
 
 export default EventData;
