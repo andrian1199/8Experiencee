@@ -2,7 +2,7 @@ const EventData = [
   {
     id: 1,
     title: "Sound of Downtown Volume 6 Surabaya",
-    date: "4 - 5 Agustus 2024",
+    date: "4 - 5 Agustus 2024", 
     location: "Surabaya",
     price: 109000,
     image: "/assets/sod.png",
@@ -14,21 +14,23 @@ const EventData = [
       { 
         type: "Regular", 
         price: 109000, 
-        benefits: "Tiket masuk saja." 
+        benefits: "Tiket masuk saja.", 
+        stock: 10 // Tambahkan stok tiket
       },
       { 
         type: "VIP", 
         price: 300000, 
-        benefits: "Tiket masuk dan akses VIP lounge." 
+        benefits: "Tiket masuk dan akses VIP lounge.", 
+        stock: 5
       },
       { 
         type: "VVIP", 
         price: 500000, 
-        benefits: "Tiket masuk, akses VIP lounge, dan merchandise eksklusif." 
+        benefits: "Tiket masuk, akses VIP lounge, dan merchandise eksklusif.", 
+        stock: 2
       },
     ],
   },
-
   {
     id: 2,
     title: "Tunggu Aku di Bandung",
@@ -44,12 +46,14 @@ const EventData = [
       { 
         type: "Reguler", 
         price: 300000, 
-        benefits: "Tiket masuk dan akses VIP lounge." 
+        benefits: "Tiket masuk dan akses VIP lounge.", 
+        stock: 8
       },
       { 
         type: "VIP", 
         price: 500000, 
-        benefits: "Tiket masuk, akses VIP lounge, dan merchandise eksklusif." 
+        benefits: "Tiket masuk, akses VIP lounge, dan merchandise eksklusif.", 
+        stock: 3
       },
     ],
   },

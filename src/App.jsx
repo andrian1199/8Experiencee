@@ -32,6 +32,8 @@ import TentangKami from './pages/TentangKami';
 import Event from './pages/Event'; 
 import EventDetail from './komponen Home/EventDetail'; 
 import MetodePembayaran from './pages/MetodePembayaran'; // Import baru
+import KonfirmasiPesanan from './pages/KonfirmasiPesanan';
+import StatusPembayaran from './pages/StatusPembayaran';
 
 function App() {
   return (
@@ -61,6 +63,8 @@ function App() {
         {/* Pembayaran */}
         <Route path="/pembayaran" element={<Pembayaran />} />
         <Route path="/metode-pembayaran" element={<MetodePembayaran />} /> {/* Rute baru */}
+        <Route path="/konfirmasi-pesanan" element={<KonfirmasiPesanan />} />
+        <Route path="/status-pembayaran" element={<StatusPembayaran />} />
         <Route path="/confirm" element={<Confirm />} />
         <Route path="/confirm2" element={<Confirm2 />} />
 

@@ -1,29 +1,35 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const MetodePembayaran = () => {
   const { state } = useLocation();
   const { eventDetail = {}, selectedTickets = [], totalPrice = 0 } = state || {};
 
   const [selectedMethod, setSelectedMethod] = useState("");
+  const navigate = useNavigate();
 
   const handleCheckout = () => {
     if (!selectedMethod) {
       alert("Silakan pilih metode pembayaran!");
       return;
     }
-    alert(`Anda memilih metode pembayaran: ${selectedMethod}`);
+    navigate("/konfirmasi-pesanan", {
+      state: {
+        eventDetail,
+        selectedTickets,
+        totalPrice,
+        selectedMethod,
+      },
+    });
   };
 
   return (
     <div style={styles.pageContainer}>
-      {/* Header */}
       <div style={styles.header}>
         <h2>Metode Pembayaran</h2>
       </div>
 
       <div style={styles.container}>
-        {/* Kontainer Kiri */}
         <div style={styles.leftContainer}>
           <h3 style={styles.sectionTitle}>Metode Pembayaran</h3>
           <div
@@ -48,7 +54,6 @@ const MetodePembayaran = () => {
           </div>
         </div>
 
-        {/* Kontainer Kanan */}
         <div style={styles.rightContainer}>
           <h3 style={styles.sectionTitle}>Detail Pesanan</h3>
           <p>
@@ -154,14 +159,6 @@ const styles = {
     fontSize: "16px",
     cursor: "pointer",
     marginTop: "20px",
-  },
-  "@media (max-width: 768px)": {
-    container: {
-      flexDirection: "column",
-    },
-    leftContainer: {
-      marginBottom: "20px",
-    },
   },
 };
 

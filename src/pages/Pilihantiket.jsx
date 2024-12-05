@@ -17,14 +17,24 @@ const PilihanTiket = () => {
     setSelectedTickets((prev) =>
       prev.map((ticket) =>
         ticket.type === type
-          ? { ...ticket, quantity: Math.max(0, ticket.quantity + change) }
+          ? {
+              ...ticket,
+              quantity: Math.min(
+                Math.max(0, ticket.quantity + change),
+                event.tickets.find((t) => t.type === type).stock
+              ),
+            }
           : ticket
       )
     );
   };
 
   const handlePurchase = () => {
-    setShowPopup(true);
+    if (selectedTickets.some((ticket) => ticket.quantity > 0)) {
+      setShowPopup(true);
+    } else {
+      alert("Pilih setidaknya 1 tiket untuk melanjutkan!");
+    }
   };
 
   const handleClosePopup = () => {
@@ -42,7 +52,7 @@ const PilihanTiket = () => {
         eventDetail: event, 
         selectedTickets, 
         totalPrice 
-      }
+      },
     });
   };
 
@@ -65,12 +75,15 @@ const PilihanTiket = () => {
                 {ticket.type} - {formatCurrency(ticket.price)}
               </span>
               <p style={styles.benefits}>{ticket.benefits}</p>
+              <p style={styles.stock}>Stok Tersisa: {ticket.stock}</p>
             </div>
             <div style={styles.quantityControls}>
               <button
                 style={styles.buttonControl}
                 onClick={() => handleQuantityChange(ticket.type, -1)}
-                disabled={selectedTickets.find((t) => t.type === ticket.type).quantity === 0}
+                disabled={
+                  selectedTickets.find((t) => t.type === ticket.type).quantity === 0
+                }
               >
                 -
               </button>
@@ -80,6 +93,10 @@ const PilihanTiket = () => {
               <button
                 style={styles.buttonControl}
                 onClick={() => handleQuantityChange(ticket.type, 1)}
+                disabled={
+                  selectedTickets.find((t) => t.type === ticket.type).quantity >=
+                  ticket.stock
+                }
               >
                 +
               </button>
@@ -99,8 +116,6 @@ const PilihanTiket = () => {
         <div style={styles.popupOverlay}>
           <div style={styles.popup}>
             <h3>Konfirmasi</h3>
-            <p>E-Tiket Anda akan dikirimkan ke:</p>
-            <p>Email: <strong>kelompok8b@celerates.com</strong></p>
             <p>List item yang dibeli:</p>
             {purchasedTickets.map((ticket) => (
               <div key={ticket.type}>
@@ -111,8 +126,12 @@ const PilihanTiket = () => {
             ))}
             <p>Anda yakin ingin melanjutkan?</p>
             <div style={styles.popupActions}>
-              <button style={styles.cancelButton} onClick={handleClosePopup}>Batalkan</button>
-              <button style={styles.confirmButton} onClick={handleConfirmPurchase}>Lanjutkan</button>
+              <button style={styles.cancelButton} onClick={handleClosePopup}>
+                Batalkan
+              </button>
+              <button style={styles.confirmButton} onClick={handleConfirmPurchase}>
+                Lanjutkan
+              </button>
             </div>
           </div>
         </div>
@@ -162,6 +181,10 @@ const styles = {
     fontSize: "14px",
     color: "#555",
     marginTop: "5px",
+  },
+  stock: {
+    fontSize: "12px",
+    color: "#888",
   },
   quantityControls: {
     display: "flex",

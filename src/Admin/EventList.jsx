@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import EventAdmin from "../data/EventAdmin";
+
 import { Link } from "react-router-dom";
 import "../styles/Admin.css";
 
