@@ -56,7 +56,7 @@ const PilihanTiket = () => {
 
   return (
     <div style={styles.container}>
-      <h2>{`Pilih Tiket untuk ${event.title}`}</h2>
+      <h2 style={styles.title}>{`Pilih Tiket untuk ${event.title}`}</h2>
       <div style={styles.ticketList}>
         {event.tickets.map((ticket) => (
           <div key={ticket.type} style={styles.ticketItem}>
@@ -131,16 +131,24 @@ const formatCurrency = (number) => {
 
 const styles = {
   container: {
-    padding: "30px 15%",
+    padding: "100px",
     fontFamily: "Arial, sans-serif",
+  },
+  title: {
+    textAlign: "center",
+    marginBottom: "20px",
+    fontSize: "24px",
+    fontWeight: "bold",
   },
   ticketList: {
     marginBottom: "20px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "15px",
   },
   ticketItem: {
     display: "flex",
     justifyContent: "space-between",
-    marginBottom: "10px",
     alignItems: "center",
     backgroundColor: "#f5f5f5",
     padding: "10px",
@@ -175,6 +183,7 @@ const styles = {
   summary: {
     marginTop: "20px",
     fontWeight: "bold",
+    textAlign: "center",
   },
   button: {
     width: "100%",
@@ -200,7 +209,8 @@ const styles = {
     backgroundColor: "#fff",
     padding: "20px",
     borderRadius: "10px",
-    width: "400px",
+    width: "90%",
+    maxWidth: "400px",
     textAlign: "center",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   },

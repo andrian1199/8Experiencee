@@ -33,11 +33,7 @@ const MetodePembayaran = () => {
             }}
             onClick={() => setSelectedMethod("QRIS")}
           >
-            <img
-              src="/assets/qris.png"
-              alt="QRIS"
-              style={styles.icon}
-            />
+            <img src="/assets/qris.png" alt="QRIS" style={styles.icon} />
             <span>QRIS</span>
           </div>
           <div
@@ -47,11 +43,7 @@ const MetodePembayaran = () => {
             }}
             onClick={() => setSelectedMethod("BCA")}
           >
-            <img
-              src="/assets/bca.png"
-              alt="BCA"
-              style={styles.icon}
-            />
+            <img src="/assets/bca.png" alt="BCA" style={styles.icon} />
             <span>BCA</span>
           </div>
         </div>
@@ -94,7 +86,7 @@ const formatCurrency = (number) => {
 
 const styles = {
   pageContainer: {
-    padding: "70px",
+    padding: "100px",
     fontFamily: "Arial, sans-serif",
     backgroundColor: "#F9F9F9",
     minHeight: "100vh",
@@ -106,20 +98,24 @@ const styles = {
   container: {
     display: "flex",
     justifyContent: "space-between",
+    gap: "20px",
+    flexWrap: "wrap",
   },
   leftContainer: {
-    width: "63%",
+    flex: "1 1 60%",
     padding: "20px",
     backgroundColor: "#FFF",
     borderRadius: "10px",
     boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+    minWidth: "300px",
   },
   rightContainer: {
-    width: "35%",
+    flex: "1 1 35%",
     padding: "20px",
     backgroundColor: "#FFF",
     borderRadius: "10px",
     boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+    minWidth: "300px",
   },
   sectionTitle: {
     fontSize: "20px",
@@ -158,6 +154,14 @@ const styles = {
     fontSize: "16px",
     cursor: "pointer",
     marginTop: "20px",
+  },
+  "@media (max-width: 768px)": {
+    container: {
+      flexDirection: "column",
+    },
+    leftContainer: {
+      marginBottom: "20px",
+    },
   },
 };
 
