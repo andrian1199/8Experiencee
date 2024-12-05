@@ -1,27 +1,30 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import rectangle7 from "../assets/Rectangle 7.png";
 import unsplashImage from "../assets/unsplash_TZCppMjaOHU.svg";
 
-const Komunitas = () => {
+const BlogKomunitas = () => {
   const [hover, setHover] = useState(false);
+  const navigate = useNavigate();
 
   const styles = {
     container: {
       display: "flex",
       flexDirection: "column",
       gap: "2rem",
-      padding: "8rem",
+      padding: "5rem 10rem",
       backgroundColor: "#f9f9f9",
     },
     header: {
       textAlign: "center",
-      fontSize: "2.5rem",
+      fontSize: "2rem",
       fontWeight: "bold",
       color: "#333",
       marginBottom: "2rem",
     },
     section: {
       display: "flex",
+      flexDirection: "row",
       alignItems: "center",
       gap: "2rem",
       backgroundColor: "white",
@@ -33,8 +36,9 @@ const Komunitas = () => {
       flexDirection: "row-reverse",
     },
     image: {
-      width: "495px",
-      height: "425px",
+      width: "100%",
+      maxWidth: "495px",
+      height: "auto",
       objectFit: "cover",
       borderRadius: "12px",
     },
@@ -44,6 +48,8 @@ const Komunitas = () => {
       flexDirection: "column",
       gap: "1rem",
       justifyContent: "center",
+      alignItems: "flex-start",
+      textAlign: "left", // Pastikan teks tetap kiri
     },
     title: {
       fontSize: "1.8rem",
@@ -70,35 +76,33 @@ const Komunitas = () => {
       color: "#000",
       transition: "background-color 0.3s ease",
     },
-    // Media Queries
+    // Media Queries untuk Responsivitas
     "@media (max-width: 768px)": {
-      container: {
-        padding: "2rem",
-        gap: "1.5rem",
-      },
       section: {
         flexDirection: "column",
-        alignItems: "center",
-        padding: "1.5rem",
+        textAlign: "left", // Tetap kiri
+        alignItems: "flex-start", // Pastikan teks tetap kiri
       },
-      image: {
-        width: "100%",
-        height: "auto",
+      reverseSection: {
+        flexDirection: "column",
+      },
+    },
+    "@media (max-width: 480px)": {
+      header: {
+        fontSize: "1.8rem",
       },
       title: {
         fontSize: "1.5rem",
-        textAlign: "center",
       },
       paragraph: {
-        fontSize: "1rem",
-        textAlign: "center",
+        fontSize: "0.9rem",
       },
-      buttonContainer: {
-        justifyContent: "center",
+      button: {
+        fontSize: "0.9rem",
+        padding: "0.7rem 1.2rem",
       },
     },
   };
-  
 
   return (
     <div style={styles.container}>
@@ -122,6 +126,7 @@ const Komunitas = () => {
               style={styles.button}
               onMouseEnter={() => setHover(true)}
               onMouseLeave={() => setHover(false)}
+              onClick={() => navigate("/komunitas")}
             >
               Masuk Komunitas
             </button>
@@ -143,6 +148,7 @@ const Komunitas = () => {
               style={styles.button}
               onMouseEnter={() => setHover(true)}
               onMouseLeave={() => setHover(false)}
+              onClick={() => navigate("/blog")}
             >
               Cek Selengkapnya
             </button>
@@ -153,4 +159,4 @@ const Komunitas = () => {
   );
 };
 
-export default Komunitas;
+export default BlogKomunitas;

@@ -6,10 +6,11 @@ import Mid from '../komponen Home/Mid';
 import Mid2 from '../komponen Home/Mid2';
 import Konser from '../komponen Home/Konser';
 import Festival from '../komponen Home/Festival'
-import Komunitas from '../komponen Home/Komunitas'
+import BlogKomunitas from '../komponen Home/BlogKomunitas'
 import Faq from '../komponen Home/FAQ'
 import Low from '../komponen Home/Low'
 import Lower from '../Detail Konser/Lower'
+
 
 
 function Home() {
@@ -21,7 +22,7 @@ function Home() {
       <Mid2/>
       <Konser/>
       <Festival/>
-      <Komunitas/>
+      <BlogKomunitas/>
       <Low/>
       <Faq/>
       <Lower/>

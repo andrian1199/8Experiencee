@@ -7,7 +7,7 @@ const Sidebar = () => {
   return (
     <nav className="admin-nav">
       <div className="p-3 text-center">
-        <img src="../assets/FesTix 1.svg" alt="Festix Logo" style={{ width: "100px" }} />
+        <img src="/assets/FesTix 1.svg" alt="Festix Logo" style={{ width: "100px" }} />
       </div>
       <ul className="nav flex-column px-3">
         <li className="nav-item mb-3">
