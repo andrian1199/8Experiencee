@@ -10,7 +10,7 @@ const Faq = () => {
   // Gaya CSS dalam objek JavaScript
   const styles = {
     faqBox: {
-      padding: '30px',
+      padding: '10px 50px',
     },
     accordionItem: {
       padding: '10px 20px', // Padding kiri-kanan lebih kecil

@@ -34,13 +34,42 @@ function Navigasi() {
 
   const isActive = (path) => location.pathname === path;
 
+  const containerStyle = {
+    maxWidth: '95%',
+    margin: '0 auto',
+    padding: '0px 5px',
+    paddingLeft: '0',
+    paddingRight: '0',
+  };
+
+  const navbarStyle = {
+    backgroundColor: '#343a40', // Warna latar belakang
+    height: '60px', // Atur tinggi navbar
+    display: 'flex',
+    alignItems: 'center', // Vertikal rata tengah
+    padding: '0', // Hapus padding default
+  };
+
+  const logoStyle = {
+    display: 'flex', // Pastikan logo mengikuti aturan flexbox
+    alignItems: 'center',
+    justifyContent: 'flex-start', // Logo berada di sebelah kiri
+    maxWidth: '120px', // Sesuaikan lebar logo
+    height: 'auto',
+  };
+
   return (
     <Navbar bg="dark" variant="dark" expand="lg" fixed="top" className="shadow-sm w-100">
-      <Container fluid>
-        <Link to="/" className="navbar-brand">
-          <img src={logo} alt="Logo" className="logo" />
-        </Link>
+      <Container style={containerStyle}>
+        {/* Logo */}
+        <Navbar.Brand as={Link} to="/" style={{ padding: '0', marginRight: 'auto' }}>
+          <img src={logo} alt="Logo" style={logoStyle} />
+        </Navbar.Brand>
+
+        {/* Toggle Menu */}
         <Navbar.Toggle aria-controls="navbar-nav" />
+
+        {/* Menu */}
         <Navbar.Collapse id="navbar-nav">
           <Nav className="ml-auto">
             <Nav.Link
@@ -73,7 +102,8 @@ function Navigasi() {
             </Nav.Link>
 
             {/* Tiket, Profil, dan Logout */}
-            <Nav.Item style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Nav.Item style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              {/* Tiket Button */}
               <Button
                 variant="link"
                 className="btn light rounded-circle"
@@ -82,23 +112,24 @@ function Navigasi() {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  padding: '8px',
-                  width: '40px',
-                  height: '40px',
+                  padding: '12px',
+                  width: '50px',
+                  height: '50px',
                   borderRadius: '50%',
                   border: '2px solid black',
                 }}
               >
-                <img src={ticket} alt="Ticket" style={{ width: '16px', height: '16px' }} />
+                <img src={ticket} alt="Ticket" style={{ width: '20px', height: '20px' }} />
               </Button>
 
               {isLoggedIn ? (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  {/* Profil Button */}
                   <Link to="/profil">
                     <div
                       style={{
-                        width: '40px',
-                        height: '40px',
+                        width: '50px',
+                        height: '50px',
                         backgroundColor: '#FFCF00',
                         borderRadius: '50%',
                         display: 'flex',
@@ -110,22 +141,23 @@ function Navigasi() {
                       <img
                         src={profileIcon}
                         alt="Profile"
-                        style={{ width: '16px', height: '16px' }}
+                        style={{ width: '20px', height: '20px' }}
                       />
                     </div>
                   </Link>
 
+                  {/* Logout Button */}
                   <Button
                     onClick={handleLogout}
                     variant="link"
                     className="btn text-black"
                     style={{
-                      padding: '8px 16px',
+                      padding: '12px 20px',
                       backgroundColor: '#FFCF00',
                       borderRadius: '15px',
                       border: '2px solid black',
                       fontWeight: 'bold',
-                      fontSize: '12px',
+                      fontSize: '14px',
                     }}
                   >
                     Logout

@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import Navbar from '../komponen Home/Navigasi';
 import Filter from '../komponen blog/Filter';
 import blogData from '../data/BlogData';
-import '../styles/Blog.css'
+import '../styles/Blog.css';
 import Card from '../komponen blog/Card'; // Impor Card
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from '../components/Footer';
 
 const BlogPage = () => {
   const [activeCategory, setActiveCategory] = useState('Semua');
@@ -70,6 +71,8 @@ const BlogPage = () => {
           </button>
         </div>
       )}
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

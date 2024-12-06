@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import blogData from '../data/BlogData'; // Import data blog
 import '../styles/BlogDetailPage.css';
+import Footer from '../components/Footer';
 
 const BlogDetailPage = () => {
   const { id } = useParams(); // Ambil id dari URL
@@ -66,6 +67,8 @@ const BlogDetailPage = () => {
         />
         <p>{blog.content}</p>
       </div>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

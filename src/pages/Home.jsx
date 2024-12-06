@@ -10,7 +10,7 @@ import BlogKomunitas from '../komponen Home/BlogKomunitas'
 import Faq from '../komponen Home/FAQ'
 import Low from '../komponen Home/Low'
 import Lower from '../Detail Konser/Lower'
-
+import Footer from '../components/Footer';
 
 
 function Home() {
@@ -25,7 +25,7 @@ function Home() {
       <BlogKomunitas/>
       <Low/>
       <Faq/>
-      <Lower/>
+      <Footer/>
     </>
   );
 }

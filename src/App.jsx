@@ -11,7 +11,7 @@ import OrderPage from './Admin/OrderPage';
 import Home from './pages/Home';
 import Card4 from './pages/Card4';
 import Blog from './pages/BlogPage';
-import BlogDetail from './pages/Blogdetail'; 
+
 import BlogDetailPage from './pages/BlogDetailPage'; 
 import Komunitas from './pages/Komunitas';
 import CommunityDetail from './pages/CommunityDetail';
@@ -70,7 +70,7 @@ function App() {
 
         {/* Blog */}
         <Route path="/blog" element={<Blog />} />
-        <Route path="/blog-detail" element={<BlogDetail />} />
+
         <Route path="/blog/:id" element={<BlogDetailPage />} />
 
         {/* Komunitas */}
