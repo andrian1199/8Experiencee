@@ -47,13 +47,13 @@ const EventData = [
         type: "Reguler", 
         price: 300000, 
         benefits: "Tiket masuk dan akses VIP lounge.", 
-        stock: 8
+        stock: 100
       },
       { 
         type: "VIP", 
         price: 500000, 
         benefits: "Tiket masuk, akses VIP lounge, dan merchandise eksklusif.", 
-        stock: 3
+        stock: 300
       },
     ],
   },

@@ -1,85 +1,391 @@
 import React from "react";
-import Navigasi from '../komponen Home/Navigasi'
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import headerImage from "../assets/tentangkami.png";
+import teamPhoto from "../assets/group.png";
+import Navigation from '../komponen Home/Navigasi';
+
+
 const TentangKami = () => {
+  const settings = {
+    dots: false,
+  infinite: true,
+  speed: 1000,
+  slidesToShow: 6,
+  autoplay: true,
+  autoplaySpeed: 0,
+  pauseOnHover: true,
+  centerMode: true,
+  focusOnSelect: true,
+  };
+  
   return (
     <div>
-        <Navigasi/>
-      {/* Header Section */}
-      <header className="header-section" style={{ backgroundColor: "#000", color: "#fff", padding: "50px 20px", textAlign: "center" }}>
-        <h1>Kami bertujuan ingin berbagi kebahagiaan melalui konser musik dan festival bersamamu!</h1>
-        <button style={{ marginTop: "20px", padding: "10px 20px", backgroundColor: "#ffcc00", border: "none", cursor: "pointer" }}>Cek Sekarang</button>
-      </header>
+      <Navigation />
 
-      {/* Introduction Section */}
-      <section className="intro-section" style={{ display: "flex", alignItems: "center", padding: "50px 20px" }}>
-        <div>
-          <img src="team-photo.jpg" alt="Team Photo" style={{ width: "300px", borderRadius: "10px", marginRight: "20px" }} />
-        </div>
-        <div>
-          <h2>Ayo Temukan Kebahagiaan Bersama Kawan!</h2>
-          <p>Kami memahami bahwa konser adalah tentang pengalaman dan kami di sini untuk memastikan Anda mendapatkan pengalaman terbaik.</p>
-        </div>
-      </section>
+      <header
+  className="header-section"
+  style={{
+    backgroundImage: ({headerImage}),
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    height: "600px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    color: "#fff",
+    padding: "80px 150px",
+    textAlign: "left",
+  }}
+>
+  <h1 style={{ marginBottom: "20px", lineHeight: "1.5", fontSize: "32px", marginTop: "100px" }}>
+    Kami bertujuan ingin berbagi <br />
+    kebahagiaan melalui konser musik dan <br />
+    Festival bersamamu!
+  </h1>
+  <p style={{ marginBottom: "30px", fontSize: "16px" }}>
+    Ayo kenalan sama kita sekarang!
+  </p>
+  <button
+    style={{
+      padding: "10px 25px",
+      backgroundColor: "#ffcc00",
+      border: "none",
+      cursor: "pointer",
+      borderRadius: "30px",
+      fontWeight: "bold",
+      fontSize: "14px",
+      width: "auto",
+    }}
+  >
+    Cek Sekarang
+  </button>
+</header>
+
+
+<section
+  className="intro-section"
+  style={{
+    display: "flex",
+    alignItems: "flex-start",
+    padding: "80px 40px",
+    gap: "20px",
+    justifyContent: "flex-start",
+    width: "100%",
+  }}
+>
+  <div style={{ flex: 1 }}></div> {/* Menambahkan ruang kosong untuk geser gambar */}
+  <img
+    src={teamPhoto}
+    alt="Team Photo"
+    style={{ width: "400px", borderRadius: "10px" }}
+  />
+  <div>
+    <h2 style={{ fontSize: "28px", marginBottom: "10px", marginTop: "0" }}>
+      Ayo Temukan Kebahagiaan Bersama Kawan!
+    </h2>
+    <p style={{ fontSize: "18px", color: "#555", marginTop: "0" }}>
+      Kami memahami bahwa konser adalah tentang pengalaman dan kami disini
+      untuk memastikan Anda mendapatkan pengalaman terbaik. Dengan FesTix, Anda bisa
+      mendapatkan informasi akurat, memesan tiket dengan aman, dan bergabung dalam komunitas
+      yang berbagi minat musik yang sama.
+    </p>
+  </div>
+</section>
+
+
 
       {/* Stats Section */}
-      <section className="stats-section" style={{ backgroundColor: "#ffcc00", color: "#000", textAlign: "center", padding: "50px 20px" }}>
-        <div>
-          <h3>50000+</h3>
-          <p>Tiket Terjual</p>
-        </div>
-        <div>
-          <h3>20000+</h3>
-          <p>Orang Bergabung</p>
-        </div>
-        <div>
-          <h3>10+</h3>
-          <p>Kota yang Terjangkau</p>
-        </div>
-        <div>
-          <h3>100%</h3>
-          <p>Aman dan Terpercaya</p>
+      <section
+        className="stats-section"
+        style={{
+          backgroundColor: "#ffcc00",
+          color: "#ffffff",
+          textAlign: "center",
+          padding: "50px 20px",
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: "20px",
+        }}
+      >
+        {[
+          { value: "50000+", label: "Tiket Terjual" },
+          { value: "20000+", label: "Orang Bergabung" },
+          { value: "10+", label: "Kota yang Terjangkau" },
+          { value: "100%", label: "Aman dan Terpercaya" },
+        ].map((stat, index) => (
+          <div key={index}>
+            <h3 style={{ fontSize: "28px", marginBottom: "10px" }}>
+              {stat.value}
+            </h3>
+            <p>{stat.label}</p>
+          </div>
+        ))}
+      </section>
+
+     {/* Testimonials Section */}
+<section
+  className="testimonials-section"
+  style={{
+    textAlign: "center",
+  }}
+>
+  {/* Container khusus untuk "Dari Mereka Untuk Kami" */}
+  <div
+    style={{
+      backgroundColor: "#ffffff",
+      padding: "20px",
+      borderRadius: "0",
+      margin: "0",
+      width: "100vw",
+      boxSizing: "border-box",
+    }}
+  >
+    <h2 style={{ margin: "0" }}>
+      <span style={{ color: "#ffcc00" }}>Dari</span>{" "}
+      <span style={{ color: "#000000" }}>Mereka</span>
+    </h2>
+    <h2 style={{ margin: "0" }}>
+      <span style={{ color: "#000000" }}>Untuk</span>{" "}
+      <span style={{ color: "#ffcc00" }}>Kami</span>
+    </h2>
+  </div>
+
+  {/* Container untuk gambar dengan background opacity */}
+<div
+  style={{
+    position: "relative",
+    backgroundColor: "rgba(255, 255, 255, 0.17)",
+    padding: "50px",
+    marginTop: "-80px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  }}
+>
+  {/* Gambar Background */}
+  <img
+    src="./src/assets/FesTixKom.png"
+    alt="Background"
+    style={{
+      maxWidth: "100%",
+      borderRadius: "10px",
+    }}
+  />
+
+  {/* Gambar Testi di atas background */}
+<img
+  src="./src/assets/katamereka.png"
+  alt="Testimonial Overlay"
+  style={{
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    maxWidth: "90%",
+    maxHeight: "90%",
+  }}
+/>
+</div>
+</section>
+
+      <section
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          gap: "20px",
+          marginTop: "50px",
+        }}
+      >
+        {/* Kiri: Deskripsi */}
+<div
+  style={{
+    flex: 1.5,
+    maxWidth: "50%",
+    backgroundColor: "white",
+    padding: "20px",
+    borderRadius: "10px",
+    boxShadow: "0px 6px 6px 2px rgba(0, 0, 0, 0.25)",
+    marginLeft: "80px",
+  }}
+>
+  <h2>Disini, setiap pengalaman dirancang khusus untukmu.</h2>
+  <p>
+    Kami memberikan fleksibilitas yang menyenangkan agar kamu dapat merasakan sesuatu yang unik. Bagi para pecinta musik, penggemar olahraga, pecinta seni, atau siapa pun yang sedang berjuang mengejar impian, selalu ada hal menarik yang menantimu di sini!
+  </p>
+  <img
+    src="./src/assets/logofestix.png"
+    alt="FesTix Logo"
+    style={{
+      width: "332px",
+      height: "auto",
+      display: "block",
+      margin: "20px auto 0",
+    }}
+  />
+</div>
+
+        {/* Kanan: Visi dan Misi */}
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            gap: "40px",
+            marginRight: "80px",
+          }}
+        >
+          {/* Visi */}
+          <div
+            style={{
+              backgroundColor: "white",
+              padding: "20px",
+              borderRadius: "10px",
+              boxShadow: "0px 6px 6px 2px rgba(0, 0, 0, 0.25)",
+            }}
+          >
+            <h3 style={{ color: "#ffcc00" }}>Visi Kami</h3>
+            <p>
+              Menjadi platform terdepan yang menghubungkan penggemar musik dengan konser dan festival berkualitas, menciptakan pengalaman yang tak terlupakan dan memperkuat komunitas musik di Indonesia.
+            </p>
+          </div>
+          {/* Misi */}
+          <div
+            style={{
+              backgroundColor: "white",
+              padding: "20px",
+              borderRadius: "10px",
+              boxShadow: "0px 6px 6px 2px rgba(0, 0, 0, 0.25)",
+            }}
+          >
+            <h3 style={{ color: "#ffcc00" }}>Misi Kami</h3>
+            <p>
+              Menyediakan informasi akurat dan terpercaya tentang konser dan festival musik, serta menghadirkan fitur-fitur yang memudahkan pengguna dalam mencari teman dengan minat yang sama, sehingga setiap individu dapat menikmati kebersamaan dan keseruan dalam setiap acara musik.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="testimonials-section" style={{ padding: "50px 20px" }}>
-        <h2>Dari Mereka Untuk Kami</h2>
-        <div>
-          <blockquote>
-            <p>"Platform ini sangat membantu saya dalam menemukan konser yang saya suka."</p>
-            <footer>- Rina, Jakarta</footer>
-          </blockquote>
-          <blockquote>
-            <p>"Akhirnya bisa menemukan teman-teman yang punya selera musik sama."</p>
-            <footer>- Andi, Bandung</footer>
-          </blockquote>
-        </div>
-      </section>
+      {/* Dipercaya oleh Banyak Event Organizer */}
+<div
+  style={{
+    backgroundColor: "#ffcc00",
+    textAlign: "center",
+    padding: "40px 20px",
+    marginTop: "45px",
+  }}
+>
+  <p
+    style={{
+      fontSize: "14px",
+      textTransform: "uppercase",
+      fontWeight: "bold",
+      color: "#000",
+      marginBottom: "10px",
+    }}
+  >
+    Dipercaya oleh Banyak Event Organizer
+  </p>
+  <h2
+  style={{
+    fontSize: "24px",
+    fontWeight: "bold",
+    color: "#000",
+    marginBottom: "20px",
+    lineHeight: "1.5",
+  }}
+>
+  Dari sekian banyak acara seru yang <br />
+  telah kami hadirkan, yang mana jadi <br />
+  favoritmu?
+</h2>
+  <p
+    style={{
+      fontSize: "16px",
+      color: "#000",
+      marginTop: "0",
+    }}
+  >
+    Mulai dari gathering komunitas, nyanyi bareng, hingga konser <br />
+    musik, acara apa yang paling ingin kamu ikuti?
+  </p>
+</div>
 
-      {/* Mission and Vision Section */}
-      <section className="mission-vision-section" style={{ display: "flex", padding: "50px 20px", justifyContent: "space-between" }}>
-        <div>
-          <h3>Visi Kami</h3>
-          <p>Menjadi platform terpercaya yang menghubungkan penggemar musik.</p>
-        </div>
-        <div>
-          <h3>Misi Kami</h3>
-          <p>Menyediakan informasi akurat dan terpercaya tentang konser dan festival musik.</p>
-        </div>
-      </section>
-
-      {/* Partners Section */}
-      <section className="partners-section" style={{ backgroundColor: "#f4f4f4", padding: "50px 20px", textAlign: "center" }}>
-        <h2>Dipercaya oleh Banyak Event Organizer</h2>
-        <div>
-          <img src="partner1-logo.png" alt="Partner 1" style={{ margin: "10px" }} />
-          <img src="partner2-logo.png" alt="Partner 2" style={{ margin: "10px" }} />
-          <img src="partner3-logo.png" alt="Partner 3" style={{ margin: "10px" }} />
-        </div>
-      </section>
+{/* Tambahkan carousel di sini */}
+      <div
+        style={{
+          backgroundColor: "#fff",
+          textAlign: "center",
+          padding: "20px 10px",
+          marginTop: "20px",
+        }}
+      >
+        <Slider {...settings}>
+          <div>
+            <img
+              src="./src/assets/katarsis.png"
+              alt="Katarsis"
+              style={{ height: "60px", margin: "0 auto", objectFit: "contain", transform: "scale(1.5)", 
+                transition: "transform 0.5s ease" }}
+            />
+          </div>
+          <div>
+            <img
+              src="./src/assets/SOD.png"
+              alt="SOD"
+              style={{ height: "60px", margin: "0 auto", objectFit: "contain", transform: "scale(1.5)",
+                transition: "transform 0.5s ease" }}
+            />
+          </div>
+          <div>
+            <img
+              src="./src/assets/G.png"
+              alt="SOD"
+              style={{ height: "60px", margin: "0 auto", objectFit: "contain", transform: "scale(1.5)",
+                transition: "transform 0.5s ease" }}
+            />
+          </div>
+          <div>
+            <img
+              src="./src/assets/DreamFlavours.png"
+              alt="SOD"
+              style={{ height: "60px", margin: "0 auto", objectFit: "contain", transform: "scale(1.5)",
+                transition: "transform 0.5s ease" }}
+            />
+          </div>
+          <div>
+            <img
+              src="./src/assets/mahaka.png"
+              alt="SOD"
+              style={{ height: "60px", margin: "0 auto", objectFit: "contain", transform: "scale(1.5)",
+                transition: "transform 0.5s ease" }}
+            />
+          </div>
+          <div>
+            <img
+              src="./src/assets/AlcorPrime.png"
+              alt="SOD"
+              style={{ height: "60px", margin: "0 auto", objectFit: "contain" , transform: "scale(1.5)",
+                transition: "transform 0.5s ease" }}
+            />
+          </div>
+          </Slider>
+          </div>
 
       {/* Footer Section */}
-      <footer className="footer-section" style={{ backgroundColor: "#000", color: "#fff", textAlign: "center", padding: "20px" }}>
+      <footer
+        className="footer-section"
+        style={{
+          backgroundColor: "#000",
+          color: "#fff",
+          textAlign: "center",
+          padding: "20px",
+        }}
+      >
         <p>© 2024 Kelompok 88. Platform terpercaya untuk penggemar musik.</p>
       </footer>
     </div>

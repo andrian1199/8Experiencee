@@ -69,7 +69,7 @@ const Mid = () => {
             </div>
           ))
         ) : (
-          <p className="text-center">Silakan login untuk melihat acara baru.</p>
+          <p className="text-center">Yahhh belum ada nih.</p>
         )}
       </div>
     </div>
