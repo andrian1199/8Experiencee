@@ -2,6 +2,23 @@ import React from "react";
 import { UilCalendarAlt, UilMapMarkerAlt } from "@iconscout/react-unicons";
 import { useNavigate } from "react-router-dom";
 
+const formatEventDate = (dateString) => {
+  const date = new Date(dateString);
+
+  const day = date.getUTCDate();
+  const month = date.getUTCMonth(); // getUTCMonth() dimulai dari 0
+  const year = date.getUTCFullYear();
+
+  const monthNames = [
+    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+    "Juli", "Agustus", "September", "Oktober", "November", "Desember",
+  ];
+
+  const formattedDate = `${day} ${monthNames[month]} ${year}`;
+  return formattedDate;
+};
+
+
 const formatCurrency = (number) => {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
@@ -27,7 +44,7 @@ const EventCard = ({ id, title, date, location, price, image }) => {
         <div style={styles.info}>
           <div style={styles.infoItem}>
             <UilCalendarAlt size="20" color="#666" />
-            <span style={styles.infoText}>{date}</span>
+            <span style={styles.infoText}>{formatEventDate(date)}</span>
           </div>
           <div style={styles.infoItem}>
             <UilMapMarkerAlt size="20" color="#666" />
@@ -59,9 +76,6 @@ const styles = {
     backgroundColor: "#fff",
     cursor: "pointer", // Menambahkan pointer untuk menunjukkan kartu dapat diklik
     transition: "transform 0.2s", // Efek hover
-  },
-  cardHover: {
-    transform: "scale(1.03)", // Efek zoom saat hover
   },
   imageContainer: {
     height: "200px",

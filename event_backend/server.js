@@ -35,8 +35,7 @@ app.post("/events", (req, res) => {
     return res.status(400).send("Semua data event harus diisi");
   }
 
-  const sql =
-    "INSERT INTO events (title, date, location, price, genre, type, description, image, additionalImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  const sql = "INSERT INTO events (title, date, location, price, genre, type, description, image, additionalImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
   db.query(sql, [title, date, location, price, genre, type, description, image, additionalImage], (err, result) => {
     if (err) {
       console.error(err);
@@ -105,6 +104,36 @@ app.get("/events", (req, res) => {
     res.status(200).json(results);
   });
 });
+
+// READ: Ambil event berdasarkan ID
+  app.get("/events/:id", (req, res) => {
+    const { id } = req.params; // Ambil ID dari URL
+    const sql = `
+      SELECT e.*, 
+        JSON_ARRAYAGG(
+          JSON_OBJECT('id', t.id, 'type', t.type, 'price', t.price, 'benefits', t.benefits, 'stock', t.stock)
+        ) AS tickets
+      FROM events e
+      LEFT JOIN tickets t ON e.id = t.event_id
+      WHERE e.id = ?
+      GROUP BY e.id
+    `;
+    
+    db.query(sql, [id], (err, results) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Gagal mengambil data event dan tiket");
+      }
+
+      if (results.length === 0) {
+        return res.status(404).send("Event tidak ditemukan");
+      }
+
+      res.status(200).json(results[0]); // Mengembalikan event yang sesuai dengan ID
+    });
+  });
+
+
 
 
 // CREATE: Tambah tiket untuk event tertentu

@@ -7,7 +7,7 @@ import image5 from '../assets/THE-SIGIT-2.jpg';
 
 const Hero = () => {
   const slides = [
-    { id: 1, src: image1, alt: 'Home Image', title: 'Sound Of Downtown', date: 'Jumat, 27 Oktober 2024 | Jakarta Arena', link: '/detail-konser-a' },
+    { id: 1, src: image1, alt: 'Home Image', title: 'Sound Of Downtown', date: 'Jumat, 27 Oktober 2024 | Jakarta Arena', link: '/event/23' },
     { id: 2, src: image2, alt: 'Variant 5', title: 'Sound Of Downtown', date: 'Sabtu, 28 Oktober 2024 | Bandung Stadium', link: '/detail-konser-b' },
     { id: 3, src: image3, alt: 'Variant 6', title: 'Sound Of Downtown', date: 'Minggu, 29 Oktober 2024 | Surabaya Hall', link: '/detail-konser-c' },
     { id: 4, src: image4, alt: 'Variant 7', title: 'Sound Of Downtown', date: 'Senin, 30 Oktober 2024 | Medan Arena', link: '/detail-konser-d' },

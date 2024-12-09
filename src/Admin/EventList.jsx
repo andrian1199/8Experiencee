@@ -16,9 +16,10 @@ const formatRupiah = (value) => {
 };
 
 const formatDate = (dateString) => {
-  const options = { day: "numeric", month: "long", year: "numeric" };
+  const options = { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" };
   return new Date(dateString).toLocaleDateString("id-ID", options);
 };
+
 
 const EventList = () => {
   const [events, setEvents] = useState([]);
@@ -36,6 +37,13 @@ const EventList = () => {
   });
   const [isEditing, setIsEditing] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + "...";
+    }
+    return text;
+  };
+  
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -50,8 +58,10 @@ const EventList = () => {
         console.error("Error fetching events:", error);
       }
     };
-    
-}, []);
+  
+    fetchEvents(); // Pemanggilan fungsi fetch
+  }, []); // Tambahkan [] untuk memastikan ini hanya dipanggil sekali.
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -195,14 +205,24 @@ const EventList = () => {
             </Link>
           </header>
           <button
-            className="btn btn-primary mb-3"
-            onClick={() => {
-              setIsEditing(false);
-              setShowModal(true);
-            }}
-          >
-            Tambah Acara
+              className="btn btn-primary mb-3"
+              style={{
+                backgroundColor: "#FFCF00",
+                color: "#212121",
+                border: "none",
+                borderRadius: "40px",
+                padding: "10px 20px",
+                fontSize: "16px",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                setIsEditing(false);
+                setShowModal(true);
+              }}
+            >
+              Tambah Acara
           </button>
+
           <div className="table-responsive">
             <table className="table table-bordered">
               <thead>
@@ -231,7 +251,7 @@ const EventList = () => {
                       <td>{formatRupiah(Number(event.price))}</td>
                       <td>{event.genre}</td>
                       <td>{event.type}</td>
-                      <td>{event.description}</td>
+                      <td>{truncateText(event.description, 100)}</td>
                       <td>
                         <img src={event.image} alt="Gambar" style={{ width: "50px", height: "50px" }} />
                       </td>

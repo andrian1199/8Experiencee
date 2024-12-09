@@ -1,12 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import EventData from "../data/EventData"; // Pastikan file data EventData ada
+import axios from "axios"; // Import axios untuk request HTTP
 import Navbar from "../komponen Home/Navigasi"; // Import Navbar
+
+const API_URL = "http://localhost:5000/events"; // URL API untuk mengambil event
 
 const EventDetail = () => {
   const { id } = useParams(); // Ambil parameter ID dari URL
   const navigate = useNavigate(); // Gunakan useNavigate untuk tombol kembali
-  const event = EventData.find((event) => event.id === parseInt(id)); // Cari event berdasarkan ID
+  const [event, setEvent] = useState(null); // State untuk menyimpan data event
+  const [loading, setLoading] = useState(true); // Menandakan status loading
+  const [error, setError] = useState(null); // Menangani error
+
+  // Ambil data event berdasarkan ID dari API
+  useEffect(() => {
+    const fetchEvent = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/${id}`); // Ambil event berdasarkan ID
+        const eventData = response.data;
+        
+        // Tidak perlu melakukan split, cukup simpan additionalImage seperti semula
+        setEvent(eventData); // Set event ke state
+        setLoading(false); // Set loading selesai
+      } catch (error) {
+        setError("Gagal mengambil data event.");
+        setLoading(false); // Set loading selesai meski error
+      }
+    };
+
+    fetchEvent();
+  }, [id]); // Efek akan dijalankan setiap kali id berubah
+
+  // Menampilkan status loading atau error jika ada
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   if (!event) {
     return (
@@ -42,14 +74,15 @@ const EventDetail = () => {
 
             {/* Gambar Tambahan */}
             <div style={styles.additionalImagesContainer}>
-              {event.additionalImages.map((img, index) => (
+              {event.additionalImage ? (
                 <img
-                  key={index}
-                  src={img}
-                  alt={`Gambar tambahan ${index + 1}`}
+                  src={event.additionalImage}
+                  alt="Gambar tambahan"
                   style={styles.additionalImage}
                 />
-              ))}
+              ) : (
+                <p>No additional image available.</p>
+              )}
             </div>
           </div>
 
@@ -83,6 +116,7 @@ const EventDetail = () => {
     </div>
   );
 };
+
 
 // Gaya CSS in JS
 const styles = {
