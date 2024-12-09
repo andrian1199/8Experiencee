@@ -41,13 +41,17 @@ const EventList = () => {
     const fetchEvents = async () => {
       try {
         const response = await axios.get(API_URL);
-        setEvents(response.data);
+        const eventsWithTickets = response.data.map((event) => ({
+          ...event,
+          tickets: Array.isArray(event.tickets) ? event.tickets : [], // Pastikan tickets array
+        }));
+        setEvents(eventsWithTickets);
       } catch (error) {
         console.error("Error fetching events:", error);
       }
     };
-    fetchEvents();
-  }, []);
+    
+}, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -202,72 +206,80 @@ const EventList = () => {
           <div className="table-responsive">
             <table className="table table-bordered">
               <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Judul</th>
-                  <th>Tanggal</th>
-                  <th>Lokasi</th>
-                  <th>Harga</th>
-                  <th>Genre</th>
-                  <th>Tipe</th>
-                  <th>Deskripsi</th>
-                  <th>Gambar</th>
-                  <th>Gambar Tambahan</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {events.map((event) => (
-                  <tr key={event.id}>
-                    <td>{event.id}</td>
-                    <td>{event.title}</td>
-                    <td>{formatDate(event.date)}</td>
-                    <td>{event.location}</td>
-                    <td>{formatRupiah(Number(event.price))}</td>
-                    <td>{event.genre}</td>
-                    <td>{event.type}</td>
-                    <td>{event.description}</td>
-                    <td>
-                      <img
-                        src={event.image}
-                        alt="Gambar"
-                        style={{ width: "50px", height: "50px" }}
-                      />
-                    </td>
-                    <td>
-                      <img
-                        src={event.additionalImage}
-                        alt="Gambar Tambahan"
-                        style={{ width: "50px", height: "50px" }}
-                      />
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-primary"
-                        onClick={() => {
-                          console.log("Event yang di-edit:", event);
-                          setIsEditing(true);
-                          setFormData({
-                            ...event,
-                            tickets: event.tickets || [], // Jika tickets undefined, isi dengan array kosong
-                          });
-                          setShowModal(true);
-                        }}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => handleDelete(event.id)}
-                      >
-                        Hapus
-                      </button>
-                    </td>
+                  <tr>
+                    <th>ID</th>
+                    <th>Judul</th>
+                    <th>Tanggal</th>
+                    <th>Lokasi</th>
+                    <th>Harga</th>
+                    <th>Genre</th>
+                    <th>Tipe</th>
+                    <th>Deskripsi</th>
+                    <th>Gambar</th>
+                    <th>Gambar Tambahan</th>
+                    <th>Tiket</th>
+                    <th>Aksi</th>
                   </tr>
-                ))}
-              </tbody>
+                </thead>
+                <tbody>
+                  {events.map((event) => (
+                    <tr key={event.id}>
+                      <td>{event.id}</td>
+                      <td>{event.title}</td>
+                      <td>{formatDate(event.date)}</td>
+                      <td>{event.location}</td>
+                      <td>{formatRupiah(Number(event.price))}</td>
+                      <td>{event.genre}</td>
+                      <td>{event.type}</td>
+                      <td>{event.description}</td>
+                      <td>
+                        <img src={event.image} alt="Gambar" style={{ width: "50px", height: "50px" }} />
+                      </td>
+                      <td>
+                        <img
+                          src={event.additionalImage}
+                          alt="Gambar Tambahan"
+                          style={{ width: "50px", height: "50px" }}
+                        />
+                      </td>
+                      <td>
+                        {event.tickets && event.tickets.length > 0 ? (
+                          <ul>
+                            {event.tickets.map((ticket, index) => (
+                              <li key={index}>
+                                {ticket.type} - {formatRupiah(ticket.price)} - Stok: {ticket.stock}
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <span>Tidak ada tiket</span>
+                        )}
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => {
+                            setIsEditing(true);
+                            setFormData({
+                              ...event,
+                              tickets: event.tickets || [], // Pastikan tickets array
+                            });
+                            setShowModal(true);
+                          }}
+                        >
+                          Edit
+                        </button>
+                        <button className="btn btn-danger" onClick={() => handleDelete(event.id)}>
+                          Hapus
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+
             </table>
           </div>
+
         </div>
       </div>
       {showModal && (
@@ -349,7 +361,7 @@ const EventList = () => {
                   <input
                     className="form-control"
                     name="type"
-                    value={formData.genre}
+                    value={formData.type}
                     onChange={handleInputChange}
                     required
                   />

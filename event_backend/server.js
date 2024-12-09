@@ -1,9 +1,7 @@
-const express = require("express");
+const express = require("express"); 
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mysql = require("mysql2");
-const multer = require("multer");
-const path = require("path");
 
 require("dotenv").config();
 
@@ -12,30 +10,6 @@ app.use(cors());
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 app.use("/public", express.static("public"));
-
-// Konfigurasi Multer untuk menyimpan gambar
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "public/images"); // Folder untuk menyimpan file
-  },
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname); // Menentukan ekstensi file
-    cb(null, Date.now() + ext); // Menggunakan timestamp agar nama file unik
-  },
-});
-
-const upload = multer({ storage: storage });
-
-// Rute untuk upload gambar
-app.post("/upload-image", upload.single("image"), (req, res) => {
-  if (!req.file) {
-    return res.status(400).send("No file uploaded");
-  }
-
-  const imagePath = "/images/" + req.file.filename;
-  res.status(200).send({ imageUrl: imagePath });
-
-});
 
 // Koneksi MySQL
 const db = mysql.createConnection({
@@ -53,17 +27,9 @@ db.connect((err) => {
   console.log("Connected to MySQL database");
 });
 
-// CREATE, READ, DELETE, UPDATE events...
-// (Tidak ada perubahan pada rute ini, cukup seperti sebelumnya)
-
-
 // CREATE: Tambah event baru
-app.post("/events", upload.fields([{ name: "image", maxCount: 1 }, { name: "additionalImage", maxCount: 1 }]), (req, res) => {
-  const { title, date, location, price, genre, type, description, tickets } = req.body;
-
-  // Menyimpan nama file gambar jika ada
-  const image = req.files["image"] ? "/images/" + req.files["image"][0].filename : null;
-  const additionalImage = req.files["additionalImage"] ? "/images/" + req.files["additionalImage"][0].filename : null;
+app.post("/events", (req, res) => {
+  const { title, date, location, price, genre, type, description, image, additionalImage, tickets } = req.body;
 
   if (!title || !date || !location || !price || !genre || !type || !description || !image || !additionalImage) {
     return res.status(400).send("Semua data event harus diisi");
@@ -122,17 +88,56 @@ app.post("/events", upload.fields([{ name: "image", maxCount: 1 }, { name: "addi
 
 // READ: Ambil semua event
 app.get("/events", (req, res) => {
-  const sql = "SELECT * FROM events";
+  const sql = `
+    SELECT e.*, 
+      JSON_ARRAYAGG(
+      JSON_OBJECT('id', t.id, 'type', t.type, 'price', t.price, 'benefits', t.benefits, 'stock', t.stock)
+      ) AS tickets
+    FROM events e
+    LEFT JOIN tickets t ON e.id = t.event_id
+    GROUP BY e.id
+  `;
   db.query(sql, (err, results) => {
     if (err) {
       console.error(err);
-      return res.status(500).send("Gagal mengambil data event");
+      return res.status(500).send("Gagal mengambil data event dan tiket");
     }
     res.status(200).json(results);
   });
 });
 
-// DELETE: Hapus event dan tiket terkait
+
+// CREATE: Tambah tiket untuk event tertentu
+app.post("/tickets", (req, res) => {
+  const { event_id, type, price, benefits, stock } = req.body;
+
+  if (!event_id || !type || !price || !stock || isNaN(price) || isNaN(stock)) {
+    return res.status(400).send("Data tiket tidak valid");
+  }
+
+  const sql = "INSERT INTO tickets (event_id, type, price, benefits, stock) VALUES (?, ?, ?, ?, ?)";
+  db.query(sql, [event_id, type, price, benefits, stock], (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Gagal menambahkan tiket");
+    }
+    res.status(201).send("Tiket berhasil ditambahkan");
+  });
+});
+
+// READ: Ambil semua tiket untuk event tertentu
+app.get("/tickets/:event_id", (req, res) => {
+  const { event_id } = req.params;
+  const sql = "SELECT * FROM tickets WHERE event_id = ?";
+  db.query(sql, [event_id], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Gagal mengambil data tiket");
+    }
+    res.status(200).json(results);
+  });
+});
+
 app.delete("/events/:id", (req, res) => {
   const { id } = req.params;
   const sql = "DELETE FROM events WHERE id = ?";
@@ -157,13 +162,9 @@ app.delete("/events/:id", (req, res) => {
 });
 
 // UPDATE: Perbarui event berdasarkan ID
-app.put("/events/:id", upload.fields([{ name: "image", maxCount: 1 }, { name: "additionalImage", maxCount: 1 }]), (req, res) => {
+app.put("/events/:id", (req, res) => {
   const { id } = req.params;
-  const { title, date, location, price, genre, type, description, tickets } = req.body;
-
-  // Menyimpan nama file gambar jika ada
-  const image = req.files["image"] ? "/images/" + req.files["image"][0].filename : null;
-  const additionalImage = req.files["additionalImage"] ? "/images/" + req.files["additionalImage"][0].filename : null;
+  const { title, date, location, price, genre, type, description, image, additionalImage, tickets } = req.body;
 
   if (!title || !date || !location || !price || !genre || !type || !description || !image || !additionalImage) {
     return res.status(400).send("Semua data event harus diisi");
@@ -188,27 +189,16 @@ app.put("/events/:id", upload.fields([{ name: "image", maxCount: 1 }, { name: "a
       const ticketPromises = tickets.map((ticket) => {
         const { id: ticketId, type, price, benefits, stock } = ticket;
 
-        // Validasi tiket sebelum melanjutkan ke database
-        if (
-          !ticketId || // ID tiket harus ada
-          !type || // Jenis tiket harus ada
-          !price || isNaN(Number(price)) || Number(price) <= 0 || // Harga harus angka positif
-          !stock || isNaN(Number(stock)) || Number(stock) < 0 // Stok harus angka non-negatif
-        ) {
-          console.warn(`Data tiket tidak valid: ${JSON.stringify(ticket)}`);
-          return Promise.resolve(); // Lewati tiket ini jika tidak valid
+        if (!ticketId || !type || !price || !stock || isNaN(price) || isNaN(stock)) {
+          return Promise.reject(`Data tiket tidak valid: ${JSON.stringify(ticket)}`);
         }
 
         const ticketSql =
           "UPDATE tickets SET type = ?, price = ?, benefits = ?, stock = ? WHERE id = ? AND event_id = ?";
         return new Promise((resolve, reject) => {
-          db.query(ticketSql, [type, price, benefits, stock, ticketId, id], (ticketErr, result) => {
+          db.query(ticketSql, [type, price, benefits, stock, ticketId, id], (ticketErr) => {
             if (ticketErr) reject(ticketErr);
-            else if (result.affectedRows === 0) {
-              reject(`Tiket dengan ID ${ticketId} tidak ditemukan atau tidak sesuai dengan event`);
-            } else {
-              resolve(`Tiket dengan ID ${ticketId} berhasil diperbarui`);
-            }
+            else resolve();
           });
         });
       });
@@ -217,13 +207,12 @@ app.put("/events/:id", upload.fields([{ name: "image", maxCount: 1 }, { name: "a
       Promise.allSettled(ticketPromises)
         .then((results) => {
           const failedTickets = results.filter((result) => result.status === "rejected");
-          const successfulTickets = results.filter((result) => result.status === "fulfilled");
-
-          // Respons jika ada tiket yang gagal diperbarui
+          if (failedTickets.length > 0) {
+            console.warn("Beberapa tiket gagal diperbarui:", failedTickets);
+          }
           res.status(200).send({
             message: `Event dengan ID ${id} berhasil diperbarui`,
-            ticketsSuccess: successfulTickets,
-            ticketsWarnings: failedTickets,
+            ticketsStatus: results,
           });
         })
         .catch((err) => {
@@ -235,6 +224,8 @@ app.put("/events/:id", upload.fields([{ name: "image", maxCount: 1 }, { name: "a
     }
   });
 });
+
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
