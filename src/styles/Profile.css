@@ -1,0 +1,37 @@
+/* Style untuk kartu profil */
+.profile-card {
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Avatar */
+
+/* Tombol Kembali */
+.btn-outline-secondary {
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+/* List group */
+.list-group-item {
+    border-radius: 12px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* Tombol Log Out */
+.btn-outline-danger {
+    border-radius: 30px;
+    font-weight: bold;
+    padding: 10px 20px;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+}

@@ -1,0 +1,118 @@
+.login-container {
+  background-image: url("../assets/Unsplash.svg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.festix-logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 150px; /* Sesuaikan ukuran logo */
+}
+
+.login-box {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 40px 30px;
+  width: 400px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.login-title {
+  font-family: "Inter", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+label {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.login-button {
+  width: 100%;
+  padding: 10px 15px;
+  background-color: #ffd700; /* Warna kuning seperti desain */
+  color: #000;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+  text-decoration: none;
+}
+
+.login-button:hover {
+  background-color: #e6c300; /* Warna hover */
+}
+
+.register {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.register a {
+  color: #000;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.or-text {
+  margin: 20px 0;
+  font-size: 14px;
+  color: #000;
+}
+
+.google-login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: #fff;
+  color: #000;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.google-login-button:hover {
+  background-color: #f5f5f5;
+}
+
+.google-icon {
+  width: 20px;
+  margin-right: 10px;
+}

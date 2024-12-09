@@ -1,0 +1,30 @@
+/* Styling container profil */
+.profile-container {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* Styling foto profil */
+  .profile-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 2px solid #ffc107;
+  }
+  
+  /* Styling tombol simpan */
+  .btn-warning {
+    background-color: #ffc107;
+    color: black;
+    border: none;
+    font-weight: bold;
+  }
+  
+  .btn-warning:hover {
+    background-color: #e0a800;
+    color: white;
+  }
+  
