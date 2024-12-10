@@ -4,6 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../styles/Admin.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const API_URL = "http://localhost:5000/events";
 
@@ -16,7 +18,7 @@ const formatRupiah = (value) => {
 };
 
 const formatDate = (dateString) => {
-  const options = { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" };
+  const options = { day: "numeric", month: "long", year: "numeric" };
   return new Date(dateString).toLocaleDateString("id-ID", options);
 };
 
@@ -171,7 +173,28 @@ const EventList = () => {
       }
     }
   };
-  
+
+  const handleDeleteTicket = async (ticketId, eventId) => {
+    if (window.confirm('Apakah Anda yakin ingin menghapus tiket ini?')) {
+      try {
+        console.log(`Menghapus tiket dengan ID: ${ticketId}`); // Debugging log
+        await axios.delete(`http://localhost:5000/tickets/${ticketId}`);
+        
+        // Perbarui state acara untuk menghapus tiket dari daftar
+        setEvents((prevEvents) =>
+          prevEvents.map((event) =>
+            event.id === eventId
+              ? { ...event, tickets: event.tickets.filter((ticket) => ticket.id !== ticketId) }
+              : event
+          )
+        );
+        console.log('Tiket berhasil dihapus.');
+      } catch (error) {
+        console.error('Error deleting ticket:', error);
+        alert('Gagal menghapus tiket. Silakan coba lagi.');
+      }
+    }
+  };
   
   
 
@@ -239,6 +262,7 @@ const EventList = () => {
                     <th>Gambar Tambahan</th>
                     <th>Tiket</th>
                     <th>Aksi</th>
+                    <th>Manajemen Tiket</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -275,24 +299,79 @@ const EventList = () => {
                           <span>Tidak ada tiket</span>
                         )}
                       </td>
+
                       <td>
-                        <button
-                          className="btn btn-primary"
-                          onClick={() => {
-                            setIsEditing(true);
-                            setFormData({
-                              ...event,
-                              tickets: event.tickets || [], // Pastikan tickets array
-                            });
-                            setShowModal(true);
-                          }}
-                        >
-                          Edit
-                        </button>
-                        <button className="btn btn-danger" onClick={() => handleDelete(event.id)}>
-                          Hapus
-                        </button>
+  <div
+    style={{
+      display: "flex",
+      gap: "10px",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
+    {/* Tombol Edit */}
+    <button
+      style={{
+        backgroundColor: "transparent",
+        border: "none",
+        color: "blue",
+        cursor: "pointer",
+        fontSize: "16px",
+        padding: "5px",
+      }}
+      onClick={() => {
+        setIsEditing(true);
+        setFormData({
+          ...event,
+          tickets: event.tickets || [], // Pastikan tickets array
+        });
+        setShowModal(true);
+      }}
+    >
+      <FontAwesomeIcon icon={faEdit} style={{ marginRight: "5px" }} /> Edit
+    </button>
+
+    {/* Tombol Hapus */}
+    <button
+      style={{
+        backgroundColor: "transparent",
+        border: "none",
+        color: "red",
+        cursor: "pointer",
+        fontSize: "16px",
+        padding: "5px",
+      }}
+      onClick={() => handleDelete(event.id)}
+    >
+      <FontAwesomeIcon icon={faTrash} style={{ marginRight: "5px" }} /> Hapus
+    </button>
+  </div>
+</td>
+
+
+
+
+
+                      <td>
+                        {event.tickets && event.tickets.length > 0 ? (
+                          <ul>
+                            {event.tickets.map((ticket, index) => (
+                              <li key={index}>
+                                {ticket.type} - {formatRupiah(ticket.price)} - Stok: {ticket.stock}
+                                <button
+                                  onClick={() => handleDeleteTicket(ticket.id, event.id)}
+                                  className="btn btn-danger btn-sm ms-2"
+                                >
+                                  Hapus Tiket
+                                </button>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <span>Tidak ada tiket</span>
+                        )}
                       </td>
+
                     </tr>
                   ))}
                 </tbody>
