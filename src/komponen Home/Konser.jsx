@@ -1,13 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import EventData from "../data/EventData"; // Pastikan path sesuai
 import EventCard from "../komponen Home/EventCard"; // Pastikan path sesuai
+import axios from "axios"; // Untuk HTTP request
+
+const API_URL = "http://localhost:5000/events"; // URL endpoint API
 
 const Konser = () => {
   const [isHovered, setIsHovered] = useState(false); // State untuk hover effect
+  const [konserEvents, setKonserEvents] = useState([]); // State untuk event konser
+  const [loading, setLoading] = useState(true); // Status loading
+  const [error, setError] = useState(null); // Menyimpan pesan error
 
-  // Filter hanya acara dengan type "konser"
-  const konserEvents = EventData.filter((event) => event.type === "konser");
+  useEffect(() => {
+    const fetchKonserEvents = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(API_URL); // Mengambil data dari API
+        const allEvents = response.data; // Asumsikan data berbentuk array
+
+        // Filter event yang bertipe "konser" dan batasi hingga 4 kartu
+        const filteredKonser = allEvents
+          .filter((event) => event.type.toLowerCase() === "konser")
+          .slice(0, 4);
+        setKonserEvents(filteredKonser);
+        setLoading(false);
+      } catch (err) {
+        setError("Gagal mengambil data dari server.");
+        setLoading(false);
+      }
+    };
+
+    fetchKonserEvents();
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <div className="konser container py-5">
@@ -33,18 +65,22 @@ const Konser = () => {
 
       {/* Flexbox Container untuk kartu */}
       <div style={styles.cardContainer}>
-        {konserEvents.map((event) => (
-          <div key={event.id} style={styles.cardWrapper}>
-            <EventCard
-              id={event.id}
-              title={event.title}
-              date={event.date}
-              location={event.location}
-              price={event.price}
-              image={event.image}
-            />
-          </div>
-        ))}
+        {konserEvents.length > 0 ? (
+          konserEvents.map((event) => (
+            <div key={event.id} style={styles.cardWrapper}>
+              <EventCard
+                id={event.id}
+                title={event.title}
+                date={event.date}
+                location={event.location}
+                price={event.price}
+                image={event.image}
+              />
+            </div>
+          ))
+        ) : (
+          <p className="text-center">Tidak ada konser yang tersedia.</p>
+        )}
       </div>
     </div>
   );

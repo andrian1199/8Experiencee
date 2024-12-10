@@ -254,6 +254,50 @@ app.put("/events/:id", (req, res) => {
   });
 });
 
+// UPDATE: Perbarui tiket berdasarkan ID
+app.put("/tickets/:id", (req, res) => {
+  const { id } = req.params;
+  const { type, price, benefits, stock } = req.body;
+
+  if (!type || !price || !stock || isNaN(price) || isNaN(stock)) {
+    return res.status(400).send("Data tiket tidak valid");
+  }
+
+  const sql = "UPDATE tickets SET type = ?, price = ?, benefits = ?, stock = ? WHERE id = ?";
+  db.query(sql, [type, price, benefits, stock, id], (err, result) => {
+    if (err) {
+      console.error("Gagal memperbarui tiket:", err);
+      return res.status(500).send("Gagal memperbarui tiket");
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).send("Tiket tidak ditemukan");
+    }
+
+    res.status(200).send("Tiket berhasil diperbarui");
+  });
+});
+
+// DELETE: Hapus tiket berdasarkan ID
+app.delete("/tickets/:id", (req, res) => {
+  const { id } = req.params;
+
+  const sql = "DELETE FROM tickets WHERE id = ?";
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error("Gagal menghapus tiket:", err);
+      return res.status(500).send("Gagal menghapus tiket");
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).send("Tiket tidak ditemukan");
+    }
+
+    res.status(200).send("Tiket berhasil dihapus");
+  });
+});
+
+
 
 
 const PORT = process.env.PORT || 5000;

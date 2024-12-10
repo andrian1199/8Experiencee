@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import headerImage from "../assets/tentangkami.png";
 import teamPhoto from "../assets/group.png";
 import Navigation from '../komponen Home/Navigasi';
+import Footer from '../components/Footer';
 
 
 const TentangKami = () => {
@@ -377,17 +378,7 @@ const TentangKami = () => {
           </div>
 
       {/* Footer Section */}
-      <footer
-        className="footer-section"
-        style={{
-          backgroundColor: "#000",
-          color: "#fff",
-          textAlign: "center",
-          padding: "20px",
-        }}
-      >
-        <p>© 2024 Kelompok 88. Platform terpercaya untuk penggemar musik.</p>
-      </footer>
+      <Footer />
     </div>
   );
 };

@@ -1,17 +1,33 @@
-import React, { useState } from "react";
-import EventData from "../data/EventData";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 const PilihanTiket = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const event = EventData.find((event) => event.id === parseInt(id));
-
-  const [selectedTickets, setSelectedTickets] = useState(
-    event.tickets.map((ticket) => ({ type: ticket.type, quantity: 0 }))
-  );
-
+  const [event, setEvent] = useState(null);
+  const [selectedTickets, setSelectedTickets] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    // Fetch data event dan tiket dari backend
+    fetch(`http://localhost:5000/events/${id}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Gagal mengambil data event");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setEvent(data);
+        setSelectedTickets(
+          data.tickets.map((ticket) => ({
+            type: ticket.type,
+            quantity: 0,
+          }))
+        );
+      })
+      .catch((error) => console.error(error));
+  }, [id]);
 
   const handleQuantityChange = (type, change) => {
     setSelectedTickets((prev) =>
@@ -55,6 +71,10 @@ const PilihanTiket = () => {
       },
     });
   };
+
+  if (!event) {
+    return <div style={{ textAlign: "center", padding: "100px" }}>Memuat data...</div>;
+  }
 
   const totalTickets = selectedTickets.reduce((sum, ticket) => sum + ticket.quantity, 0);
   const totalPrice = selectedTickets.reduce((sum, ticket) => {

@@ -1,96 +1,89 @@
-import React, { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import genre1 from '../assets/genre1.svg';
-import genre2 from '../assets/genre2.svg';
-import genre3 from '../assets/genre3.svg';
-import genre4 from '../assets/genre4.svg';
-import genre5 from '../assets/Frame 674.png';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+import genre1 from "../assets/genre1.svg";
+import genre2 from "../assets/genre2.svg";
+import genre3 from "../assets/genre3.svg";
+import genre4 from "../assets/genre4.svg";
+import genre5 from "../assets/Frame 674.png";
 
 const MID2 = () => {
-  const navigate = useNavigate(); // Inisialisasi useNavigate
-  const scrollContainerRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
+  const navigate = useNavigate();
 
   const handleGenreClick = (genre) => {
-    // Abaikan genre 4 dan 7
-    if (genre === 'Genre 4' || genre === 'Genre 7') {
-      return;
-    }
-    // Navigasi ke halaman Kategori dan kirimkan genre sebagai query
     navigate(`/kategori?genre=${genre}`);
   };
 
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setStartX(e.clientX);
-    setScrollLeft(scrollContainerRef.current.scrollLeft);
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    const distance = e.clientX - startX;
-    scrollContainerRef.current.scrollLeft = scrollLeft - distance;
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseLeave = () => {
-    if (isDragging) {
-      setIsDragging(false);
-    }
-  };
-
   return (
-    <div className="MID2">
-      <div className="text-genre">
-        <h1>Pilih Genre Favoritmu!</h1>
-      </div>
+    <div
+      className="MID2"
+      style={{
+        backgroundColor: "#FFC300", // Warna kuning sesuai desain
+        margin: 0,
+        padding: 0,
+      }}
+    >
       <div
-        className="scroll-container"
-        ref={scrollContainerRef}
+        className="text-genre text-center"
         style={{
-          overflow: 'hidden',
-          display: 'flex',
-          flexWrap: 'nowrap',
-          cursor: 'grab',
+          padding: "40px 0", // Tambahkan lebih banyak padding untuk menengah
+          color: "#000",
         }}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseLeave}
       >
-        <div className="genre" style={{ display: 'inline-flex' }}>
-          <div className="genred">
-            <button type="button" onClick={() => handleGenreClick('Dangdut')}>
-              <img src={genre1} alt="Dangdut" />
-            </button>
-          </div>
-          <div className="genred">
-            <button type="button" onClick={() => handleGenreClick('Rock')}>
-              <img src={genre2} alt="Rock" />
-            </button>
-          </div>
-          <div className="genred">
-            <button type="button" onClick={() => handleGenreClick('Hiphop')}>
-              <img src={genre3} alt="Hiphop" />
-            </button>
-          </div>
-          <div className="genred">
-            <button type="button" onClick={() => handleGenreClick('Pop')}>
-              <img src={genre4} alt="Pop" />
-            </button>
-          </div>
-          <div className="genred">
-            <button type="button" onClick={() => handleGenreClick('Indie')}>
-              <img src={genre5} alt="Indie" />
-            </button>
-          </div>
-        </div>
+        <h1 style={{ margin: 0 }}>Pilih Genre Favoritmu!</h1>
       </div>
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        spaceBetween={10} // Perkecil jarak antar slide
+        slidesPerView={3}
+        navigation
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        breakpoints={{
+          640: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 },
+        }}
+        style={{
+          padding: "20px 0",
+        }}
+      >
+        {[{ src: genre1, label: "Dangdut" },
+          { src: genre2, label: "R&B" },
+          { src: genre3, label: "Hip-hop" },
+          { src: genre4, label: "Pop" },
+          { src: genre5, label: "Indie" }].map((genre, index) => (
+          <SwiperSlide key={index}>
+            <button
+              type="button"
+              className="genre-button"
+              onClick={() => handleGenreClick(genre.label)}
+              style={{
+                background: "transparent",
+                border: "none",
+                outline: "none",
+                cursor: "pointer",
+              }}
+            >
+              <img
+                src={genre.src}
+                alt={genre.label}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  borderRadius: "10px",
+                  transition: "transform 0.3s ease",
+                }}
+              />
+            </button>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };
