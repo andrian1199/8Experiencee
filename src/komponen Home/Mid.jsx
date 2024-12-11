@@ -20,7 +20,7 @@ const Mid = () => {
         const response = await axios.get(API_URL); // Mengambil data dari API
         const allEvents = response.data; // Asumsikan data berbentuk array
 
-        // Pisahkan data menjadi populer dan baru (berdasarkan slice atau logika lain)
+        // Pisahkan data menjadi populer dan baru
         setPopularEvents(allEvents.slice(0, 4)); // Data pertama untuk "Yang Lagi Populer Nih!"
         setNewEvents(allEvents.slice(4)); // Data sisanya untuk "Acara Baru Nih!"
         setLoading(false);
@@ -56,10 +56,10 @@ const Mid = () => {
           <h1 className="fw-bold mb-0 ms-3">Yang Lagi Populer Nih!</h1>
         </div>
       </div>
-      <div className="row gx-2 gy-3" style={styles.cardContainer}>
+      <div style={styles.cardContainer}>
         {popularEvents.length > 0 ? (
           popularEvents.map((event) => (
-            <div key={event.id} className="col-6 col-md-4 col-lg-3 p-0">
+            <div key={event.id} style={styles.cardWrapper}>
               <EventCard
                 id={event.id}
                 title={event.title}
@@ -81,10 +81,10 @@ const Mid = () => {
           <h1 className="fw-bold mb-0 ms-3">Acara Baru Nih!</h1>
         </div>
       </div>
-      <div className="row gx-2 gy-3" style={styles.cardContainer}>
+      <div style={styles.cardContainer}>
         {newEvents.length > 0 ? (
           newEvents.map((event) => (
-            <div key={event.id} className="col-6 col-md-4 col-lg-3 p-0">
+            <div key={event.id} style={styles.cardWrapper}>
               <EventCard
                 id={event.id}
                 title={event.title}
@@ -106,9 +106,15 @@ const Mid = () => {
 // CSS styling yang diatur sesuai kebutuhan
 const styles = {
   cardContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-start', // Untuk menjaga agar kartu-kartu tetap teratur
+    display: "flex",
+    flexWrap: "wrap", // Membuat elemen melipat jika lebar habis
+    gap: "30px", // Jarak antar elemen diperbesar
+    justifyContent: "flex-start", // Agar elemen dimulai dari kiri
+  },
+  cardWrapper: {
+    flex: "0 1 calc(25% - 30px)", // Ukuran kartu 25% dengan margin
+    minWidth: "200px", // Ukuran minimum kartu
+    maxWidth: "300px", // Ukuran maksimum kartu
   },
 };
 

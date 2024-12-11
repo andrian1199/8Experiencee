@@ -301,56 +301,52 @@ const EventList = () => {
                       </td>
 
                       <td>
-  <div
-    style={{
-      display: "flex",
-      gap: "10px",
-      justifyContent: "center",
-      alignItems: "center",
-    }}
-  >
-    {/* Tombol Edit */}
-    <button
-      style={{
-        backgroundColor: "transparent",
-        border: "none",
-        color: "blue",
-        cursor: "pointer",
-        fontSize: "16px",
-        padding: "5px",
-      }}
-      onClick={() => {
-        setIsEditing(true);
-        setFormData({
-          ...event,
-          tickets: event.tickets || [], // Pastikan tickets array
-        });
-        setShowModal(true);
-      }}
-    >
-      <FontAwesomeIcon icon={faEdit} style={{ marginRight: "5px" }} /> Edit
-    </button>
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "10px",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          {/* Tombol Edit */}
+                          <button
+                            style={{
+                              backgroundColor: "transparent",
+                              border: "none",
+                              color: "blue",
+                              cursor: "pointer",
+                              fontSize: "16px",
+                              padding: "5px",
+                            }}
+                            onClick={() => {
+                              setIsEditing(true);
+                              setFormData({
+                                ...event,
+                                tickets: event.tickets || [], // Pastikan tickets array
+                              });
+                              setShowModal(true);
+                            }}
+                          >
+                            <FontAwesomeIcon icon={faEdit} style={{ marginRight: "5px" }} /> Edit
+                          </button>
 
-    {/* Tombol Hapus */}
-    <button
-      style={{
-        backgroundColor: "transparent",
-        border: "none",
-        color: "red",
-        cursor: "pointer",
-        fontSize: "16px",
-        padding: "5px",
-      }}
-      onClick={() => handleDelete(event.id)}
-    >
-      <FontAwesomeIcon icon={faTrash} style={{ marginRight: "5px" }} /> Hapus
-    </button>
-  </div>
-</td>
-
-
-
-
+                          {/* Tombol Hapus */}
+                          <button
+                            style={{
+                              backgroundColor: "transparent",
+                              border: "none",
+                              color: "red",
+                              cursor: "pointer",
+                              fontSize: "16px",
+                              padding: "5px",
+                            }}
+                            onClick={() => handleDelete(event.id)}
+                          >
+                            <FontAwesomeIcon icon={faTrash} style={{ marginRight: "5px" }} /> Hapus
+                          </button>
+                        </div>
+                      </td>
 
                       <td>
                         {event.tickets && event.tickets.length > 0 ? (

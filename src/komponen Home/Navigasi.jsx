@@ -43,7 +43,7 @@ function Navigasi() {
   };
 
   const navbarStyle = {
-    backgroundColor: '#343a40', // Warna latar belakang
+    backgroundColor: '#212121', // Warna latar belakang
     height: '60px', // Atur tinggi navbar
     display: 'flex',
     alignItems: 'center', // Vertikal rata tengah
@@ -79,13 +79,7 @@ function Navigasi() {
             >
               Home
             </Nav.Link>
-            <Nav.Link
-              as={Link}
-              to="/blog"
-              className={`btn text-white ${isActive('/blog') ? 'opacity-100' : 'opacity-50'}`}
-            >
-              Blog
-            </Nav.Link>
+
             <Nav.Link
               as={Link}
               to="/komunitas"
@@ -93,6 +87,15 @@ function Navigasi() {
             >
               Komunitas
             </Nav.Link>
+
+            <Nav.Link
+              as={Link}
+              to="/blog"
+              className={`btn text-white ${isActive('/blog') ? 'opacity-100' : 'opacity-50'}`}
+            >
+              Blog
+            </Nav.Link>
+            
             <Nav.Link
               as={Link}
               to="/tentangkami"
@@ -154,7 +157,7 @@ function Navigasi() {
                     style={{
                       padding: '12px 20px',
                       backgroundColor: '#FFCF00',
-                      borderRadius: '15px',
+                      borderRadius: '40px',
                       border: '2px solid black',
                       fontWeight: 'bold',
                       fontSize: '14px',

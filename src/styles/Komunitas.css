@@ -19,7 +19,6 @@
     position: relative;
     height: 80vh;
     display: flex;
-   
     color: white;
     background-image: url('/assets/komunitas.jpg'); /* Ganti dengan path gambar Anda */
     background-size: cover;

@@ -10,7 +10,7 @@ const HeroSection = () => {
             height: 80vh;
             display: flex;
             color: white;
-            background-image: url('/assets/komunitas.jpg');
+            background-image: url('/assets/event.jpg');
             background-size: cover;
             background-position: center;
           }

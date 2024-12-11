@@ -122,7 +122,7 @@ const EventDetail = () => {
 const styles = {
   container: {
     padding: "120px",
-    paddingTop: "100px", // Tambahkan padding-top untuk mengimbangi tinggi navbar
+    paddingTop: "50px", // Tambahkan padding-top untuk mengimbangi tinggi navbar
     fontFamily: "Arial, sans-serif",
   },
   detailContainer: {

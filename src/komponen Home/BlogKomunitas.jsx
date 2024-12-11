@@ -12,7 +12,7 @@ const BlogKomunitas = () => {
       display: "flex",
       flexDirection: "column",
       gap: "2rem",
-      padding: "5rem 10rem",
+      padding: "3rem 7rem", // Padding fleksibel
       backgroundColor: "#f9f9f9",
     },
     header: {
@@ -31,13 +31,14 @@ const BlogKomunitas = () => {
       borderRadius: "12px",
       padding: "2rem",
       boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+      flexWrap: "wrap", // Agar elemen otomatis turun saat layar kecil
     },
     reverseSection: {
-      flexDirection: "row-reverse",
+      flexDirection: "row-reverse", // Gambar di kanan, teks di kiri
     },
     image: {
       width: "100%",
-      maxWidth: "495px",
+      maxWidth: "600px", // Batasi ukuran maksimal
       height: "auto",
       objectFit: "cover",
       borderRadius: "12px",
@@ -49,7 +50,7 @@ const BlogKomunitas = () => {
       gap: "1rem",
       justifyContent: "center",
       alignItems: "flex-start",
-      textAlign: "left", // Pastikan teks tetap kiri
+      textAlign: "left",
     },
     title: {
       fontSize: "1.8rem",
@@ -72,34 +73,38 @@ const BlogKomunitas = () => {
       border: "none",
       borderRadius: "40px",
       cursor: "pointer",
-      backgroundColor: "#fdd835",
+      backgroundColor: "#ffcf00",
       color: "#000",
       transition: "background-color 0.3s ease",
     },
     // Media Queries untuk Responsivitas
     "@media (max-width: 768px)": {
       section: {
-        flexDirection: "column",
-        textAlign: "left", // Tetap kiri
-        alignItems: "flex-start", // Pastikan teks tetap kiri
+        flexDirection: "column", // Ubah menjadi kolom saat layar kecil
+        alignItems: "center", // Pusatkan isi
+        textAlign: "center", // Teks berada di tengah
       },
-      reverseSection: {
-        flexDirection: "column",
+      textContainer: {
+        alignItems: "center",
+        textAlign: "center",
+      },
+      image: {
+        maxWidth: "100%", // Biarkan gambar memenuhi lebar tanpa menjadi kecil
       },
     },
     "@media (max-width: 480px)": {
       header: {
-        fontSize: "1.8rem",
+        fontSize: "1.5rem",
       },
       title: {
-        fontSize: "1.5rem",
+        fontSize: "1.3rem",
       },
       paragraph: {
         fontSize: "0.9rem",
       },
       button: {
-        fontSize: "0.9rem",
-        padding: "0.7rem 1.2rem",
+        fontSize: "0.8rem",
+        padding: "0.6rem 1rem",
       },
     },
   };

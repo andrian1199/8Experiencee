@@ -6,6 +6,7 @@ import headerImage from "../assets/tentangkami.png";
 import teamPhoto from "../assets/group.png";
 import Navigation from '../komponen Home/Navigasi';
 import Footer from '../components/Footer';
+import Festix from "../assets/FesTixKom.png";
 
 
 const TentangKami = () => {
@@ -28,7 +29,7 @@ const TentangKami = () => {
       <header
   className="header-section"
   style={{
-    backgroundImage: ({headerImage}),
+    backgroundImage: `url(${headerImage})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
@@ -67,35 +68,64 @@ const TentangKami = () => {
 </header>
 
 
-<section
-  className="intro-section"
-  style={{
-    display: "flex",
-    alignItems: "flex-start",
-    padding: "80px 40px",
-    gap: "20px",
-    justifyContent: "flex-start",
-    width: "100%",
-  }}
->
-  <div style={{ flex: 1 }}></div> {/* Menambahkan ruang kosong untuk geser gambar */}
-  <img
-    src={teamPhoto}
-    alt="Team Photo"
-    style={{ width: "400px", borderRadius: "10px" }}
-  />
-  <div>
-    <h2 style={{ fontSize: "28px", marginBottom: "10px", marginTop: "0" }}>
-      Ayo Temukan Kebahagiaan Bersama Kawan!
-    </h2>
-    <p style={{ fontSize: "18px", color: "#555", marginTop: "0" }}>
-      Kami memahami bahwa konser adalah tentang pengalaman dan kami disini
-      untuk memastikan Anda mendapatkan pengalaman terbaik. Dengan FesTix, Anda bisa
-      mendapatkan informasi akurat, memesan tiket dengan aman, dan bergabung dalam komunitas
-      yang berbagi minat musik yang sama.
-    </p>
-  </div>
-</section>
+    <section
+      className="intro-section"
+      style={{
+        display: "flex",
+        flexDirection: window.innerWidth <= 768 ? "column" : "row", // Kolom untuk layar kecil
+        alignItems: window.innerWidth <= 768 ? "center" : "flex-start",
+        padding: window.innerWidth <= 768 ? "40px 20px" : "80px 150px",
+        gap: "20px",
+        justifyContent: "center",
+        width: "100%",
+      }}
+    >
+      {/* Gambar tim */}
+      <img
+        src={teamPhoto}
+        alt="Team Photo"
+        style={{
+          width: window.innerWidth <= 768 ? "70%" : "500px", // Tetap cukup besar di layar kecil
+          borderRadius: "10px",
+          maxWidth: "100%",
+          marginBottom: window.innerWidth <= 768 ? "20px" : "0", // Tambah margin di bawah untuk layar kecil
+        }}
+      />
+      
+      {/* Konten teks */}
+      <div
+        style={{
+          textAlign: window.innerWidth <= 768 ? "center" : "left", // Tengahkan teks di layar kecil
+          maxWidth: window.innerWidth <= 768 ? "90%" : "50%", // Batasi lebar teks
+        }}
+      >
+        <h2
+          style={{
+            fontSize: window.innerWidth <= 768 ? "24px" : "28px", // Sesuaikan ukuran teks
+            marginBottom: "10px",
+            marginTop: "0",
+          }}
+        >
+          Ayo Temukan Kebahagiaan Bersama Kawan!
+        </h2>
+        <p
+          style={{
+            fontSize: window.innerWidth <= 768 ? "16px" : "20px", // Responsif: Ukuran font
+            color: "#555",
+            marginTop: "0",
+            textAlign: "justify",
+          }}
+        >
+          Kami memahami bahwa konser adalah tentang pengalaman dan kami disini
+          untuk memastikan Anda mendapatkan pengalaman terbaik. Dengan FesTix, Anda bisa
+          mendapatkan informasi akurat, memesan tiket dengan aman, dan bergabung dalam komunitas
+          yang berbagi minat musik yang sama.
+        </p>
+      </div>
+    </section>
+
+
+
 
 
 
@@ -156,41 +186,35 @@ const TentangKami = () => {
   </div>
 
   {/* Container untuk gambar dengan background opacity */}
-<div
+  <div
   style={{
     position: "relative",
-    backgroundColor: "rgba(255, 255, 255, 0.17)",
-    padding: "50px",
-    marginTop: "-80px",
+    height: "500px",
+    backgroundImage: `url(${Festix})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    zIndex: "-1",
   }}
 >
-  {/* Gambar Background */}
   <img
-    src="./src/assets/FesTixKom.png"
-    alt="Background"
+    src="./src/assets/katamereka.png"
+    alt="Testimonial Overlay"
     style={{
-      maxWidth: "100%",
-      borderRadius: "10px",
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      maxWidth: "90%",
+      maxHeight: "90%",
     }}
   />
-
-  {/* Gambar Testi di atas background */}
-<img
-  src="./src/assets/katamereka.png"
-  alt="Testimonial Overlay"
-  style={{
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    maxWidth: "90%",
-    maxHeight: "90%",
-  }}
-/>
 </div>
+
+
 </section>
 
       <section
@@ -208,7 +232,7 @@ const TentangKami = () => {
     flex: 1.5,
     maxWidth: "50%",
     backgroundColor: "white",
-    padding: "20px",
+    padding: "33px",
     borderRadius: "10px",
     boxShadow: "0px 6px 6px 2px rgba(0, 0, 0, 0.25)",
     marginLeft: "80px",
@@ -219,7 +243,7 @@ const TentangKami = () => {
     Kami memberikan fleksibilitas yang menyenangkan agar kamu dapat merasakan sesuatu yang unik. Bagi para pecinta musik, penggemar olahraga, pecinta seni, atau siapa pun yang sedang berjuang mengejar impian, selalu ada hal menarik yang menantimu di sini!
   </p>
   <img
-    src="./src/assets/logofestix.png"
+    src="./src/assets/Festix 1.svg"
     alt="FesTix Logo"
     style={{
       width: "332px",
@@ -378,9 +402,9 @@ const TentangKami = () => {
           </div>
 
       {/* Footer Section */}
-      <Footer />
+      <Footer/>
     </div>
   );
 };
 
-export default TentangKami;
+export default TentangKami; 

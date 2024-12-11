@@ -24,14 +24,14 @@ const MID2 = () => {
       className="MID2"
       style={{
         backgroundColor: "#FFC300", // Warna kuning sesuai desain
+        padding: "0 20px", // Tambahkan padding kiri dan kanan
         margin: 0,
-        padding: 0,
       }}
     >
       <div
         className="text-genre text-center"
         style={{
-          padding: "40px 0", // Tambahkan lebih banyak padding untuk menengah
+          padding: "40px 0", // Tambahkan lebih banyak padding atas-bawah
           color: "#000",
         }}
       >
@@ -50,7 +50,7 @@ const MID2 = () => {
           1024: { slidesPerView: 4 },
         }}
         style={{
-          padding: "20px 0",
+          padding: "20px 10px", // Tambahkan padding untuk memberikan ruang kiri-kanan
         }}
       >
         {[{ src: genre1, label: "Dangdut" },
