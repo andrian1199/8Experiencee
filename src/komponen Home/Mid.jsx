@@ -22,7 +22,7 @@ const Mid = () => {
 
         // Pisahkan data menjadi populer dan baru
         setPopularEvents(allEvents.slice(0, 4)); // Data pertama untuk "Yang Lagi Populer Nih!"
-        setNewEvents(allEvents.slice(4)); // Data sisanya untuk "Acara Baru Nih!"
+        setNewEvents(allEvents.slice(4, 8)); // Data kedua untuk "Acara Baru Nih!" hanya 4 data
         setLoading(false);
       } catch (err) {
         setError("Gagal mengambil data dari server.");
@@ -103,18 +103,17 @@ const Mid = () => {
   );
 };
 
-// CSS styling yang diatur sesuai kebutuhan
 const styles = {
   cardContainer: {
     display: "flex",
-    flexWrap: "wrap", // Membuat elemen melipat jika lebar habis
-    gap: "30px", // Jarak antar elemen diperbesar
-    justifyContent: "flex-start", // Agar elemen dimulai dari kiri
+    flexWrap: "wrap",
+    gap: "30px",
+    justifyContent: "flex-start",
   },
   cardWrapper: {
-    flex: "0 1 calc(25% - 30px)", // Ukuran kartu 25% dengan margin
-    minWidth: "200px", // Ukuran minimum kartu
-    maxWidth: "300px", // Ukuran maksimum kartu
+    flex: "0 1 calc(25% - 30px)",
+    minWidth: "200px",
+    maxWidth: "300px",
   },
 };
 

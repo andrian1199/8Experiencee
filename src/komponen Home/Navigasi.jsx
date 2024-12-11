@@ -11,10 +11,12 @@ function Navigasi() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // Memeriksa status login pada saat pertama kali komponen dimuat
   useEffect(() => {
     const loggedInStatus = localStorage.getItem('isLoggedIn') === 'true';
     setIsLoggedIn(loggedInStatus);
 
+    // Menambahkan event listener untuk mendeteksi perubahan status login di localStorage
     const handleStorageChange = () => {
       const updatedStatus = localStorage.getItem('isLoggedIn') === 'true';
       setIsLoggedIn(updatedStatus);
@@ -26,14 +28,18 @@ function Navigasi() {
     };
   }, []);
 
+  // Fungsi untuk melakukan logout
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('user'); // Hapus data user dari localStorage
     setIsLoggedIn(false);
-    navigate('/login');
+    navigate('/login'); // Arahkan pengguna ke halaman login setelah logout
   };
 
+  // Memeriksa apakah halaman saat ini aktif
   const isActive = (path) => location.pathname === path;
 
+  // Style untuk container Navbar
   const containerStyle = {
     maxWidth: '95%',
     margin: '0 auto',
@@ -42,14 +48,16 @@ function Navigasi() {
     paddingRight: '0',
   };
 
+  // Style untuk Navbar
   const navbarStyle = {
     backgroundColor: '#212121', // Warna latar belakang
-    height: '60px', // Atur tinggi navbar
+    height: '100px', // Atur tinggi navbar
     display: 'flex',
     alignItems: 'center', // Vertikal rata tengah
     padding: '0', // Hapus padding default
   };
 
+  // Style untuk logo
   const logoStyle = {
     display: 'flex', // Pastikan logo mengikuti aturan flexbox
     alignItems: 'center',
@@ -59,19 +67,20 @@ function Navigasi() {
   };
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" fixed="top" className="shadow-sm w-100">
+    <Navbar bg="dark" variant="dark" expand="lg" fixed="top" className="shadow-sm w-100" style={navbarStyle}>
       <Container style={containerStyle}>
         {/* Logo */}
         <Navbar.Brand as={Link} to="/" style={{ padding: '0', marginRight: 'auto' }}>
           <img src={logo} alt="Logo" style={logoStyle} />
         </Navbar.Brand>
 
-        {/* Toggle Menu */}
+        {/* Toggle Menu untuk perangkat kecil */}
         <Navbar.Toggle aria-controls="navbar-nav" />
 
         {/* Menu */}
         <Navbar.Collapse id="navbar-nav">
           <Nav className="ml-auto">
+            {/* Menu Navigation */}
             <Nav.Link
               as={Link}
               to="/"

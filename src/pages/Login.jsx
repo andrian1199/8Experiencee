@@ -1,25 +1,37 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import axios from "axios";
 import "./Login.css";
-import FestixLogo from "../assets/FestixLogo 3.png"; 
-import UnsplashBackground from "../assets/Unsplash.svg"; 
+import FestixLogo from "../assets/FestixLogo 3.png";
+import UnsplashBackground from "../assets/Unsplash.svg";
 
 function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Simulasi login: username dan password yang benar adalah "user" dan "password"
-    if (username === "user" && password === "password") {
-      localStorage.setItem("isLoggedIn", "true"); // Simpan status login
-      navigate("/"); // Arahkan ke halaman home
-    } else {
-      setError("Username atau password salah");
+    try {
+      const response = await axios.post("http://localhost:5000/api/auth/login", {
+        email,
+        password,
+      });
+
+      if (response.data.success) {
+        // Simpan token, status login, dan data pengguna ke localStorage
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        navigate("/"); // Arahkan ke halaman utama setelah login berhasil
+      }
+      else {
+        setError(response.data.message);
+      }
+    } catch (err) {
+      setError("Email atau Password salah.");
     }
   };
 
@@ -42,23 +54,25 @@ function Login() {
         <h2 className="login-title">LOGIN</h2>
         <form onSubmit={handleLogin}>
           <div className="form-group">
-            <label>Masukkan Namamu</label>
+            <label>Email</label>
             <input
-              type="text"
+              type="email"
               className="form-control"
-              placeholder="Masukkan namamu..."
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Masukkan email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
           <div className="form-group">
-            <label>Masukkan Password</label>
+            <label>Password</label>
             <input
               type="password"
               className="form-control"
               placeholder="Masukkan Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
           <button type="submit" className="login-button">
@@ -69,7 +83,7 @@ function Login() {
         {error && <div className="error-message">{error}</div>}
 
         <div className="register">
-          Belum punya akun? <Link to="/daftar">Daftar sekarang</Link>
+          Belum punya akun? <a href="/daftar">Daftar sekarang</a>
         </div>
       </div>
     </div>

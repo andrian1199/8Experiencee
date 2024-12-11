@@ -8,6 +8,7 @@ import AdminProfile from './Admin/AdminProfile';
 import Dashboard from './Admin/Dashboard';
 import EventList from './Admin/EventList';
 import OrderPage from './Admin/OrderPage';
+import CommunityList from './Admin/CommunityList';
 import Home from './pages/Home';
 import Card4 from './pages/Card4';
 import Blog from './pages/BlogPage';
@@ -15,7 +16,7 @@ import Blog from './pages/BlogPage';
 import BlogDetailPage from './pages/BlogDetailPage'; 
 import Komunitas from './pages/Komunitas';
 import CommunityDetail from './pages/CommunityDetail';
-import PilihanTiket from './pages/Pilihantiket';
+import PilihanTiket from './pages/PilihanTiket';
 import Pembayaran from './pages/Pembayaran';
 import Kategori from './Detail Konser/Kategori'; 
 import Tiket from './pages/Tiket';
@@ -35,6 +36,7 @@ import MetodePembayaran from './pages/MetodePembayaran'; // Import baru
 import KonfirmasiPesanan from './pages/KonfirmasiPesanan';
 import StatusPembayaran from './pages/StatusPembayaran';
 
+
 function App() {
   return (
     <Router>
@@ -47,6 +49,8 @@ function App() {
         <Route path="/admin/orders" element={<OrderPage />} />  {/* Menambahkan route untuk halaman pesanan */}
         {/* Route untuk Event List */}
         <Route path="/admin/profile" element={<AdminProfile />} />
+        
+        <Route path="/admin/community" element={<CommunityList/>} />
         
 
 

@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import communityData from "../data/CommunityData";
+import axios from "axios";
 import Navigasi from "../komponen Home/Navigasi"; // Import navigasi
 
 const CommunityDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate(); // Hook untuk navigasi
-  const community = communityData.find((item) => item.id === id);
+  const [community, setCommunity] = useState(null);
+
+  useEffect(() => {
+    const fetchCommunity = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/communities/${id}`);
+        setCommunity(response.data);
+      } catch (error) {
+        console.error("Error fetching community details:", error);
+      }
+    };
+    fetchCommunity();
+  }, [id]);
 
   if (!community) {
     return <div>Community not found.</div>;

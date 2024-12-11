@@ -1,15 +1,52 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Navigasi from '../komponen Home/Navigasi'; // Pastikan path import sudah benar
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import '../styles/Profile.css'; //
+
+// Fungsi untuk memformat tanggal menjadi dd-mm-yyyy
+const formatDate = (dateString) => {
+  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  const date = new Date(dateString);
+  return date.toLocaleDateString('id-ID', options); // Menggunakan locale id-ID untuk format dd-mm-yyyy
+};
 
 function ProfilePage() {
   const [avatar, setAvatar] = useState("/assets/Bernadya 1.webp"); // Avatar default
   const [preview, setPreview] = useState(null); // Preview untuk konfirmasi
   const [isModalVisible, setModalVisible] = useState(false); // Kontrol modal
+  const [user, setUser] = useState(null); // Data pengguna
+  const [error, setError] = useState(""); // Error message
   const fileInputRef = useRef(null); // Untuk memicu input file
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Ambil token dari localStorage
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/login"); // Jika tidak ada token, arahkan ke halaman login
+      return;
+    }
+
+    // Ambil data pengguna dari backend
+    axios
+      .get("http://localhost:5000/api/auth/profile", {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        if (response.data.success) {
+          setUser(response.data.user); // Set data pengguna
+        } else {
+          setError(response.data.message); // Set error jika ada masalah
+        }
+      })
+      .catch((err) => {
+        setError("Terjadi kesalahan. Silakan coba lagi.");
+      });
+  }, [navigate]);
 
   // Fungsi untuk membuka file picker
   const triggerAvatarUpload = () => {
@@ -36,6 +73,11 @@ function ProfilePage() {
     setPreview(null); // Reset preview
   };
 
+   // Fungsi untuk kembali ke halaman sebelumnya
+  const goBack = () => {
+    navigate(-1); // -1 berarti kembali ke halaman sebelumnya
+  };
+
   return (
     <div>
       {/* Navigasi ditempatkan di atas */}
@@ -44,9 +86,12 @@ function ProfilePage() {
       {/* Tambahkan padding-top untuk memberikan jarak antara navbar dan konten */}
       <div className="container my-5" style={{ paddingTop: '80px' }}>
         {/* Tombol Kembali */}
-        <button className="btn btn-outline-secondary mb-4">
-          <i className="bi bi-arrow-left"></i> Kembali
-        </button>
+        <button 
+        className="btn btn-outline-secondary mb-4" 
+        onClick={goBack} // Panggil fungsi goBack ketika tombol diklik
+      >
+        <i className="bi bi-arrow-left"></i> Kembali
+      </button>
 
         <h2 className="mb-4">Profil</h2>
         <div className="card profile-card mb-5 p-4 shadow">
@@ -93,23 +138,28 @@ function ProfilePage() {
             </div>
 
             <hr />
-            <div>
-              <p>
-                <strong>Nama Lengkap:</strong> Cristiano Ronaldo El Goat
-              </p>
-              <p>
-                <strong>Nomor Hp:</strong> +62 81234567893
-              </p>
-              <p>
-                <strong>E-Mail:</strong> cristianogoatasli@portugal.com
-              </p>
-              <p>
-                <strong>Tanggal Lahir:</strong> 31 Desember 1985
-              </p>
-              <p>
-                <strong>Jenis Kelamin:</strong> Laki-laki
-              </p>
-            </div>
+            {/* Tampilkan data pengguna */}
+            {user ? (
+              <div>
+                <p>
+                  <strong>Nama Lengkap:</strong> {user.username}
+                </p>
+                <p>
+                  <strong>Nomor Hp:</strong> {user.phone}
+                </p>
+                <p>
+                  <strong>E-Mail:</strong> {user.email}
+                </p>
+                <p>
+                  <strong>Tanggal Lahir:</strong> {user.birth_date ? formatDate(user.birth_date) : 'Tanggal tidak tersedia'}
+                </p>
+                <p>
+                  <strong>Jenis Kelamin:</strong> Laki-laki {/* Atur sesuai data gender */}
+                </p>
+              </div>
+            ) : (
+              <p>Loading...</p>
+            )}
           </div>
         </div>
 
@@ -123,7 +173,23 @@ function ProfilePage() {
           </Link>
         </div>
 
-        <button className="btn btn-outline-danger w-100">Log Out</button>
+        <button
+          className="btn"
+          style={{
+            border: "2px solid red",  // Outline merah
+            color: "red",  // Teks merah
+            borderRadius: "40px",
+            backgroundColor: "transparent",  // Latar belakang transparan
+            display: "block",
+            margin: "0 auto",  // Menempatkan tombol di tengah
+            width: "200px",  // Lebar tombol
+            padding: "10px",  // Padding tombol
+          }}
+        >
+          Log Out
+        </button>
+
+
 
         {/* Modal Konfirmasi */}
         {isModalVisible && (

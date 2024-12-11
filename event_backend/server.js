@@ -2,6 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mysql = require("mysql2");
+const authRoutes = require("./routes/auth"); // Sesuaikan path jika berbeda
+const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
+
 
 require("dotenv").config();
 
@@ -10,6 +14,7 @@ app.use(cors());
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 app.use("/public", express.static("public"));
+
 
 // Koneksi MySQL
 const db = mysql.createConnection({
@@ -26,6 +31,85 @@ db.connect((err) => {
   }
   console.log("Connected to MySQL database");
 });
+
+// Register endpoint
+app.post("/api/auth/register", async (req, res) => {
+  console.log(req.body);
+  const { email, username, password, phone, birth_date } = req.body;
+
+  // Cek jika email sudah terdaftar
+  db.query("SELECT * FROM users WHERE email = ?", [email], async (err, results) => {
+    if (results.length > 0) {
+      return res.status(400).json({ success: false, message: "Email sudah digunakan." });
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Simpan ke database
+    db.query(
+      "INSERT INTO users (email, username, password, phone, birth_date) VALUES (?, ?, ?, ?, ?)",
+      [email, username, hashedPassword, phone, birth_date],
+      (err) => {
+        if (err) throw err;
+        res.json({ success: true, message: "Pendaftaran berhasil." });
+      }
+    );
+  });
+});
+
+// Login endpoint
+app.post("/api/auth/login", (req, res) => {
+  const { email, password } = req.body;
+
+  // Cek pengguna di database
+  db.query("SELECT * FROM users WHERE email = ?", [email], async (err, results) => {
+    if (results.length === 0) {
+      return res.status(404).json({ success: false, message: "Pengguna tidak ditemukan." });
+    }
+
+    const user = results[0];
+
+    // Verifikasi password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ success: false, message: "Password salah." });
+    }
+
+    // Buat token JWT
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+    res.json({ success: true, token, user: { id: user.id, email: user.email, username: user.username } });
+  });
+});
+
+// Tambahkan endpoint untuk mendapatkan data profil pengguna
+app.get("/api/auth/profile", (req, res) => {
+  const token = req.headers["authorization"]; // Ambil token dari header
+
+  if (!token) {
+    return res.status(403).json({ success: false, message: "Token tidak ditemukan." });
+  }
+
+  // Verifikasi token
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ success: false, message: "Token tidak valid." });
+    }
+
+    // Ambil data pengguna berdasarkan ID yang ada pada token
+    db.query("SELECT * FROM users WHERE id = ?", [decoded.id], (err, results) => {
+      if (err) throw err;
+      if (results.length === 0) {
+        return res.status(404).json({ success: false, message: "Pengguna tidak ditemukan." });
+      }
+
+      // Kirimkan data pengguna
+      res.json({ success: true, user: results[0] });
+    });
+  });
+});
+
 
 // CREATE: Tambah event baru
 app.post("/events", (req, res) => {
@@ -298,6 +382,79 @@ app.delete("/tickets/:id", (req, res) => {
 });
 
 
+// Komunitas Backend
+// Endpoint untuk mendapatkan semua komunitas
+app.get("/communities", (req, res) => {
+  const sql = "SELECT * FROM communities";
+  db.query(sql, (err, results) => {
+      if (err) {
+          console.error(err);
+          res.status(500).send("Terjadi kesalahan pada server.");
+          return;
+      }
+      res.json(results);
+  });
+});
+
+// Endpoint untuk mendapatkan komunitas berdasarkan ID
+app.get("/communities/:id", (req, res) => {
+  const sql = "SELECT * FROM communities WHERE id = ?";
+  const id = req.params.id;
+  db.query(sql, [id], (err, results) => {
+      if (err) {
+          console.error(err);
+          res.status(500).send("Terjadi kesalahan pada server.");
+          return;
+      }
+      res.json(results[0]);
+  });
+});
+
+// Tambah komunitas baru
+app.post("/communities", (req, res) => {
+  const { title, description, content, category, img, whatsappLink } = req.body;
+  const sql =
+    "INSERT INTO communities (title, description, content, category, img, whatsappLink) VALUES (?, ?, ?, ?, ?, ?)";
+  db.query(sql, [title, description, content, category, img, whatsappLink], (err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Gagal menambahkan komunitas.");
+      return;
+    }
+    res.json({ message: "Komunitas berhasil ditambahkan." });
+  });
+});
+
+// Update komunitas berdasarkan ID
+app.put("/communities/:id", (req, res) => {
+  const { id } = req.params;
+  const { title, description, content, category, img, whatsappLink } = req.body;
+  const sql =
+    "UPDATE communities SET title = ?, description = ?, content = ?, category = ?, img = ?, whatsappLink = ? WHERE id = ?";
+  db.query(sql, [title, description, content, category, img, whatsappLink, id], (err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Gagal memperbarui komunitas.");
+      return;
+    }
+    res.json({ message: `Komunitas dengan ID ${id} berhasil diperbarui.` });
+  });
+});
+
+
+// Hapus komunitas berdasarkan ID
+app.delete("/communities/:id", (req, res) => {
+  const { id } = req.params;
+  const sql = "DELETE FROM communities WHERE id = ?";
+  db.query(sql, [id], (err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Gagal menghapus komunitas.");
+      return;
+    }
+    res.json({ message: `Komunitas dengan ID ${id} berhasil dihapus.` });
+  });
+});
 
 
 const PORT = process.env.PORT || 5000;

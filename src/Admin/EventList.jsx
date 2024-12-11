@@ -70,6 +70,16 @@ const EventList = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const filePath = `/images/${file.name}`;
+      setFormData((prev) => ({ ...prev, image: filePath }));
+    } else {
+      alert('Harap pilih file gambar');
+    }
+  };
+
   const handleTicketChange = (index, field, value) => {
     const updatedTickets = formData.tickets.map((ticket, i) =>
       i === index ? { ...ticket, [field]: value } : ticket
@@ -168,6 +178,8 @@ const EventList = () => {
       }
     }
   };
+
+  
   
   
 
@@ -446,14 +458,22 @@ const EventList = () => {
                   ></textarea>
                 </div>
 
-                  <input
-                    type="text"
-                    name="image"
-                    value={formData.image}
-                    onChange={handleInputChange}
-                    placeholder="URL Gambar"
-                    required
-                  />
+                <div className="form-group">
+                    <label>Gambar Event</label>
+                    <input
+                      type="file"
+                      className="form-control"
+                      accept="image/png, image/jpeg"
+                      onChange={handleImageChange}
+                      required
+                    />
+                    {formData.image && (
+                      <div>
+                        <p>File yang dipilih: {formData.image}</p>
+                      </div>
+                    )}
+                  </div>
+
                   <input
                     type="text"
                     name="additionalImage"
