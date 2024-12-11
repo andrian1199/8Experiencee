@@ -13,27 +13,33 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await axios.post("http://localhost:5000/api/auth/login", {
         email,
         password,
       });
-
+  
       if (response.data.success) {
         // Simpan token, status login, dan data pengguna ke localStorage
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        navigate("/"); // Arahkan ke halaman utama setelah login berhasil
-      }
-      else {
+  
+        // Periksa jika email berakhiran @admin.com
+        if (email.endsWith("@admin.com")) {
+          navigate("/admin/event-list"); // Arahkan ke halaman admin
+        } else {
+          navigate("/"); // Arahkan ke halaman utama untuk pengguna biasa
+        }
+      } else {
         setError(response.data.message);
       }
     } catch (err) {
       setError("Email atau Password salah.");
     }
   };
+  
 
   return (
     <div
