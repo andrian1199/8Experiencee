@@ -79,10 +79,11 @@ const EventList = () => {
 
   const addTicket = () => {
     setFormData((prev) => ({
-      ...prev,
-      tickets: [...prev.tickets, { type: "", price: "", benefits: "", stock: "" }],
+        ...prev,
+        tickets: [...prev.tickets, { type: "", price: "", benefits: "", stock: "" }],
     }));
-  };
+};
+
 
   const removeTicket = (index) => {
     const updatedTickets = formData.tickets.filter((_, i) => i !== index);
@@ -91,72 +92,44 @@ const EventList = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    // Debugging: Cek apakah fungsi dijalankan
-    console.log("Handle Submit Called");
-  
+
     const formattedDate = new Date(formData.date).toISOString().split("T")[0];
-  
+
     try {
-      const dataToSend = { ...formData, date: formattedDate };
-  
-      console.log("Data yang akan dikirim:", dataToSend);
-  
-      let response;
-      let eventId;
-  
-      if (isEditing) {
-        response = await axios.put(`${API_URL}/${formData.id}`, dataToSend);
-        setEvents((prev) =>
-          prev.map((event) => (event.id === formData.id ? dataToSend : event))
-        );
-        eventId = formData.id;
-      } else {
-        response = await axios.post(API_URL, dataToSend);
-        setEvents([...events, response.data]);
-        eventId = response.data.id;
-      }
-  
-      console.log("Response dari API:", response);
-  
-      // Validasi tiket sebelum dikirim
-      for (const ticket of formData.tickets) {
-        // Validasi tiket: pastikan harga dan stok valid
-        if (!ticket.type || !ticket.price || !ticket.stock) {
-          alert("Tiket tidak valid. Pastikan semua data tiket terisi dengan benar.");
-          return;  // Stop pengiriman data jika ada tiket tidak valid
+        const dataToSend = { ...formData, date: formattedDate };
+
+        let response;
+        if (isEditing) {
+            response = await axios.put(`${API_URL}/${formData.id}`, dataToSend);
+        } else {
+            response = await axios.post(API_URL, dataToSend);
         }
-  
-        // Pastikan harga tiket valid
-        if (isNaN(ticket.price) || ticket.price <= 0) {
-          alert("Harga tiket harus berupa angka dan lebih besar dari 0.");
-          return;
+
+        // Cek respons eventId hanya sekali
+        const eventId = response.data.eventId;
+        if (eventId && formData.tickets.length > 0) {
+            const ticketPromises = formData.tickets.map(ticket => 
+                axios.post("http://localhost:5000/tickets", {
+                    event_id: eventId,
+                    ...ticket,
+                })
+            );
+            await Promise.all(ticketPromises); // Pastikan hanya satu kali loop
         }
-  
-        // Pastikan stok tiket valid
-        if (isNaN(ticket.stock) || ticket.stock < 0) {
-          alert("Stok tiket harus berupa angka dan lebih besar atau sama dengan 0.");
-          return;
-        }
-  
-        // Kirim data tiket ke back-end
-        const ticketResponse = await axios.post("http://localhost:5000/tickets", {
-          event_id: eventId,
-          type: ticket.type,
-          price: ticket.price,
-          benefits: ticket.benefits,
-          stock: ticket.stock,
-        });
-        console.log("Ticket berhasil disimpan:", ticketResponse);
-      }
-  
-      resetForm();
-      setShowModal(false);
+
+        resetForm();
+        setShowModal(false);
+        alert("Event dan tiket berhasil disimpan.");
     } catch (error) {
-      console.error("Error saving event and tickets:", error);
-      alert("Terjadi kesalahan saat menyimpan event dan tiket. Periksa konsol untuk detail error.");
+        console.error("Error:", error.response || error.message);
+        alert(`Terjadi kesalahan: ${error.response?.data?.message || error.message}`);
     }
-  };
+};
+
+  
+  
+  
+  
 
   const handleDelete = async (id) => {
     if (window.confirm("Apakah Anda yakin ingin menghapus acara ini?")) {
