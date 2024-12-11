@@ -164,6 +164,14 @@ const TentangKami = () => {
     textAlign: "center",
   }}
 >
+
+{/* Testimonials Section */}
+<section
+  className="testimonials-section"
+  style={{
+    textAlign: "center",
+  }}
+>
   {/* Container khusus untuk "Dari Mereka Untuk Kami" */}
   <div
     style={{
@@ -186,33 +194,42 @@ const TentangKami = () => {
   </div>
 
   {/* Container untuk gambar dengan background opacity */}
-  <div
+<div
   style={{
     position: "relative",
-    height: "500px",
-    backgroundImage: `url(${Festix})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
+    backgroundColor: "rgba(255, 255, 255, 0.17)",
+    padding: "50px",
+    marginTop: "-80px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    zIndex: "-1",
   }}
 >
+  {/* Gambar Background */}
   <img
-    src="./src/assets/katamereka.png"
-    alt="Testimonial Overlay"
+    src="./src/assets/FesTixKom.png"
+    alt="Background"
     style={{
-      position: "absolute",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-      maxWidth: "90%",
-      maxHeight: "90%",
+      maxWidth: "100%",
+      borderRadius: "10px",
     }}
   />
+
+  {/* Gambar Testi di atas background */}
+<img
+  src="./src/assets/katamereka.png"
+  alt="Testimonial Overlay"
+  style={{
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    maxWidth: "90%",
+    maxHeight: "90%",
+  }}
+/>
 </div>
+</section>
 
 
 </section>

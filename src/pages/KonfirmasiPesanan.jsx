@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; 
 import { useLocation, useNavigate } from "react-router-dom";
 
 const KonfirmasiPesanan = () => {
@@ -8,6 +8,8 @@ const KonfirmasiPesanan = () => {
 
   // State untuk menampilkan pop-up konfirmasi
   const [showModal, setShowModal] = useState(false);
+  const [paymentProof, setPaymentProof] = useState(null); // State untuk bukti pembayaran
+  const [previewImage, setPreviewImage] = useState(null); // State untuk preview gambar
 
   // Fungsi untuk kembali ke halaman metode pembayaran
   const handleCancel = () => {
@@ -20,7 +22,10 @@ const KonfirmasiPesanan = () => {
       alert("Silakan pilih metode pembayaran terlebih dahulu.");
       return;
     }
-
+    if (!paymentProof) {
+      alert("Silakan unggah bukti pembayaran terlebih dahulu.");
+      return;
+    }
     setShowModal(true); // Menampilkan pop-up konfirmasi
   };
 
@@ -36,6 +41,17 @@ const KonfirmasiPesanan = () => {
   // Fungsi untuk membatalkan pop-up
   const cancelPayment = () => {
     setShowModal(false); // Menutup pop-up jika dibatalkan
+  };
+
+  // Fungsi untuk menangani unggahan bukti pembayaran
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setPaymentProof(file);
+      const reader = new FileReader();
+      reader.onload = (e) => setPreviewImage(e.target.result);
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -83,6 +99,14 @@ const KonfirmasiPesanan = () => {
               <p><strong>Atas Nama:</strong> PT Musikku</p>
             </div>
           )}
+          <div style={{ marginTop: "20px" }}>
+            <label htmlFor="paymentProof" style={{ display: "block", marginBottom: "10px" }}>
+              Unggah Bukti Pembayaran:
+            </label>
+            <input type="file" id="paymentProof" accept="image/*" onChange={handleFileUpload} />
+            {paymentProof && <p style={{ marginTop: "10px" }}>File diunggah: {paymentProof.name}</p>}
+            {previewImage && <img src={previewImage} alt="Preview Bukti Pembayaran" style={styles.previewImage} />}
+          </div>
         </div>
 
         {/* Tombol */}
@@ -105,7 +129,7 @@ const formatCurrency = (number) => {
 
 const styles = {
   pageContainer: {
-    padding: "100px",
+    padding: "200px",
     fontFamily: "Arial, sans-serif",
     backgroundColor: "#F9F9F9",
     minHeight: "100vh",
@@ -137,6 +161,14 @@ const styles = {
     height: "200px",
     margin: "20px auto",
   },
+  previewImage: {
+    marginTop: "10px",
+    width: "100px",
+    height: "100px",
+    objectFit: "cover",
+    borderRadius: "10px",
+    boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+  },
   actions: {
     display: "flex",
     gap: "10px",
@@ -158,7 +190,6 @@ const styles = {
     cursor: "pointer",
     fontWeight: "bold",
   },
-  // Styling untuk Modal dan Overlay
   overlay: {
     position: "fixed",
     top: 0,
