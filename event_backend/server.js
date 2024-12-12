@@ -457,5 +457,64 @@ app.delete("/communities/:id", (req, res) => {
 });
 
 
+app.get("/api/ticket-purchases", (req, res) => {
+  const token = req.headers["authorization"];
+  if (!token) {
+      return res.status(403).json({ success: false, message: "Token tidak ditemukan." });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+          return res.status(403).json({ success: false, message: "Token tidak valid." });
+      }
+
+      const sql = `
+          SELECT tp.id AS purchase_id, tp.quantity, tp.purchase_date, 
+                 t.type AS ticket_type, t.price AS ticket_price, 
+                 e.title AS event_title, e.date AS event_date, e.location AS event_location
+          FROM ticket_purchases tp
+          JOIN tickets t ON tp.ticket_id = t.id
+          JOIN events e ON t.event_id = e.id
+          WHERE tp.user_id = ?
+          ORDER BY tp.purchase_date DESC
+      `;
+
+      db.query(sql, [decoded.id], (err, results) => {
+          if (err) {
+              console.error(err);
+              return res.status(500).send("Gagal mengambil data pembelian tiket.");
+          }
+          res.status(200).json(results);
+      });
+  });
+});
+
+app.post("/api/ticket-purchases", (req, res) => {
+  const { ticket_id, quantity } = req.body;
+  const token = req.headers["authorization"];
+  if (!token) {
+      return res.status(403).json({ success: false, message: "Token tidak ditemukan." });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+          return res.status(403).json({ success: false, message: "Token tidak valid." });
+      }
+
+      const sql = `
+          INSERT INTO ticket_purchases (user_id, ticket_id, quantity) 
+          VALUES (?, ?, ?)
+      `;
+      db.query(sql, [decoded.id, ticket_id, quantity], (err) => {
+          if (err) {
+              console.error(err);
+              return res.status(500).send("Gagal menyimpan pembelian tiket.");
+          }
+          res.status(201).send("Pembelian tiket berhasil disimpan.");
+      });
+  });
+});
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

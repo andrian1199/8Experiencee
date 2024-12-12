@@ -3,16 +3,29 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const StatusPembayaran = () => {
   const { state } = useLocation();
+  console.log("State yang diterima:", state); // Cek state yang diterima
   const {
     eventDetail = {},
     selectedTickets = [],
     totalPrice = 0,
     selectedMethod = "",
-  } = state || {};
+    user = {}, // Menambahkan user dari state
+  } = state || {}; // Pastikan state ada
+
   const navigate = useNavigate();
 
+  // Fungsi untuk memformat tanggal lahir (dd-mm-yyyy)
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const date = new Date(dateString);
+    if (isNaN(date)) {
+      return "Tanggal Tidak Tersedia";  // Jika format tanggal tidak valid
+    }
+    return date.toLocaleDateString('id-ID', options); // Format tanggal Indonesia
+  };
+
   const handleGoHome = () => {
-    navigate("/");
+    navigate("/");  // Navigasi kembali ke halaman utama
   };
 
   return (
@@ -20,11 +33,15 @@ const StatusPembayaran = () => {
       <main style={styles.main}>
         <h1 style={styles.title}>Terima Kasih Udah Pesan!</h1>
         <img
-          src="/assets/logo-festix.png"
+          src="/assets/FesTix 1.svg"
           alt="Festix Logo"
           style={styles.mainLogo}
         />
         <div style={styles.infoContainer}>
+          {/* Menampilkan Nama Pengguna, Email, dan Tanggal Lahir */}
+          <p><strong>Nama Pengguna:</strong> {user.username || "Nama Tidak Tersedia"}</p>
+          <p><strong>Email:</strong> {user.email || "Email Tidak Tersedia"}</p>
+          <p><strong>Tanggal Lahir:</strong> {user.birth_date ? formatDate(user.birth_date) : "Tanggal Tidak Tersedia"}</p>
           <p><strong>Acara:</strong> {eventDetail.title || "Nama Acara"}</p>
           <p><strong>Tanggal:</strong> {eventDetail.date || "Tanggal Acara"}</p>
           <p><strong>Lokasi:</strong> {eventDetail.location || "Lokasi Acara"}</p>
@@ -35,11 +52,11 @@ const StatusPembayaran = () => {
         <div style={styles.paymentInfo}>
           <p>
             Tiket elektronik dan kuitansi sudah dikirim ke{" "}
-            <strong>kelompok8b@celerates.com</strong>
+            <strong>{user.email || "Email Tidak Tersedia"}</strong>
           </p>
         </div>
         <div style={styles.actions}>
-          <a href="/tiket" style={styles.ticketLink}>
+          <a href="/tiket-page" style={styles.ticketLink}>
             Lihat Tiket
           </a>
           <button style={styles.homeButton} onClick={handleGoHome}>
@@ -117,7 +134,7 @@ const styles = {
     padding: "10px 20px",
     backgroundColor: "#FFD700",
     border: "none",
-    borderRadius: "5px",
+    borderRadius: "40px",
     fontSize: "16px",
     fontWeight: "bold",
     cursor: "pointer",

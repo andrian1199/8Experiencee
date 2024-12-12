@@ -66,16 +66,6 @@ const Sidebar = () => {
                   Komunitas
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink
-                  to="/admin/blog"
-                  className="nav-link text-white d-flex align-items-center"
-                  activeClassName="active"
-                >
-                  <UilFileAlt className="me-2" />
-                  Blog
-                </NavLink>
-              </li>
             </ul>
           )}
         </li>

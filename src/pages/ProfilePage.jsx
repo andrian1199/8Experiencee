@@ -78,6 +78,49 @@ function ProfilePage() {
     navigate(-1); // -1 berarti kembali ke halaman sebelumnya
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+  
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+  
+    axios
+      .get("http://localhost:5000/api/auth/profile", {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        if (response.data.success) {
+          setUser(response.data.user); // Pastikan data pengguna diambil
+        } else {
+          setError(response.data.message);
+        }
+      })
+      .catch((err) => {
+        setError("Terjadi kesalahan. Silakan coba lagi.");
+      });
+  }, [navigate]);
+  
+  // Menambahkan data pengguna saat menavigasi ke StatusPembayaran
+  const handleGoToStatusPembayaran = () => {
+    navigate("/status-pembayaran", {
+      state: {
+        eventDetail,
+        selectedTickets,
+        totalPrice,
+        selectedMethod,
+        user: {
+          username: user.username,
+          email: user.email,
+          birth_date: user.birth_date,
+        },
+      },
+    });
+  };
+  
+  
+
   return (
     <div>
       {/* Navigasi ditempatkan di atas */}

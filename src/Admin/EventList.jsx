@@ -465,7 +465,7 @@ const EventList = () => {
                     <input
                       type="file"
                       className="form-control"
-                      accept="image/png, image/jpeg"
+                      accept="image/png, image/jpeg, image/webp"
                       onChange={handleImageChange}
                       required
                     />
@@ -483,6 +483,9 @@ const EventList = () => {
                     onChange={handleInputChange}
                     placeholder="URL Gambar Tambahan"
                   />
+
+
+                  
                   <button
                     type="button"
                     className="btn btn-secondary mb-3"

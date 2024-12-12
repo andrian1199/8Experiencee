@@ -35,6 +35,7 @@ import EventDetail from './komponen Home/EventDetail';
 import MetodePembayaran from './pages/MetodePembayaran'; // Import baru
 import KonfirmasiPesanan from './pages/KonfirmasiPesanan';
 import StatusPembayaran from './pages/StatusPembayaran';
+import TicketPage from './pages/TicketPage';
 
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
         <Route path="/metode-pembayaran" element={<MetodePembayaran />} /> {/* Rute baru */}
         <Route path="/konfirmasi-pesanan" element={<KonfirmasiPesanan />} />
         <Route path="/status-pembayaran" element={<StatusPembayaran />} />
+        <Route path="/tiket-page" element={<TicketPage />} />
         <Route path="/confirm" element={<Confirm />} />
         <Route path="/confirm2" element={<Confirm2 />} />
 

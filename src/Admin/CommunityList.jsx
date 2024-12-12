@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Sidebar from "./Sidebar"; // Import Sidebar component
-import "../styles/Komunitas.css";
+import Sidebar from "./Sidebar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const CommunityList = () => {
   const [communities, setCommunities] = useState([]);
@@ -16,12 +17,10 @@ const CommunityList = () => {
   const [editId, setEditId] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  // Toggle modal visibility
   const toggleModal = () => {
     setShowModal(!showModal);
   };
 
-  // Fetch communities
   useEffect(() => {
     fetchCommunities();
   }, []);
@@ -39,7 +38,6 @@ const CommunityList = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Handle image URL selection from file input
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith("image")) {
@@ -56,11 +54,9 @@ const CommunityList = () => {
         img: form.img ? form.img : "/public/images/sod.png",
       };
       if (editId) {
-        // Update the community
         await axios.put(`http://localhost:5000/communities/${editId}`, updatedForm);
         alert("Community updated successfully");
       } else {
-        // Add a new community
         await axios.post("http://localhost:5000/communities", updatedForm);
         alert("Community added successfully");
       }
@@ -83,6 +79,7 @@ const CommunityList = () => {
   const handleEdit = (community) => {
     setForm({ ...community, img: community.img || "/public/images/sod.png" });
     setEditId(community.id);
+    toggleModal();
   };
 
   const handleDelete = async (id) => {
@@ -99,11 +96,9 @@ const CommunityList = () => {
 
   return (
     <div className="d-flex">
-      <Sidebar /> {/* Add Sidebar */}
-      <div className="container my-5" style={{ marginLeft: "300px" }}> {/* Adjust margin for Sidebar */}
-        <h2>Manage Communities</h2>
-
-        {/* Button to open modal */}
+      <Sidebar />
+      <div className="container my-5" style={{ marginLeft: "300px" }}>
+        <h2>Atur Komunitas</h2>
         <button
           className="btn btn-success mb-3"
           onClick={() => {
@@ -119,10 +114,9 @@ const CommunityList = () => {
             toggleModal();
           }}
         >
-          Add Community
+          Tambah Komunitas
         </button>
 
-        {/* Modal for Add/Edit Form */}
         {showModal && (
           <div className="modal-overlay">
             <div className="modal-content">
@@ -140,7 +134,7 @@ const CommunityList = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label>Description</label>
+                  <label>Deskripsi</label>
                   <textarea
                     name="description"
                     value={form.description}
@@ -150,7 +144,7 @@ const CommunityList = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label>Content</label>
+                  <label>Konten</label>
                   <textarea
                     name="content"
                     value={form.content}
@@ -160,7 +154,7 @@ const CommunityList = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label>Category</label>
+                  <label>Kategori</label>
                   <select
                     name="category"
                     value={form.category}
@@ -168,7 +162,7 @@ const CommunityList = () => {
                     className="form-control"
                     required
                   >
-                    <option value="">Select Category</option>
+                    <option value="">Pilih Kategori</option>
                     <option value="Pop">Pop</option>
                     <option value="Rock">Rock</option>
                     <option value="Lainnya">Lainnya</option>
@@ -194,14 +188,14 @@ const CommunityList = () => {
                   />
                 </div>
                 <button type="submit" className="btn btn-primary">
-                  {editId ? "Update" : "Add"} Community
+                  {editId ? "Update" : "Add"} Komunitas
                 </button>
                 <button
                   type="button"
                   className="btn btn-secondary ms-2"
                   onClick={toggleModal}
                 >
-                  Cancel
+                  Batal
                 </button>
               </form>
             </div>
@@ -225,19 +219,34 @@ const CommunityList = () => {
                 <td>{community.category}</td>
                 <td>
                   <button
-                    className="btn btn-warning me-2"
+                    style={{
+                      color: "white",
+                      backgroundColor: "blue",
+                      border: "none",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      padding: "5px 10px",
+                      marginRight: "10px"
+                    }}
                     onClick={() => {
                       handleEdit(community);
                       toggleModal();
                     }}
                   >
-                    Edit
+                    <FontAwesomeIcon icon={faEdit} /> Edit
                   </button>
                   <button
-                    className="btn btn-danger"
+                    style={{
+                      color: "white",
+                      backgroundColor: "red",
+                      border: "none",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      padding: "5px 10px"
+                    }}
                     onClick={() => handleDelete(community.id)}
                   >
-                    Delete
+                    <FontAwesomeIcon icon={faTrash} /> Delete
                   </button>
                 </td>
               </tr>
