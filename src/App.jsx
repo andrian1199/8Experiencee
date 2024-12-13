@@ -10,7 +10,7 @@ import EventList from './Admin/EventList';
 import OrderPage from './Admin/OrderPage';
 import CommunityList from './Admin/CommunityList';
 import Home from './pages/Home';
-import Card4 from './pages/Card4';
+
 import Blog from './pages/BlogPage';
 
 import BlogDetailPage from './pages/BlogDetailPage'; 
@@ -61,7 +61,6 @@ function App() {
         <Route path="/tentangkami" element={<TentangKami />} />
 
         {/* Detail Konser dan Tiket */}
-        <Route path="/card4" element={<Card4 />} />
         <Route path="/event/:id/tiket" element={<PilihanTiket />} />
         <Route path="/tiket/:price" element={<Tiket />} />
 

@@ -110,6 +110,101 @@ app.get("/api/auth/profile", (req, res) => {
   });
 });
 
+// Endpoint untuk memperbarui profil
+app.put("/api/auth/profile", (req, res) => {
+  const token = req.headers["authorization"]; // Ambil token dari header
+
+  if (!token) {
+    return res.status(403).json({ success: false, message: "Token tidak ditemukan." });
+  }
+
+  // Verifikasi token
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ success: false, message: "Token tidak valid." });
+    }
+
+    const { namaLengkap, tanggalLahir, nomorHp, email } = req.body;
+
+    // Validasi input
+    if (!namaLengkap || !tanggalLahir || !nomorHp || !email) {
+      return res.status(400).json({ success: false, message: "Semua bidang harus diisi." });
+    }
+
+    // Perbarui data di database
+    db.query(
+      "UPDATE users SET username = ?, birth_date = ?, phone = ?, email = ? WHERE id = ?",
+      [namaLengkap, tanggalLahir, nomorHp, email, decoded.id],
+      (err, result) => {
+        if (err) {
+          console.error("Error updating profile:", err);
+          return res.status(500).json({ success: false, message: "Gagal memperbarui profil." });
+        }
+
+        if (result.affectedRows === 0) {
+          return res.status(404).json({ success: false, message: "Pengguna tidak ditemukan." });
+        }
+
+        res.json({ success: true, message: "Profil berhasil diperbarui." });
+      }
+    );
+  });
+});
+
+app.put("/api/auth/change-password", (req, res) => {
+  const token = req.headers["authorization"];
+  if (!token) {
+    return res.status(403).json({ success: false, message: "Token tidak ditemukan." });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ success: false, message: "Token tidak valid." });
+    }
+
+    const { oldPassword, newPassword } = req.body;
+
+    // Ambil pengguna berdasarkan ID
+    db.query("SELECT * FROM users WHERE id = ?", [decoded.id], async (err, results) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).json({ success: false, message: "Terjadi kesalahan." });
+      }
+
+      if (results.length === 0) {
+        return res.status(404).json({ success: false, message: "Pengguna tidak ditemukan." });
+      }
+
+      const user = results[0];
+
+      // Verifikasi kata sandi lama
+      const isMatch = await bcrypt.compare(oldPassword, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ success: false, message: "Kata sandi lama salah." });
+      }
+
+      // Hash kata sandi baru
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+      // Perbarui kata sandi di database
+      db.query(
+        "UPDATE users SET password = ? WHERE id = ?",
+        [hashedPassword, decoded.id],
+        (err) => {
+          if (err) {
+            console.error("Error updating password:", err);
+            return res.status(500).json({ success: false, message: "Gagal mengganti kata sandi." });
+          }
+
+          res.json({ success: true, message: "Kata sandi berhasil diperbarui." });
+        }
+      );
+    });
+  });
+});
+
+
+
 
 // CREATE: Tambah event baru
 app.post("/events", (req, res) => {
