@@ -204,6 +204,21 @@ app.put("/api/auth/change-password", (req, res) => {
 });
 
 
+// Logout endpoint
+app.post("/api/auth/logout", (req, res) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1]; // Ambil token setelah "Bearer"
+
+  if (!token) {
+    return res.status(400).json({ success: false, message: "Token tidak ditemukan." });
+  }
+
+  // Tambahkan log untuk debugging
+  console.log("Logout request token:", token);
+
+  // Untuk logout, Anda bisa menambahkan token ke dalam blacklist
+  res.json({ success: true, message: "Logout berhasil." });
+});
 
 
 // CREATE: Tambah event baru

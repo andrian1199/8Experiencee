@@ -75,7 +75,7 @@ const CommunityCards = () => {
           <div className="col" key={index}>
             <div className="card h-100 d-flex flex-column">
               <img
-                src={community.img}
+                src={community.image}
                 alt={community.title}
                 className="card-img-top"
               />

@@ -138,11 +138,6 @@ const EventList = () => {
     }
 };
 
-  
-  
-  
-  
-
   const handleDelete = async (id) => {
     if (window.confirm("Apakah Anda yakin ingin menghapus acara ini?")) {
       try {
@@ -181,9 +176,6 @@ const EventList = () => {
     }
   };
 
-  
-  
-  
 
   const resetForm = () => {
     console.log("Form Reset");
@@ -234,131 +226,130 @@ const EventList = () => {
           </button>
 
           <div className="table-responsive">
-            <table className="table table-bordered">
-              <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Judul</th>
-                    <th>Tanggal</th>
-                    <th>Lokasi</th>
-                    <th>Harga</th>
-                    <th>Genre</th>
-                    <th>Tipe</th>
-                    <th>Deskripsi</th>
-                    <th>Gambar</th>
-                    <th>Gambar Tambahan</th>
-                    <th>Tiket</th>
-                    <th>Aksi</th>
-                    <th>Manajemen Tiket</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {events.map((event) => (
-                    <tr key={event.id}>
-                      <td>{event.id}</td>
-                      <td>{event.title}</td>
-                      <td>{formatDate(event.date)}</td>
-                      <td>{event.location}</td>
-                      <td>{formatRupiah(Number(event.price))}</td>
-                      <td>{event.genre}</td>
-                      <td>{event.type}</td>
-                      <td>{truncateText(event.description, 100)}</td>
-                      <td>
-                        <img src={event.image} alt="Gambar" style={{ width: "50px", height: "50px" }} />
-                      </td>
-                      <td>
-                        <img
-                          src={event.additionalImage}
-                          alt="Gambar Tambahan"
-                          style={{ width: "50px", height: "50px" }}
-                        />
-                      </td>
-                      <td>
-                        {event.tickets && event.tickets.length > 0 ? (
-                          <ul>
-                            {event.tickets.map((ticket, index) => (
-                              <li key={index}>
-                                {ticket.type} - {formatRupiah(ticket.price)} - Stok: {ticket.stock}
-                              </li>
-                            ))}
-                          </ul>
-                        ) : (
-                          <span>Tidak ada tiket</span>
-                        )}
-                      </td>
+          <table className="table table-striped table-hover table-bordered" style={{ borderRadius: "5px", overflow: "hidden" }}>
+              <thead className="table-dark">
+                <tr>
+                  <th>ID</th>
+                  <th>Judul</th>
+                  <th>Tanggal</th>
+                  <th>Lokasi</th>
+                  <th>Harga</th>
+                  <th>Genre</th>
+                  <th>Tipe</th>
+                  <th>Deskripsi</th>
+                  <th>Gambar Event</th>
+                  <th>Gambar Tambahan</th>
+                  <th>Tiket</th>
+                  <th>Aksi</th>
+                  <th>Manajemen Tiket</th>
+                </tr>
+              </thead>
+              <tbody>
+                {events.map((event) => (
+                  <tr key={event.id}>
+                    <td>{event.id}</td>
+                    <td>{event.title}</td>
+                    <td>{formatDate(event.date)}</td>
+                    <td>{event.location}</td>
+                    <td>{formatRupiah(Number(event.price))}</td>
+                    <td>{event.genre}</td>
+                    <td>{event.type}</td>
+                    <td>{truncateText(event.description, 100)}</td>
+                    <td>
+                      <img src={event.image} alt="Gambar" className="img-thumbnail" style={{ width: "80px", height: "80px" }} />
+                    </td>
+                    <td>
+                      <img
+                        src={event.additionalImage}
+                        alt="Gambar Tambahan"
+                        className="img-thumbnail"
+                        style={{ width: "80px", height: "80px" }}
+                      />
+                    </td>
+                    <td>
+                      {event.tickets && event.tickets.length > 0 ? (
+                        <ul className="list-unstyled">
+                          {event.tickets.map((ticket, index) => (
+                            <li key={index} className="mb-2">
+                              {ticket.type} - {formatRupiah(ticket.price)} - Stok: {ticket.stock}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <span className="text-muted">Tidak ada tiket</span>
+                      )}
+                    </td>
 
-                      <td>
-                        <div
+                    <td>
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "10px",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        {/* Tombol Edit */}
+                        <button
                           style={{
-                            display: "flex",
-                            gap: "10px",
-                            justifyContent: "center",
-                            alignItems: "center",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            color: "blue",
+                            cursor: "pointer",
+                            fontSize: "16px",
+                            padding: "5px",
+                          }}
+                          onClick={() => {
+                            setIsEditing(true);
+                            setFormData({
+                              ...event,
+                              tickets: event.tickets || [], // Pastikan tickets array
+                            });
+                            setShowModal(true);
                           }}
                         >
-                          {/* Tombol Edit */}
-                          <button
-                            style={{
-                              backgroundColor: "transparent",
-                              border: "none",
-                              color: "blue",
-                              cursor: "pointer",
-                              fontSize: "16px",
-                              padding: "5px",
-                            }}
-                            onClick={() => {
-                              setIsEditing(true);
-                              setFormData({
-                                ...event,
-                                tickets: event.tickets || [], // Pastikan tickets array
-                              });
-                              setShowModal(true);
-                            }}
-                          >
-                            <FontAwesomeIcon icon={faEdit} style={{ marginRight: "5px" }} /> Edit
-                          </button>
+                          <FontAwesomeIcon icon={faEdit} style={{ marginRight: "5px" }} /> Edit
+                        </button>
 
-                          {/* Tombol Hapus */}
-                          <button
-                            style={{
-                              backgroundColor: "transparent",
-                              border: "none",
-                              color: "red",
-                              cursor: "pointer",
-                              fontSize: "16px",
-                              padding: "5px",
-                            }}
-                            onClick={() => handleDelete(event.id)}
-                          >
-                            <FontAwesomeIcon icon={faTrash} style={{ marginRight: "5px" }} /> Hapus
-                          </button>
-                        </div>
-                      </td>
+                        {/* Tombol Hapus */}
+                        <button
+                          style={{
+                            backgroundColor: "transparent",
+                            border: "none",
+                            color: "red",
+                            cursor: "pointer",
+                            fontSize: "16px",
+                            padding: "5px",
+                          }}
+                          onClick={() => handleDelete(event.id)}
+                        >
+                          <FontAwesomeIcon icon={faTrash} style={{ marginRight: "5px" }} /> Hapus
+                        </button>
+                      </div>
+                    </td>
 
-                      <td>
-                        {event.tickets && event.tickets.length > 0 ? (
-                          <ul>
-                            {event.tickets.map((ticket, index) => (
-                              <li key={index}>
-                                {ticket.type} - {formatRupiah(ticket.price)} - Stok: {ticket.stock}
-                                <button
-                                  onClick={() => handleDeleteTicket(ticket.id, event.id)}
-                                  className="btn btn-danger btn-sm ms-2"
-                                >
-                                  Hapus Tiket
-                                </button>
-                              </li>
-                            ))}
-                          </ul>
-                        ) : (
-                          <span>Tidak ada tiket</span>
-                        )}
-                      </td>
-
-                    </tr>
-                  ))}
-                </tbody>
-
+                    <td>
+                      {event.tickets && event.tickets.length > 0 ? (
+                        <ul className="list-unstyled">
+                          {event.tickets.map((ticket, index) => (
+                            <li key={index} className="mb-2">
+                              {ticket.type} - {formatRupiah(ticket.price)} - Stok: {ticket.stock}
+                              <button
+                                onClick={() => handleDeleteTicket(ticket.id, event.id)}
+                                className="btn btn-danger btn-sm ms-2"
+                              >
+                                Hapus Tiket
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <span className="text-muted">Tidak ada tiket</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
 
@@ -429,25 +420,37 @@ const EventList = () => {
 
                 <div className="mb-3">
                   <label>Genre</label>
-                  <input
+                  <select
                     className="form-control"
                     name="genre"
                     value={formData.genre}
                     onChange={handleInputChange}
                     required
-                  />
+                  >
+                    <option value="">Pilih Genre</option>
+                    <option value="pop">Pop</option>
+                    <option value="rock">Rock</option>
+                    <option value="jazz">Jazz</option>
+                    <option value="lainnya">Lainnya</option>
+                  </select>
                 </div>
+
 
                 <div className="mb-3">
                   <label>Tipe Acara</label>
-                  <input
+                  <select
                     className="form-control"
                     name="type"
                     value={formData.type}
                     onChange={handleInputChange}
                     required
-                  />
+                  >
+                    <option value="">Pilih Tipe Acara</option>
+                    <option value="festival">Festival</option>
+                    <option value="konser">Konser</option>
+                  </select>
                 </div>
+
                 
                 <div className="mb-3">
                   <label>Deskripsi</label>
@@ -476,15 +479,28 @@ const EventList = () => {
                     )}
                   </div>
 
-                  <input
-                    type="text"
-                    name="additionalImage"
-                    value={formData.additionalImage}
-                    onChange={handleInputChange}
-                    placeholder="URL Gambar Tambahan"
-                  />
-
-
+                  <div className="form-group">
+                    <label>Gambar Tambahan</label>
+                    <input
+                      type="file"
+                      className="form-control"
+                      accept="image/png, image/jpeg, image/webp"
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file && file.type.startsWith('image/')) {
+                          const filePath = `/images/${file.name}`;
+                          setFormData((prev) => ({ ...prev, additionalImage: filePath }));
+                        } else {
+                          alert('Harap pilih file gambar');
+                        }
+                      }}
+                    />
+                    {formData.additionalImage && (
+                      <div>
+                        <p>File yang dipilih: {formData.additionalImage}</p>
+                      </div>
+                    )}
+                  </div>
                   
                   <button
                     type="button"

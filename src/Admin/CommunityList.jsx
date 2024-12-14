@@ -11,7 +11,7 @@ const CommunityList = () => {
     description: "",
     content: "",
     category: "",
-    img: "",
+    image: "",
     whatsappLink: "",
   });
   const [editId, setEditId] = useState(null);
@@ -19,6 +19,13 @@ const CommunityList = () => {
 
   const toggleModal = () => {
     setShowModal(!showModal);
+  };
+
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + "...";
+    }
+    return text;
   };
 
   useEffect(() => {
@@ -42,7 +49,7 @@ const CommunityList = () => {
     const file = e.target.files[0];
     if (file && file.type.startsWith("image")) {
       const imageUrl = `/public/images/${file.name}`;
-      setForm({ ...form, img: imageUrl });
+      setForm({ ...form, image: imageUrl });
     }
   };
 
@@ -51,7 +58,7 @@ const CommunityList = () => {
     try {
       const updatedForm = {
         ...form,
-        img: form.img ? form.img : "/public/images/sod.png",
+        image: form.image ? form.image : "/public/images/",
       };
       if (editId) {
         await axios.put(`http://localhost:5000/communities/${editId}`, updatedForm);
@@ -65,7 +72,7 @@ const CommunityList = () => {
         description: "",
         content: "",
         category: "",
-        img: "",
+        image: "",
         whatsappLink: "",
       });
       setEditId(null);
@@ -77,7 +84,7 @@ const CommunityList = () => {
   };
 
   const handleEdit = (community) => {
-    setForm({ ...community, img: community.img || "/public/images/sod.png" });
+    setForm({ ...community, image: community.image || "/public/images/sod.png" });
     setEditId(community.id);
     toggleModal();
   };
@@ -107,7 +114,7 @@ const CommunityList = () => {
               description: "",
               content: "",
               category: "",
-              img: "",
+              image: "",
               whatsappLink: "",
             });
             setEditId(null);
@@ -172,7 +179,7 @@ const CommunityList = () => {
                   <label>Image</label>
                   <input
                     type="file"
-                    name="img"
+                    name="image"
                     onChange={handleImageChange}
                     className="form-control"
                   />
@@ -202,57 +209,75 @@ const CommunityList = () => {
           </div>
         )}
 
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Category</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {communities.map((community) => (
-              <tr key={community.id}>
-                <td>{community.title}</td>
-                <td>{community.description}</td>
-                <td>{community.category}</td>
-                <td>
-                  <button
-                    style={{
-                      color: "white",
-                      backgroundColor: "blue",
-                      border: "none",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      padding: "5px 10px",
-                      marginRight: "10px"
-                    }}
-                    onClick={() => {
-                      handleEdit(community);
-                      toggleModal();
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faEdit} /> Edit
-                  </button>
-                  <button
-                    style={{
-                      color: "white",
-                      backgroundColor: "red",
-                      border: "none",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      padding: "5px 10px"
-                    }}
-                    onClick={() => handleDelete(community.id)}
-                  >
-                    <FontAwesomeIcon icon={faTrash} /> Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+<div className="table-responsive">
+  <table
+    className="table table-striped table-hover table-bordered"
+    style={{ borderRadius: "5px", overflow: "hidden" }}
+  >
+    <thead className="table-dark">
+      <tr>
+      <th style={{ textAlign: "center" }}>ID</th>
+        <th style={{ textAlign: "center" }}>Title</th>
+        <th style={{ textAlign: "center" }}>Description</th>
+        <th style={{ textAlign: "center" }}>Content</th>
+        <th style={{ textAlign: "center" }}>Category</th>
+        <th>Gambar</th>
+        <th style={{ textAlign: "center" }}>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {communities.map((community) => (
+        <tr key={community.id}>
+          <td>{community.id}</td>
+          <td style={{ textAlign: "center" }}>{community.title}</td>
+          <td>{truncateText(community.description, 100)}</td>
+          <td>{truncateText(community.content, 100)}</td>
+          <td style={{ textAlign: "center" }}>{community.category}</td>
+          <td>
+              <img src={community.image} alt="Gambar" className="img-thumbnail" style={{ width: "80px", height: "80px" }} />
+          </td>
+          <td style={{ textAlign: "center" }}>
+            <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+              {/* Tombol Edit */}
+              <button
+                style={{
+                  backgroundColor: "transparent",
+                  border: "none",
+                  color: "blue",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  padding: "5px",
+                }}
+                onClick={() => {
+                  handleEdit(community);
+                  toggleModal();
+                }}
+              >
+                <FontAwesomeIcon icon={faEdit} style={{ marginRight: "5px" }} /> Edit
+              </button>
+
+              {/* Tombol Hapus */}
+              <button
+                style={{
+                  backgroundColor: "transparent",
+                  border: "none",
+                  color: "red",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  padding: "5px",
+                }}
+                onClick={() => handleDelete(community.id)}
+              >
+                <FontAwesomeIcon icon={faTrash} style={{ marginRight: "5px" }} /> Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
       </div>
     </div>
   );

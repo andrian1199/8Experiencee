@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Button, Container } from 'react-bootstrap';
+import axios from 'axios';
 import logo from '../assets/FesTix 1.svg';
 import ticket from '../assets/ticket2.svg';
 import profileIcon from '../assets/Profile.svg';
@@ -16,6 +17,10 @@ function Navigasi() {
     const loggedInStatus = localStorage.getItem('isLoggedIn') === 'true';
     setIsLoggedIn(loggedInStatus);
 
+    if (!loggedInStatus) {
+      navigate('/login'); // Arahkan ke halaman login jika belum login
+    }
+
     // Menambahkan event listener untuk mendeteksi perubahan status login di localStorage
     const handleStorageChange = () => {
       const updatedStatus = localStorage.getItem('isLoggedIn') === 'true';
@@ -26,14 +31,39 @@ function Navigasi() {
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
-  }, []);
+  }, [navigate]);
 
-  // Fungsi untuk melakukan logout
-  const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('user'); // Hapus data user dari localStorage
-    setIsLoggedIn(false);
-    navigate('/login'); // Arahkan pengguna ke halaman login setelah logout
+  const handleLogout = async () => {
+    // Konfirmasi pengguna sebelum logout
+    const confirmLogout = window.confirm('Apakah Anda yakin ingin logout?');
+    if (!confirmLogout) return;
+
+    const token = localStorage.getItem('token'); // Ambil token dari localStorage
+    try {
+      // Kirim permintaan logout ke server
+      await axios.post(
+        'http://localhost:5000/api/auth/logout',
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      
+      // Hapus token dan status login dari localStorage
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      setIsLoggedIn(false);
+
+      // Tampilkan pop-up berhasil logout
+      alert('Berhasil logout!');
+
+      // Redirect ke halaman login
+      navigate('/login');
+    } catch (error) {
+      console.error('Terjadi kesalahan saat logout:', error);
+      alert('Gagal logout, silakan coba lagi.');
+    }
   };
 
   // Memeriksa apakah halaman saat ini aktif

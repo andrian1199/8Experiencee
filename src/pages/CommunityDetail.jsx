@@ -106,7 +106,7 @@ const CommunityDetail = () => {
         </span>
 
         <img
-          src={community.img}
+          src={community.image}
           alt={community.title}
           style={styles.img}
         />
