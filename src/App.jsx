@@ -9,6 +9,7 @@ import Dashboard from './Admin/Dashboard';
 import EventList from './Admin/EventList';
 import OrderPage from './Admin/OrderPage';
 import CommunityList from './Admin/CommunityList';
+import BlogList from './Admin/BlogList';
 import Home from './pages/Home';
 
 import Blog from './pages/BlogPage';
@@ -17,8 +18,6 @@ import BlogDetailPage from './pages/BlogDetailPage';
 import Komunitas from './pages/Komunitas';
 import CommunityDetail from './pages/CommunityDetail';
 import PilihanTiket from './pages/PilihanTiket';
-import Pembayaran from './pages/Pembayaran';
-import Kategori from './Detail Konser/Kategori'; 
 import Tiket from './pages/Tiket';
 import Confirm from './pages/Confirm';
 import Confirm2 from './pages/Confirm2';
@@ -46,12 +45,13 @@ function App() {
         <Route path="/admin/login" element={<LoginAdmin />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/event-list" element={<EventList />} />
+        <Route path="/admin/blog-list" element={<BlogList />} />
         {/* Route untuk OrderPage */}
         <Route path="/admin/orders" element={<OrderPage />} />  {/* Menambahkan route untuk halaman pesanan */}
         {/* Route untuk Event List */}
         <Route path="/admin/profile" element={<AdminProfile />} />
         
-        <Route path="/admin/community" element={<CommunityList/>} />
+        <Route path="/admin/community-list" element={<CommunityList/>} />
         
 
 
@@ -60,12 +60,15 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/tentangkami" element={<TentangKami />} />
 
+        {/* Event */}
+        <Route path="/event" element={<Event />} />
+        <Route path="/event/:id" element={<EventDetail />} />
+
         {/* Detail Konser dan Tiket */}
         <Route path="/event/:id/tiket" element={<PilihanTiket />} />
         <Route path="/tiket/:price" element={<Tiket />} />
 
         {/* Pembayaran */}
-        <Route path="/pembayaran" element={<Pembayaran />} />
         <Route path="/metode-pembayaran" element={<MetodePembayaran />} /> {/* Rute baru */}
         <Route path="/konfirmasi-pesanan" element={<KonfirmasiPesanan />} />
         <Route path="/status-pembayaran" element={<StatusPembayaran />} />
@@ -91,9 +94,7 @@ function App() {
         <Route path="/profil/edit" element={<EditProfilePage />} />
         <Route path="/ganti-kata-sandi" element={<ChangePassword />} />
 
-        {/* Event */}
-        <Route path="/event" element={<Event />} />
-        <Route path="/event/:id" element={<EventDetail />} />
+        
       </Routes>
     </Router>
   );

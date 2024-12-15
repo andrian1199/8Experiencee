@@ -1,15 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import blogData from '../data/BlogData'; // Import data blog
 import '../styles/BlogDetailPage.css';
 import Footer from '../components/Footer';
 
 const BlogDetailPage = () => {
   const { id } = useParams(); // Ambil id dari URL
-  const blog = blogData.find((blogItem) => blogItem.id === parseInt(id)); // Cari blog berdasarkan id
+  const [blog, setBlog] = useState(null); // State untuk menyimpan data blog
+  const [error, setError] = useState(null); // State untuk menyimpan error
+
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/blogs/${id}`); // Endpoint backend
+        if (!response.ok) {
+          throw new Error('Blog tidak ditemukan');
+        }
+        const data = await response.json();
+        setBlog(data);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchBlog();
+  }, [id]);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   if (!blog) {
-    return <div>Blog tidak ditemukan</div>;
+    return <div>Memuat...</div>; // Loading state
   }
 
   return (
@@ -100,4 +121,5 @@ const BlogDetailPage = () => {
     </div>
   );
 };
+
 export default BlogDetailPage;

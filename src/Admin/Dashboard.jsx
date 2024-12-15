@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
-import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+import Sidebar from "./Sidebar";
 
 const Dashboard = () => {
   const chartInstance = useRef(null);
@@ -29,6 +28,8 @@ const Dashboard = () => {
         ],
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
           y: {
             beginAtZero: true,
@@ -45,62 +46,130 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="admin-main container-fluid">
-      <div className="row">
-        <Sidebar />
-        <main className="col-md-9 col-lg-10 px-4">
-          <header className="admin-header d-flex justify-content-between align-items-center py-3 border-bottom">
-            <h4 className="m-0">Dashboard</h4>
-            <div className="d-flex align-items-center">
-              <Link to="/admin/profile" className="text-decoration-none text-dark d-flex align-items-center">
-                <span className="me-2">Wisnu</span>
-                <img
-                  src="/path/to/user-profile.png"
-                  alt="Admin Profile"
-                  className="rounded-circle"
-                  style={{ width: "40px", height: "40px" }}
-                />
-              </Link>
-            </div>
-          </header>
+    <div style={{ display: "flex", minHeight: "100vh" }}>
+      {/* Sidebar */}
+      <Sidebar />
 
-          <div className="admin-container my-4">
-            <div className="row mb-4">
-              <div className="col-md-4">
-                <div className="card text-center shadow-sm">
-                  <div className="card-body">
-                    <h6 className="text-muted">Penghasilan</h6>
-                    <h5 className="text-warning">Rp. 123.000</h5>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4">
-                <div className="card text-center shadow-sm">
-                  <div className="card-body">
-                    <h6 className="text-muted">Tiket Terjual</h6>
-                    <h5 className="text-warning">1267</h5>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4">
-                <div className="card text-center shadow-sm">
-                  <div className="card-body">
-                    <h6 className="text-muted">Kunjungan</h6>
-                    <h5 className="text-warning">8000</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
+      {/* Main Content */}
+      <main
+        style={{
+          flex: 1,
+          padding: "20px",
+          marginLeft: "250px", // Pastikan ini sesuai lebar sidebar
+          backgroundColor: "#f8f9fa",
+        }}
+      >
+        {/* Header */}
+        <header
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "20px",
+          }}
+        >
+          <h4 style={{ margin: 0 }}>Dashboard</h4>
+          <Link
+            to="/admin/profile"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              textDecoration: "none",
+              color: "#000",
+            }}
+          >
+            <span style={{ marginRight: "10px" }}>Wisnu</span>
+            <img
+              src="/path/to/user-profile.png"
+              alt="Admin Profile"
+              style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "50%",
+                objectFit: "cover",
+              }}
+            />
+          </Link>
+        </header>
 
-            <div className="admin-card shadow-sm mx-auto" style={{ maxWidth: "900px" }}>
-              <div className="card-body">
-                <h6 className="card-title">Detail Penjualan</h6>
-                <canvas id="salesChart"></canvas>
-              </div>
-            </div>
+        {/* Cards Section */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+            gap: "20px",
+            marginBottom: "20px",
+          }}
+        >
+          {/* Card 1 */}
+          <div
+            style={{
+              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+              borderRadius: "15px",
+              backgroundColor: "#ffffff",
+              padding: "20px",
+              textAlign: "center",
+            }}
+          >
+            <h6 style={{ color: "#6c757d", marginBottom: "10px" }}>
+              Penghasilan
+            </h6>
+            <h5 style={{ color: "#FFC107", fontWeight: "bold" }}>
+              Rp. 123.000
+            </h5>
           </div>
-        </main>
-      </div>
+
+          {/* Card 2 */}
+          <div
+            style={{
+              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+              borderRadius: "15px",
+              backgroundColor: "#ffffff",
+              padding: "20px",
+              textAlign: "center",
+            }}
+          >
+            <h6 style={{ color: "#6c757d", marginBottom: "10px" }}>
+              Tiket Terjual
+            </h6>
+            <h5 style={{ color: "#FFC107", fontWeight: "bold" }}>1267</h5>
+          </div>
+
+          {/* Card 3 */}
+          <div
+            style={{
+              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+              borderRadius: "15px",
+              backgroundColor: "#ffffff",
+              padding: "20px",
+              textAlign: "center",
+            }}
+          >
+            <h6 style={{ color: "#6c757d", marginBottom: "10px" }}>
+              Kunjungan
+            </h6>
+            <h5 style={{ color: "#FFC107", fontWeight: "bold" }}>8000</h5>
+          </div>
+        </div>
+
+        {/* Chart Section */}
+        <div
+          style={{
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+            borderRadius: "15px",
+            backgroundColor: "#ffffff",
+            padding: "20px",
+            height: "400px",
+          }}
+        >
+          <h6 style={{ color: "#6c757d", marginBottom: "20px" }}>
+            Detail Penjualan
+          </h6>
+          <div style={{ height: "300px" }}>
+            <canvas id="salesChart" style={{ maxWidth: "100%" }}></canvas>
+          </div>
+        </div>
+      </main>
     </div>
   );
 };

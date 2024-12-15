@@ -238,7 +238,7 @@ const EventList = () => {
                   <th>Tipe</th>
                   <th>Deskripsi</th>
                   <th>Gambar Event</th>
-                  <th>Gambar Tambahan</th>
+                  <th>Gambar Deskripsi</th>
                   <th>Tiket</th>
                   <th>Aksi</th>
                   <th>Manajemen Tiket</th>
@@ -356,214 +356,196 @@ const EventList = () => {
         </div>
       </div>
       {showModal && (
-        <div className="modal d-block">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">
-                  {isEditing ? "Edit Acara" : "Tambah Acara"}
-                </h5>
-                <button
-                  className="btn-close"
-                  onClick={() => setShowModal(false)}
-                ></button>
-              </div>
-              <div className="modal-body">
-                <form onSubmit={handleSubmit}>
-                  <div className="mb-3">
-                    <label>Judul</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="title"
-                      value={formData.title}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
+  <div
+    style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundColor: "rgba(0, 0, 0, 0.7)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 1000,
+      overflow: "auto",
+    }}
+    onClick={() => setShowModal(false)}
+  >
+    <div
+      style={{
+        backgroundColor: "#fff",
+        borderRadius: "10px",
+        padding: "30px",
+        width: "90%",
+        maxWidth: "600px",
+        boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+        position: "relative",
+        maxHeight: "90vh",
+        overflowY: "auto",
+      }}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <button
+        onClick={() => setShowModal(false)}
+        style={{
+          position: "absolute",
+          top: "10px",
+          right: "10px",
+          background: "none",
+          border: "none",
+          fontSize: "20px",
+          cursor: "pointer",
+        }}
+      >
+        &times;
+      </button>
 
-                  <div className="mb-3">
-                  <label>Tanggal</label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    name="date"
-                    value={formData.date}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-
-                <div className="mb-3">
-                  <label>Lokasi</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="location"
-                    value={formData.location}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-
-                <div className="mb-3">
-                  <label>Harga</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    name="price"
-                    value={formData.price}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-
-                <div className="mb-3">
-                  <label>Genre</label>
-                  <select
-                    className="form-control"
-                    name="genre"
-                    value={formData.genre}
-                    onChange={handleInputChange}
-                    required
-                  >
-                    <option value="">Pilih Genre</option>
-                    <option value="pop">Pop</option>
-                    <option value="rock">Rock</option>
-                    <option value="jazz">Jazz</option>
-                    <option value="lainnya">Lainnya</option>
-                  </select>
-                </div>
-
-
-                <div className="mb-3">
-                  <label>Tipe Acara</label>
-                  <select
-                    className="form-control"
-                    name="type"
-                    value={formData.type}
-                    onChange={handleInputChange}
-                    required
-                  >
-                    <option value="">Pilih Tipe Acara</option>
-                    <option value="festival">Festival</option>
-                    <option value="konser">Konser</option>
-                  </select>
-                </div>
-
-                
-                <div className="mb-3">
-                  <label>Deskripsi</label>
-                  <textarea
-                    className="form-control"
-                    name="description"
-                    value={formData.description}
-                    onChange={handleInputChange}
-                    required
-                  ></textarea>
-                </div>
-
-                <div className="form-group">
-                    <label>Gambar Event</label>
-                    <input
-                      type="file"
-                      className="form-control"
-                      accept="image/png, image/jpeg, image/webp"
-                      onChange={handleImageChange}
-                      required
-                    />
-                    {formData.image && (
-                      <div>
-                        <p>File yang dipilih: {formData.image}</p>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="form-group">
-                    <label>Gambar Tambahan</label>
-                    <input
-                      type="file"
-                      className="form-control"
-                      accept="image/png, image/jpeg, image/webp"
-                      onChange={(e) => {
-                        const file = e.target.files[0];
-                        if (file && file.type.startsWith('image/')) {
-                          const filePath = `/images/${file.name}`;
-                          setFormData((prev) => ({ ...prev, additionalImage: filePath }));
-                        } else {
-                          alert('Harap pilih file gambar');
-                        }
-                      }}
-                    />
-                    {formData.additionalImage && (
-                      <div>
-                        <p>File yang dipilih: {formData.additionalImage}</p>
-                      </div>
-                    )}
-                  </div>
-                  
-                  <button
-                    type="button"
-                    className="btn btn-secondary mb-3"
-                    onClick={addTicket}
-                  >
-                    Tambah Tiket
-                  </button>
-                  {formData.tickets?.map((ticket, index) => (
-                    <div key={index}>
-                      <input
-                        type="text"
-                        value={ticket.type}
-                        onChange={(e) =>
-                          handleTicketChange(index, "type", e.target.value)
-                        }
-                        placeholder="Tipe Tiket"
-                        required
-                      />
-                      <input
-                        type="number"
-                        value={ticket.price}
-                        onChange={(e) =>
-                          handleTicketChange(index, "price", e.target.value)
-                        }
-                        placeholder="Harga Tiket"
-                        required
-                      />
-                      <input
-                        type="text"
-                        value={ticket.benefits}
-                        onChange={(e) =>
-                          handleTicketChange(index, "benefits", e.target.value)
-                        }
-                        placeholder="Keuntungan"
-                      />
-                      <input
-                        type="number"
-                        value={ticket.stock}
-                        onChange={(e) =>
-                          handleTicketChange(index, "stock", e.target.value)
-                        }
-                        placeholder="Stok"
-                        required
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeTicket(index)}
-                        className="btn btn-danger"
-                      >
-                        Hapus Tiket
-                      </button>
-                    </div>
-                  ))}
-                  <button type="submit" className="btn btn-primary">
-                    Simpan
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
+      <h5 style={{ marginBottom: "20px" }}>
+        {isEditing ? "Edit Acara" : "Tambah Acara"}
+      </h5>
+      <form onSubmit={handleSubmit}>
+        {/* Input Field untuk Judul */}
+        <div className="mb-3">
+          <label>Judul</label>
+          <input
+            type="text"
+            className="form-control"
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
+            required
+          />
         </div>
-      )}
+
+        {/* Input Field untuk Tanggal */}
+        <div className="mb-3">
+          <label>Tanggal</label>
+          <input
+            type="date"
+            className="form-control"
+            name="date"
+            value={formData.date}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        {/* Input Field untuk Lokasi */}
+        <div className="mb-3">
+          <label>Lokasi</label>
+          <input
+            type="text"
+            className="form-control"
+            name="location"
+            value={formData.location}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        {/* Input Field untuk Harga */}
+        <div className="mb-3">
+          <label>Harga</label>
+          <input
+            type="number"
+            className="form-control"
+            name="price"
+            value={formData.price}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        {/* Dropdown untuk Genre */}
+        <div className="mb-3">
+          <label>Genre</label>
+          <select
+            className="form-control"
+            name="genre"
+            value={formData.genre}
+            onChange={handleInputChange}
+            required
+          >
+            <option value="">Pilih Genre</option>
+            <option value="pop">Pop</option>
+            <option value="rock">Rock</option>
+            <option value="jazz">Jazz</option>
+            <option value="lainnya">Lainnya</option>
+          </select>
+        </div>
+
+        {/* Dropdown untuk Tipe Acara */}
+        <div className="mb-3">
+          <label>Tipe Acara</label>
+          <select
+            className="form-control"
+            name="type"
+            value={formData.type}
+            onChange={handleInputChange}
+            required
+          >
+            <option value="">Pilih Tipe Acara</option>
+            <option value="festival">Festival</option>
+            <option value="konser">Konser</option>
+          </select>
+        </div>
+
+        {/* Input Field untuk Deskripsi */}
+        <div className="mb-3">
+          <label>Deskripsi</label>
+          <textarea
+            className="form-control"
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
+            required
+          ></textarea>
+        </div>
+
+        {/* Tombol Simpan dan Batal */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            gap: "10px",
+            marginTop: "20px",
+          }}
+        >
+          <button
+            type="submit"
+            style={{
+              backgroundColor: "#ffcf00",
+              color: "black",
+              border: "none",
+              padding: "10px 20px",
+              borderRadius: "40px",
+              cursor: "pointer",
+            }}
+          >
+            {isEditing ? "Update" : "Add"} Event
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowModal(false)}
+            style={{
+              backgroundColor: "#6c757d",
+              color: "white",
+              border: "none",
+              padding: "10px 20px",
+              borderRadius: "40px",
+              cursor: "pointer",
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
+
+
     </div>
   );
 };

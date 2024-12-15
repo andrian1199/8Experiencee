@@ -1,24 +1,39 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import axios from "axios";
 import Navbar from "../komponen Home/Navigasi";
 import Filter from "../komponen blog/Filter";
-import blogData from "../data/BlogData";
 import "../styles/Blog.css";
-import Card from "../komponen blog/Card"; // Impor Card
+import Card from "../komponen blog/Card";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "../components/Footer";
 
 const BlogPage = () => {
   const [activeCategory, setActiveCategory] = useState("Semua");
   const [visibleCards, setVisibleCards] = useState(8); // Mulai dengan menampilkan 8 kartu
+  const [blogs, setBlogs] = useState([]); // State untuk menyimpan data blog dari backend
   const blogContentRef = useRef(null); // Referensi untuk bagian konten blog
 
   const categories = ["Semua", "Artis", "Musik", "Tips"];
 
+  // Fetch data blogs dari backend
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/blogs");
+        setBlogs(response.data);
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
   // Filter kartu berdasarkan kategori aktif
   const filteredCards =
     activeCategory === "Semua"
-      ? blogData
-      : blogData.filter((card) => card.category === activeCategory);
+      ? blogs
+      : blogs.filter((card) => card.category === activeCategory);
 
   // Ambil kartu yang sesuai dengan jumlah yang ingin ditampilkan
   const cardsToDisplay = filteredCards.slice(0, visibleCards);

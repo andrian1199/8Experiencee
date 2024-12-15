@@ -12,16 +12,15 @@ function Navigasi() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Memeriksa status login pada saat pertama kali komponen dimuat
+  // Memeriksa status login
   useEffect(() => {
     const loggedInStatus = localStorage.getItem('isLoggedIn') === 'true';
     setIsLoggedIn(loggedInStatus);
 
     if (!loggedInStatus) {
-      navigate('/login'); // Arahkan ke halaman login jika belum login
+      navigate('/login');
     }
 
-    // Menambahkan event listener untuk mendeteksi perubahan status login di localStorage
     const handleStorageChange = () => {
       const updatedStatus = localStorage.getItem('isLoggedIn') === 'true';
       setIsLoggedIn(updatedStatus);
@@ -34,31 +33,22 @@ function Navigasi() {
   }, [navigate]);
 
   const handleLogout = async () => {
-    // Konfirmasi pengguna sebelum logout
     const confirmLogout = window.confirm('Apakah Anda yakin ingin logout?');
     if (!confirmLogout) return;
 
-    const token = localStorage.getItem('token'); // Ambil token dari localStorage
+    const token = localStorage.getItem('token');
     try {
-      // Kirim permintaan logout ke server
       await axios.post(
         'http://localhost:5000/api/auth/logout',
         {},
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-      
-      // Hapus token dan status login dari localStorage
+
       localStorage.removeItem('isLoggedIn');
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       setIsLoggedIn(false);
-
-      // Tampilkan pop-up berhasil logout
       alert('Berhasil logout!');
-
-      // Redirect ke halaman login
       navigate('/login');
     } catch (error) {
       console.error('Terjadi kesalahan saat logout:', error);
@@ -66,10 +56,8 @@ function Navigasi() {
     }
   };
 
-  // Memeriksa apakah halaman saat ini aktif
   const isActive = (path) => location.pathname === path;
 
-  // Style untuk container Navbar
   const containerStyle = {
     maxWidth: '95%',
     margin: '0 auto',
@@ -78,47 +66,36 @@ function Navigasi() {
     paddingRight: '0',
   };
 
-  // Style untuk Navbar
   const navbarStyle = {
-    backgroundColor: '#212121', // Warna latar belakang
-    height: '100px', // Atur tinggi navbar
+    backgroundColor: '#212121',
+    height: '100px',
     display: 'flex',
-    alignItems: 'center', // Vertikal rata tengah
-    padding: '0', // Hapus padding default
+    alignItems: 'center',
+    padding: '',
   };
 
-  // Style untuk logo
   const logoStyle = {
-    display: 'flex', // Pastikan logo mengikuti aturan flexbox
+    display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-start', // Logo berada di sebelah kiri
-    maxWidth: '120px', // Sesuaikan lebar logo
+    justifyContent: 'flex-start',
+    maxWidth: '120px',
     height: 'auto',
   };
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" fixed="top" className="shadow-sm w-100" style={navbarStyle}>
+    <Navbar bg="#212121" variant="dark" expand="lg" fixed="top" className="shadow-sm w-100" style={navbarStyle}>
       <Container style={containerStyle}>
-        {/* Logo */}
         <Navbar.Brand as={Link} to="/" style={{ padding: '0', marginRight: 'auto' }}>
           <img src={logo} alt="Logo" style={logoStyle} />
         </Navbar.Brand>
 
-        {/* Toggle Menu untuk perangkat kecil */}
-        <Navbar.Toggle aria-controls="navbar-nav" />
+        <Navbar.Toggle aria-controls="navbar-nav" className="custom-toggler" />
 
-        {/* Menu */}
-        <Navbar.Collapse id="navbar-nav">
+        <Navbar.Collapse id="navbar-nav" className="navbar-collapse">
           <Nav className="ml-auto">
-            {/* Menu Navigation */}
-            <Nav.Link
-              as={Link}
-              to="/"
-              className={`btn text-white ${isActive('/') ? 'opacity-100' : 'opacity-50'}`}
-            >
+            <Nav.Link as={Link} to="/" className={`btn text-white ${isActive('/') ? 'opacity-100' : 'opacity-50'}`}>
               Home
             </Nav.Link>
-
             <Nav.Link
               as={Link}
               to="/komunitas"
@@ -126,15 +103,9 @@ function Navigasi() {
             >
               Komunitas
             </Nav.Link>
-
-            <Nav.Link
-              as={Link}
-              to="/blog"
-              className={`btn text-white ${isActive('/blog') ? 'opacity-100' : 'opacity-50'}`}
-            >
+            <Nav.Link as={Link} to="/blog" className={`btn text-white ${isActive('/blog') ? 'opacity-100' : 'opacity-50'}`}>
               Blog
             </Nav.Link>
-            
             <Nav.Link
               as={Link}
               to="/tentangkami"
@@ -143,9 +114,7 @@ function Navigasi() {
               Tentang
             </Nav.Link>
 
-            {/* Tiket, Profil, dan Logout */}
             <Nav.Item style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              {/* Tiket Button */}
               <Button
                 variant="link"
                 className="btn light rounded-circle"
@@ -166,7 +135,6 @@ function Navigasi() {
 
               {isLoggedIn ? (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  {/* Profil Button */}
                   <Link to="/profil">
                     <div
                       style={{
@@ -180,15 +148,10 @@ function Navigasi() {
                         border: '2px solid black',
                       }}
                     >
-                      <img
-                        src={profileIcon}
-                        alt="Profile"
-                        style={{ width: '20px', height: '20px' }}
-                      />
+                      <img src={profileIcon} alt="Profile" style={{ width: '20px', height: '20px' }} />
                     </div>
                   </Link>
 
-                  {/* Logout Button */}
                   <Button
                     onClick={handleLogout}
                     variant="link"

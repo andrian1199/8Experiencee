@@ -75,7 +75,12 @@ const styles = {
     flexDirection: "column",
     backgroundColor: "#fff",
     cursor: "pointer", // Menambahkan pointer untuk menunjukkan kartu dapat diklik
-    transition: "transform 0.2s", // Efek hover
+    transition: "transform 0.2s, box-shadow 0.2s",
+    "&:hover": {
+      transform: "scale(1.05)",
+      boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
+    },
+
   },
   imageContainer: {
     height: "200px",

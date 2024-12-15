@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { UilAnalytics, UilCalendarAlt, UilShoppingCart, UilAngleDown, UilUsersAlt, UilFileAlt } from '@iconscout/react-unicons';
+import { UilAnalytics, UilCalendarAlt, UilShoppingCart, UilAngleDown, UilUsersAlt, UilFileAlt } from "@iconscout/react-unicons";
 import "../styles/Admin.css";
 
 const Sidebar = () => {
@@ -52,18 +52,35 @@ const Sidebar = () => {
             onClick={toggleContentDropdown}
           >
             <span className="me-2">Content</span>
-            <UilAngleDown className={`ms-auto transition-transform ${isContentOpen ? 'rotate-180' : ''}`} />
+            <UilAngleDown
+              className="ms-auto"
+              style={{
+                transition: "transform 0.3s ease",
+                transform: isContentOpen ? "rotate(180deg)" : "rotate(0deg)",
+              }}
+            />
           </div>
+          {/* Konten tambahan untuk submenu */}
           {isContentOpen && (
             <ul className="nav flex-column ps-4">
               <li className="nav-item mb-2">
                 <NavLink
-                  to="/admin/community"
+                  to="/admin/community-list"
                   className="nav-link text-white d-flex align-items-center"
                   activeClassName="active"
                 >
                   <UilUsersAlt className="me-2" />
                   Komunitas
+                </NavLink>
+              </li>
+              <li className="nav-item mb-2">
+                <NavLink
+                  to="/admin/blog-list"
+                  className="nav-link text-white d-flex align-items-center"
+                  activeClassName="active"
+                >
+                  <UilFileAlt className="me-2" />
+                  Blog
                 </NavLink>
               </li>
             </ul>

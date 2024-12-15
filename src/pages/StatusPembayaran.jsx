@@ -1,31 +1,64 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios"; // Pastikan axios sudah diinstall
 
 const StatusPembayaran = () => {
   const { state } = useLocation();
-  console.log("State yang diterima:", state); // Cek state yang diterima
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState(null); // State untuk data pengguna
+  const [error, setError] = useState(null); // State untuk error handling
+
   const {
     eventDetail = {},
     selectedTickets = [],
     totalPrice = 0,
     selectedMethod = "",
-    user = {}, // Menambahkan user dari state
-  } = state || {}; // Pastikan state ada
+  } = state || {}; // Data tambahan dari navigasi sebelumnya
 
-  const navigate = useNavigate();
+  // Ambil data profil pengguna dari backend
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const token = localStorage.getItem("token"); // Ambil token dari localStorage
+        console.log("Token yang dikirim:", token);
+  
+        if (!token) {
+          throw new Error("Token tidak ditemukan. Harap login kembali.");
+        }
+  
+        const response = await axios.get("http://localhost:5000/api/auth/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        console.log("Response API:", response.data);
+        setUser(response.data);
+      } catch (err) {
+        console.error("Error mengambil data pengguna:", err.response?.data || err.message);
+        setError(err.response?.data?.message || "Terjadi kesalahan saat mengambil data pengguna.");
+      }
+    };
+  
+    fetchUserProfile();
+  }, []);
+  
+
+  
 
   // Fungsi untuk memformat tanggal lahir (dd-mm-yyyy)
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
     const date = new Date(dateString);
     if (isNaN(date)) {
-      return "Tanggal Tidak Tersedia";  // Jika format tanggal tidak valid
+      return "Tanggal Tidak Tersedia"; // Jika format tanggal tidak valid
     }
-    return date.toLocaleDateString('id-ID', options); // Format tanggal Indonesia
+    return date.toLocaleDateString("id-ID", options); // Format tanggal Indonesia
   };
 
   const handleGoHome = () => {
-    navigate("/");  // Navigasi kembali ke halaman utama
+    navigate("/"); // Navigasi kembali ke halaman utama
   };
 
   return (
@@ -37,22 +70,29 @@ const StatusPembayaran = () => {
           alt="Festix Logo"
           style={styles.mainLogo}
         />
-        <div style={styles.infoContainer}>
-          {/* Menampilkan Nama Pengguna, Email, dan Tanggal Lahir */}
-          <p><strong>Nama Pengguna:</strong> {user.username || "Nama Tidak Tersedia"}</p>
-          <p><strong>Email:</strong> {user.email || "Email Tidak Tersedia"}</p>
-          <p><strong>Tanggal Lahir:</strong> {user.birth_date ? formatDate(user.birth_date) : "Tanggal Tidak Tersedia"}</p>
-          <p><strong>Acara:</strong> {eventDetail.title || "Nama Acara"}</p>
-          <p><strong>Tanggal:</strong> {eventDetail.date || "Tanggal Acara"}</p>
-          <p><strong>Lokasi:</strong> {eventDetail.location || "Lokasi Acara"}</p>
-          <p><strong>Jumlah Tiket:</strong> {selectedTickets.reduce((sum, ticket) => sum + ticket.quantity, 0)}</p>
-          <p><strong>Total Harga:</strong> {formatCurrency(totalPrice)}</p>
-          <p><strong>Metode Pembayaran:</strong> {selectedMethod || "Belum Dipilih"}</p>
-        </div>
+        {error ? (
+          <p style={{ color: "red" }}>{error}</p>
+        ) : user ? (
+          <div style={styles.infoContainer}>
+            {/* Menampilkan Nama Pengguna, Email, dan Tanggal Lahir */}
+            <p><strong>Nama Pengguna:</strong> {user.username || "Nama Tidak Tersedia"}</p>
+            <p><strong>Email:</strong> {user.email || "Email Tidak Tersedia"}</p>
+            <p><strong>Tanggal Lahir:</strong> {user.birth_date ? formatDate(user.birth_date) : "Tanggal Tidak Tersedia"}</p>
+            <p><strong>Acara:</strong> {eventDetail.title || "Nama Acara"}</p>
+            <p><strong>Tanggal:</strong> {eventDetail.date || "Tanggal Acara"}</p>
+            <p><strong>Lokasi:</strong> {eventDetail.location || "Lokasi Acara"}</p>
+            <p><strong>Jumlah Tiket:</strong> {selectedTickets.reduce((sum, ticket) => sum + ticket.quantity, 0)}</p>
+            <p><strong>Total Harga:</strong> {formatCurrency(totalPrice)}</p>
+            <p><strong>Metode Pembayaran:</strong> {selectedMethod || "Belum Dipilih"}</p>
+          </div>
+        ) : (
+          <p>Sedang memuat data...</p>
+        )}
+
         <div style={styles.paymentInfo}>
           <p>
-            Tiket elektronik dan kuitansi sudah dikirim ke{" "}
-            <strong>{user.email || "Email Tidak Tersedia"}</strong>
+            Tiket elektronik dan kuitansi sudah dikirim ke {" "}
+            <strong>{user?.email || "Email Tidak Tersedia"}</strong>
           </p>
         </div>
         <div style={styles.actions}>

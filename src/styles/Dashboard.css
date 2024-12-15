@@ -1,0 +1,234 @@
+/* Styling sidebar */
+nav {
+  width: 250px;
+  background-color: #212529;
+  color: white;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+nav a.nav-link {
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+nav a.nav-link.active {
+  background-color: #FFC107;
+  color: black !important;
+}
+
+/* Styling header */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
+  padding: 15px 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+header img {
+  border: 2px solid #ddd;
+  border-radius: 50%;
+}
+
+.btn-primary {
+  background-color: #FFC107;
+  padding: 10px 20px;
+  border-radius: 40px;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  -ms-border-radius: 40px;
+  -o-border-radius: 40px;
+}
+
+.btn-primary:hover {
+  background-color: #daa400;
+  padding: 10px 20px;
+  border-radius: 40px;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  -ms-border-radius: 40px;
+  -o-border-radius: 40px;
+}
+
+/* Styling container utama */
+.container {
+  padding: 20px;
+  margin: 0 auto;
+}
+
+/* Styling tabel daftar acara */
+.table {
+  margin-top: 20px;
+  background-color: #f8f9fa;
+}
+
+.table th {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.table td,
+.table th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+thead.thead-light th {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+/* Styling untuk card */
+.card {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chart-card {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styling tabel pesanan */
+.order-table th,
+.order-table td {
+  padding: 12px 20px !important;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.order-table thead th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+/* Styling tombol filter */
+.nav-pills .nav-link {
+  border-radius: 20px;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Badge styling */
+.badge {
+  font-size: 14px;
+  padding: 5px 10px;
+}
+
+/* Chart card styling */
+.card-body canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Styling untuk dashboard cards */
+.card.text-center {
+  padding: 20px;
+}
+
+.card.text-center h6 {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.card.text-center h5 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #FFC107;
+}
+
+/* Adjustments for mobile responsiveness */
+@media (max-width: 768px) {
+  nav {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  header {
+    padding: 10px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  .order-table th,
+  .order-table td {
+    padding: 8px !important;
+  }
+}
+
+/* Filter Orderan */
+.nav-pills .nav-link.active {
+  background-color: #ffc107;
+  color: #fff;
+  border-radius: 40px;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  -ms-border-radius: 40px;
+  -o-border-radius: 40px;
+}
+
+.nav-pills .nav-link {
+  color: #000; /* Warna default untuk teks di tab yang tidak aktif */
+}
+
+.edit-button {
+  background-color: #FFC107;
+  padding: 10px 20px;
+  border-radius: 40px;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  -ms-border-radius: 40px;
+  -o-border-radius: 40px;
+}
+
+.edit-button:hover {
+  background-color: #daa400;
+  padding: 10px 20px;
+  border-radius: 40px;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  -ms-border-radius: 40px;
+  -o-border-radius: 40px;
+}
+
+.delete-button {
+  border-color: #ff0707;
+  color: #ff0707;
+  padding: 10px 20px;
+  border-radius: 40px;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  -ms-border-radius: 40px;
+  -o-border-radius: 40px;
+}
+
+.delete-button:hover {
+  background-color: #ff0707;
+  color: #f5f5f5;
+  padding: 10px 20px;
+  border-radius: 40px;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  -ms-border-radius: 40px;
+  -o-border-radius: 40px;
+}

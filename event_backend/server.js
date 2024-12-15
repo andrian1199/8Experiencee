@@ -32,6 +32,8 @@ db.connect((err) => {
   console.log("Connected to MySQL database");
 });
 
+// Middleware untuk validasi token
+
 // Register endpoint
 app.post("/api/auth/register", async (req, res) => {
   console.log(req.body);
@@ -83,72 +85,62 @@ app.post("/api/auth/login", (req, res) => {
   });
 });
 
-// Tambahkan endpoint untuk mendapatkan data profil pengguna
-app.get("/api/auth/profile", (req, res) => {
-  const token = req.headers["authorization"]; // Ambil token dari header
+
+// Middleware untuk validasi token
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
     return res.status(403).json({ success: false, message: "Token tidak ditemukan." });
   }
 
-  // Verifikasi token
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       return res.status(403).json({ success: false, message: "Token tidak valid." });
     }
+    req.user = decoded; // Simpan data pengguna ke dalam `req.user`
+    next(); // Lanjut ke endpoint berikutnya
+  });
+};
 
-    // Ambil data pengguna berdasarkan ID yang ada pada token
-    db.query("SELECT * FROM users WHERE id = ?", [decoded.id], (err, results) => {
-      if (err) throw err;
-      if (results.length === 0) {
-        return res.status(404).json({ success: false, message: "Pengguna tidak ditemukan." });
-      }
+// Endpoint untuk mendapatkan profil pengguna
+app.get("/api/auth/profile", authenticateToken, (req, res) => {
+  db.query("SELECT * FROM users WHERE id = ?", [req.user.id], (err, results) => {
+    if (err) throw err;
 
-      // Kirimkan data pengguna
-      res.json({ success: true, user: results[0] });
-    });
+    if (results.length === 0) {
+      return res.status(404).json({ success: false, message: "Pengguna tidak ditemukan." });
+    }
+
+    res.json({ success: true, user: results[0] });
   });
 });
 
-// Endpoint untuk memperbarui profil
-app.put("/api/auth/profile", (req, res) => {
-  const token = req.headers["authorization"]; // Ambil token dari header
+// Endpoint untuk memperbarui profil pengguna
+app.put("/api/auth/profile", authenticateToken, (req, res) => {
+  const { namaLengkap, tanggalLahir, nomorHp, email } = req.body;
 
-  if (!token) {
-    return res.status(403).json({ success: false, message: "Token tidak ditemukan." });
+  if (!namaLengkap || !tanggalLahir || !nomorHp || !email) {
+    return res.status(400).json({ success: false, message: "Semua bidang harus diisi." });
   }
 
-  // Verifikasi token
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(403).json({ success: false, message: "Token tidak valid." });
-    }
-
-    const { namaLengkap, tanggalLahir, nomorHp, email } = req.body;
-
-    // Validasi input
-    if (!namaLengkap || !tanggalLahir || !nomorHp || !email) {
-      return res.status(400).json({ success: false, message: "Semua bidang harus diisi." });
-    }
-
-    // Perbarui data di database
-    db.query(
-      "UPDATE users SET username = ?, birth_date = ?, phone = ?, email = ? WHERE id = ?",
-      [namaLengkap, tanggalLahir, nomorHp, email, decoded.id],
-      (err, result) => {
-        if (err) {
-          console.error("Error updating profile:", err);
-          return res.status(500).json({ success: false, message: "Gagal memperbarui profil." });
-        }
-
-        if (result.affectedRows === 0) {
-          return res.status(404).json({ success: false, message: "Pengguna tidak ditemukan." });
-        }
-
-        res.json({ success: true, message: "Profil berhasil diperbarui." });
+  db.query(
+    "UPDATE users SET username = ?, birth_date = ?, phone = ?, email = ? WHERE id = ?",
+    [namaLengkap, tanggalLahir, nomorHp, email, req.user.id],
+    (err, result) => {
+      if (err) {
+        console.error("Error updating profile:", err);
+        return res.status(500).json({ success: false, message: "Gagal memperbarui profil." });
       }
-    );
-  });
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ success: false, message: "Pengguna tidak ditemukan." });
+      }
+
+      res.json({ success: true, message: "Profil berhasil diperbarui." });
+    }
+  );
 });
 
 app.put("/api/auth/change-password", (req, res) => {
@@ -566,7 +558,58 @@ app.delete("/communities/:id", (req, res) => {
   });
 });
 
+// Blog Management
+// **1. Create Blog**
+app.post("/blogs", (req, res) => {
+  const { title, category, author, authorPic, authorBio, date, image, content } = req.body;
+  const sql = "INSERT INTO blogs (title, category, author, authorPic, authorBio, date, image, content) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  db.query(sql, [title, category, author, authorPic, authorBio, date, image, content], (err, result) => {
+    if (err) return res.status(500).send(err);
+    res.status(201).send({ message: "Blog created successfully", id: result.insertId });
+  });
+});
 
+// **2. Read All Blogs**
+app.get("/blogs", (req, res) => {
+  const sql = "SELECT * FROM blogs";
+  db.query(sql, (err, results) => {
+    if (err) return res.status(500).send(err);
+    res.status(200).send(results);
+  });
+});
+
+// **3. Read Blog by ID**
+app.get("/blogs/:id", (req, res) => {
+  const { id } = req.params;
+  const sql = "SELECT * FROM blogs WHERE id = ?";
+  db.query(sql, [id], (err, result) => {
+    if (err) return res.status(500).send(err);
+    res.status(200).send(result[0]);
+  });
+});
+
+// **4. Update Blog**
+app.put("/blogs/:id", (req, res) => {
+  const { id } = req.params;
+  const { title, category, author, authorPic, authorBio, date, image, content } = req.body;
+  const sql = "UPDATE blogs SET title = ?, category = ?, author = ?, authorPic = ?, authorBio = ?, date = ?, image = ?, content = ? WHERE id = ?";
+  db.query(sql, [title, category, author, authorPic, authorBio, date, image, content, id], (err, result) => {
+    if (err) return res.status(500).send(err);
+    res.status(200).send({ message: "Blog updated successfully" });
+  });
+});
+
+// **5. Delete Blog**
+app.delete("/blogs/:id", (req, res) => {
+  const { id } = req.params;
+  const sql = "DELETE FROM blogs WHERE id = ?";
+  db.query(sql, [id], (err, result) => {
+    if (err) return res.status(500).send(err);
+    res.status(200).send({ message: "Blog deleted successfully" });
+  });
+});
+
+// Pembelian Tiket
 app.get("/api/ticket-purchases", (req, res) => {
   const token = req.headers["authorization"];
   if (!token) {
